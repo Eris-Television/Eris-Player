@@ -1,12 +1,11 @@
 package erisPlayer;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
 public class ErisPlayer {
 	
-	private boolean isDebug = true;
+	private boolean isDebug = false;
 	
 	private String currentPath;
 	
@@ -35,20 +34,15 @@ public class ErisPlayer {
 	}
 	
 	private void close() {
-		
 		logger.printLog();
 	}
 	
 	private void openWebsite() {
-		if(isDebug) { return; }
-		if(Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-			try {
-				Desktop.getDesktop().browse(new File(currentPath + "html\\index.html").toURI());
-			}catch (Exception e) {
-				logger.printError("while opening Browser", e);
-			}
-		}else {
-			logger.printError("Can't open Browser", null);
+		try {
+			String comandLine = "cmd /c start firefox --private-window --kiosk=\"" + new File(currentPath + "html\\index.html").toURI() + "\"";
+			Runtime.getRuntime().exec(comandLine).waitFor();
+		}catch (Exception e) {
+			logger.printError("while opening Browser", e);
 		}
 	}
 	
