@@ -39,7 +39,9 @@ public class ContentLoader {
 		
 	}
 	
-	
+	public ArrayList<Channel> getContent() {
+		return channelList;
+	}
 	
 	
 }
