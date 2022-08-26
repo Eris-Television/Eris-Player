@@ -2,7 +2,7 @@ package erisPlayer.data;
 
 import java.util.ArrayList;
 
-public class Chanal {
+public class Channel {
 	
 	private final String name;
 	private final String chanalID;
@@ -10,7 +10,7 @@ public class Chanal {
 	
 	private ArrayList<Video> videoList;
 	
-	public Chanal(String name, String chanalID, String tag) {
+	public Channel(String name, String chanalID, String tag) {
 		this.name = name;
 		this.chanalID = chanalID;
 		this.tag = tag;

@@ -1,6 +1,6 @@
 package erisPlayer.data;
 
-public enum timeCategory {
+public enum TimeCategory {
 	SHORT, 	// < 2	minutes
 	SMALL,	// < 8	minutes
 	MEDIUM,	// < 20	minutes
