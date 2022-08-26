@@ -23,7 +23,11 @@
 hs_err_pid*
 /.$ErisPlayer_Documentation.drawio.bkp
 
+/.settings/
 /bin/
 /log/
 /resources/
+
+/.classpath
+/.project
 /~$Sendeplan.xlsx
