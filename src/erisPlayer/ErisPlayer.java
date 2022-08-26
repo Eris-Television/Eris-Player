@@ -12,11 +12,15 @@ public class ErisPlayer {
 	private ErisLogger logger;
 	
 	public ErisPlayer() {
+		this.localDir = getPath();
+		this.logger = new ErisLogger(localDir + "log/");
+		this.logger.print("Opening ErisPlayer");
+	}
+	
+	private String getPath() {
 		try {
-			localDir = new java.io.File(".").getCanonicalPath() +"\\";
-		} catch (IOException e) {}
-		logger = new ErisLogger(localDir);
-		logger.print("Opening ErisPlayer");
+			return new File(".").getCanonicalFile().toURI().toString();
+		} catch (IOException e) { return null; }
 	}
 	
 	private void main() {
@@ -39,7 +43,7 @@ public class ErisPlayer {
 	
 	private void openWebsite() {
 		try {
-			String comandLine = "cmd /c start firefox --private-window --kiosk=\"" + new File(localDir + "html\\index.html").toURI() + "\"";
+			String comandLine = "cmd /c start firefox --private-window --kiosk=\"" + localDir + "html/index.html/" + "\"";
 			Runtime.getRuntime().exec(comandLine).waitFor();
 		}catch (Exception e) {
 			logger.printError("while opening Browser", e);

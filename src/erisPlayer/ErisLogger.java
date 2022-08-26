@@ -2,7 +2,11 @@ package erisPlayer;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,7 +21,7 @@ public class ErisLogger {
 	private LocalDateTime now;
 	
 	public ErisLogger(String path) {
-		this.path = path + "log\\";
+		this.path = path;
 		this.log = new ArrayList<>();
 		
 		formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH-mm-ss");
@@ -31,7 +35,7 @@ public class ErisLogger {
 	}
 	
 	public void printSubline(String message) {
-		message = " _> " + getDateTime() + message;
+		message = getDateTime() +" _> "+ message;
 		System.out.println(message);
 		log.add(message);
 	}
@@ -44,11 +48,17 @@ public class ErisLogger {
 	
 	public void printLog() {
 		try {
-			File file = new File(path + getDateTime() + "ErisPlayer.log");
+			String filePath = Paths.get(new URI(path)).toString();
+			File file;
+			if(System.getProperty("os.name").startsWith("Windows")) {
+				file = new File(filePath +"\\"+ getDateTime() + "ErisPlayer.log");
+			}else {
+				file = new File(filePath +"/"+ getDateTime() + "ErisPlayer.log");
+			}
 			file.createNewFile();
 			print("Printing Log-File");
 			Files.write(file.toPath(), log);
-		} catch (IOException e) {
+		} catch (IOException | URISyntaxException e) {
 			printError("Can't print Log", e);
 		}
 	}
