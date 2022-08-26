@@ -1,8 +1,10 @@
 package erisPlayer.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Channel {
+public class Channel implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private final String name;
 	private final String chanalID;
@@ -10,11 +12,15 @@ public class Channel {
 	
 	private ArrayList<Video> videoList;
 	
-	public Channel(String name, String chanalID, String tag) {
+	public Channel(String name, String chanalID, String tag, ArrayList<Video> videoList) {
 		this.name = name;
 		this.chanalID = chanalID;
 		this.tag = tag;
-		this.videoList = new ArrayList<>();
+		this.videoList = videoList;
+	}
+	
+	public Channel(String name, String chanalID, String tag) {
+		this(name, chanalID, tag, new ArrayList<>());
 	}
 
 	public String getName() {
