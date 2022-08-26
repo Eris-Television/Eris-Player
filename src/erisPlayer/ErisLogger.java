@@ -30,6 +30,12 @@ public class ErisLogger {
 		log.add(message);
 	}
 	
+	public void printSubline(String message) {
+		message = " _> " + getDateTime() + message;
+		System.out.println(message);
+		log.add(message);
+	}
+	
 	public void printError(String error, Exception e) {
 		error = getDateTime() + "ERROR " + error + " : " + e.getMessage();
 		System.err.println(error);
