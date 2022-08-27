@@ -23,11 +23,15 @@ public class ContentManager {
 	public ContentManager(String resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
+		
+		loadContent();
+		listChanels();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void loadContent() {
 		String path = resourceDir + "channels.eris";
+		logger.print("ContentManager is loading Content ...");
 		
 		try(FileInputStream fis = new FileInputStream(Paths.get(new URI(path)).toFile());
 				ObjectInputStream ois = new ObjectInputStream(fis)) {
@@ -40,12 +44,41 @@ public class ContentManager {
 	
 	public void saveContent() {
 		String path = resourceDir + "channels.eris";
+		logger.print("ContentManager is saveing Content ...");
 		
 		try(FileOutputStream fos = new FileOutputStream(Paths.get(new URI(path)).toFile());
 				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			oos.writeObject(channelList);
 		} catch (Exception e) {
 			logger.printError("Can't write Channels to File!", e);
+		}
+	}
+	
+	public void listChanels() {
+		logger.print("Content porvides " + channelList.size() + " Channels:");
+		for(Channel current : channelList) {
+			logger.printSubline("Channel : " + current.getName() + " (ID:"+current.getChanalID()
+								+") with "+current.getVideoList().size() + " Videos.");
+		}
+	}
+	
+	public void listVideos(int channelNumber) {
+		logger.print("Channel porvides " + channelList.size() + " Videos:");
+		for(Video current : channelList.get(channelNumber).getVideoList()) {
+			logger.printSubline("Video : " + current.getName() + " ["+current.getUploadDate()
+			+"], timeCategory: " + current.getTimeCategory());
+		}
+	}
+	
+	public void listContent() {
+		logger.print("Content porvides " + channelList.size() + " Channels:");
+		for(Channel currentChannel : channelList) {
+			logger.printSubline("Channel : " + currentChannel.getName() + " (ID:"+currentChannel.getChanalID()
+								+") with "+currentChannel.getVideoList().size() + " Videos.");
+			for(Video currentVideo : currentChannel.getVideoList()) {
+				logger.printSubline("Video : " + currentVideo.getName() + " ["+currentVideo.getUploadDate()
+				+"], timeCategory: " + currentVideo.getTimeCategory());
+			}
 		}
 	}
 	
