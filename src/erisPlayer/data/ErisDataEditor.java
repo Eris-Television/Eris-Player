@@ -1,16 +1,8 @@
 package erisPlayer.data;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import erisPlayer.ErisLogger;
 
@@ -19,7 +11,7 @@ public class ErisDataEditor {
 	private String resourceDir;
 	
 	private ErisLogger logger;
-	private ContentLoader contentLoader;
+	private ContentManager contentManager;
 	
 	private ArrayList<Channel> channelList;
 	
@@ -27,65 +19,124 @@ public class ErisDataEditor {
 		this.resourceDir = getPath() + "resources/";
 		
 		this.logger = new ErisLogger(resourceDir + "EditorLogs/");
-		this.contentLoader = new ContentLoader(getPath(), logger);
+		this.contentManager = new ContentManager(resourceDir, logger);
 		
-		this.channelList = contentLoader.getContent();
+		this.channelList = contentManager.getChannelList();
 	}
 	
 	private String getPath() {
 		try {
 			return new File(".").getCanonicalFile().toURI().toString();
-		} catch (IOException e) { return null; }
+		} catch (Exception e) { return null; }
 	}
 	
 	
 	
-	@SuppressWarnings("unchecked")
 	private void main() {
-		
-		Channel testChannel = new Channel("TestName", "Test-ID", "TST");
-		channelList.add(testChannel);
-		Channel testChannel2 = new Channel("TestName 2", "Test-ID 2", "TST 2");
-		channelList.add(testChannel2);
-		String path = resourceDir + "channels.eris";
-		
-		try(FileOutputStream fos = new FileOutputStream(Paths.get(new URI(path)).toFile());
-				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-			
-			oos.writeObject(channelList);
-			
-		} catch (FileNotFoundException e) {} catch (IOException e) {} catch (URISyntaxException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		while(true) {
+			listMainActions();
+			switch(getAction(1, 5)) {
+			case 0:
+				return;
+			case 1:
+				addAction();
+				break;
+			case 2:
+				editAction();
+				break;
+			case 3: 
+				removeAction();
+				break;
+			case 4:
+				contentManager.listChanels();
+			case 5:
+				contentManager.listContent();
+			default:
+				break;
+			}
 		}
-		
-		
-		
-		try(FileInputStream fis = new FileInputStream(Paths.get(new URI(path)).toFile());
-				ObjectInputStream ois = new ObjectInputStream(fis)) {
-			channelList = (ArrayList<Channel>) ois.readObject();;
-		} catch (Exception e) {
-			logger.printError("Can't read Channels from File!", e);
-			channelList = new ArrayList<>();
+	}
+	
+	private void addAction() { 
+		while(true){
+			listAddActions();
+			channelList.size();
 		}
-		
-		
-		for(Channel current : channelList) {
-			System.out.println("Channel : " +current.getName());
+	}
+	
+	private void editAction() {
+		while(true){
+			listEditActions();
 		}
-		
-		close();
+	}
+	
+	private void removeAction() { 
+		while(true){
+			listRemoveActions();
+		}
 	}
 	
 	
+	/* --- List-Actions --- */
+	
+	private int getAction(int lowerEnd, int upperEnd) {
+		int returnInt = -1;
+		Scanner scanner = new Scanner(System.in);
+		while(!(returnInt < lowerEnd && returnInt > upperEnd)) {
+			try {
+				returnInt = (int)scanner.nextInt();
+			} catch (Exception e) {
+				System.out.println("Please enter an Integer with in 0 and 3!");
+			}
+		}
+		scanner.close();
+		return returnInt;
+	}
+	
+	private void listMainActions() {
+		System.out.println(" ---- Eris-Data-Editor : ----");
+		System.out.println(" _> 0 : Exit");
+		System.out.println(" _> 1 : Add new Channel");
+		System.out.println(" _> 2 : Edit existing Channel");
+		System.out.println(" _> 3 : Remove existing Channel");
+		System.out.println(" _> 4 : List all Channels");
+		System.out.println(" _> 5 : List all Content");
+	}
+	
+	private void listAddActions() {
+		System.out.println(" --- Add new Channel : ----");
+		System.out.println(" _> 0 : Exit");
+		System.out.println(" _> 1 : Add new Channel");
+		System.out.println(" _> 2 : Edit existing Channel");
+		System.out.println(" _> 3 : Remove existing Channel");
+	}
+	
+	private void listEditActions() {
+		System.out.println(" ---- Edit Channel : ----");
+		System.out.println(" _> 0 : Exit");
+		System.out.println(" _> 1 : Add new Channel");
+		System.out.println(" _> 2 : Edit existing Channel");
+		System.out.println(" _> 3 : Remove existing Channel");
+	}
+	
+	private void listRemoveActions() {
+		System.out.println(" ---- Remove Channel : ----");
+		System.out.println(" _> 0 : Exit");
+		System.out.println(" _> 1 : List all Channels");
+		System.out.println(" _> 2 : Enter Channel-Number for deletion");
+	}
+	
+	/* --- Close && Public-Main --- */
 	
 	private void close() {
+		contentManager.saveContent();
 		logger.printLog();
 	}
 	
 	public static void main(String[] args) {
 		ErisDataEditor run = new ErisDataEditor();
 		run.main();
+		run.close();
 	}
 	
 }
