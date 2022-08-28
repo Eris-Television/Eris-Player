@@ -25,7 +25,7 @@ public class ContentManager {
 		this.logger = logger;
 		
 		loadContent();
-		listChanels();
+		listContent();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -55,14 +55,16 @@ public class ContentManager {
 	}
 	
 	public void listChanels() {
+		System.out.println();
 		logger.print("Content porvides " + channelList.size() + " Channels:");
 		for(Channel current : channelList) {
-			logger.printSubline("Channel : " + current.getName() + " (ID:"+current.getChanalID()
+			logger.printSubline("Channel : " + channelList.indexOf(current) +" : "+ current.getName() + " (ID:"+current.getChanalID()
 								+") with "+current.getVideoList().size() + " Videos.");
 		}
 	}
 	
 	public void listVideos(int channelNumber) {
+		System.out.println();
 		logger.print("Channel porvides " + channelList.size() + " Videos:");
 		for(Video current : channelList.get(channelNumber).getVideoList()) {
 			logger.printSubline("Video : " + current.getName() + " ["+current.getUploadDate()
@@ -71,6 +73,7 @@ public class ContentManager {
 	}
 	
 	public void listContent() {
+		System.out.println();
 		logger.print("Content porvides " + channelList.size() + " Channels:");
 		for(Channel currentChannel : channelList) {
 			logger.printSubline("Channel : " + currentChannel.getName() + " (ID:"+currentChannel.getChanalID()
