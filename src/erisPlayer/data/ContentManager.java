@@ -28,6 +28,8 @@ public class ContentManager {
 		listContent();
 	}
 	
+	/* --- Load & Save --- */
+	
 	@SuppressWarnings("unchecked")
 	public void loadContent() {
 		String path = resourceDir + "channels.eris";
@@ -53,6 +55,14 @@ public class ContentManager {
 			logger.printError("Can't write Channels to File!", e);
 		}
 	}
+	
+	/* --- Methods --- */
+	
+	public void addChannel(Channel channel) {
+		channelList.add(channel);
+	}
+	
+	/* --- list-Outputs --- */
 	
 	public void listChanels() {
 		System.out.println();

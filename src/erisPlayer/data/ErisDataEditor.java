@@ -12,12 +12,15 @@ public class ErisDataEditor {
 	private ErisLogger logger;
 	private ContentManager contentManager;
 	
+	private Scanner scanner;
 	
 	public ErisDataEditor() {
 		this.resourceDir = getPath() + "resources/";
 		
 		this.logger = new ErisLogger(resourceDir + "EditorLogs/");
 		this.contentManager = new ContentManager(resourceDir, logger);
+		
+		this.scanner = new Scanner(System.in);
 	}
 	
 	private String getPath() {
@@ -58,7 +61,7 @@ public class ErisDataEditor {
 	private void addAction() { 
 		while(true){
 			listAddActions();
-			switch (getAction(0, 2)) {
+			switch (getAction(0, 1)) {
 			case 0: 
 				return;
 			case 1: 
@@ -112,7 +115,17 @@ public class ErisDataEditor {
 	/* --- Menu-Actions --- */
 	
 	private void addChannel() {
+		String channelName, channelID, channelTag;
 		
+		System.out.println("Enter Channel-Name : ");
+		channelName = scanner.next();
+		System.out.println("Enter Channel-ID : ");
+		channelID = scanner.next();
+		System.out.println("Enter Channel-Tag : ");
+		channelTag = scanner.next();
+		
+		Channel newChannel = new Channel(channelName, channelID, channelTag);
+		contentManager.addChannel(newChannel);
 	}
 	
 	private void editChannel() {
@@ -126,23 +139,24 @@ public class ErisDataEditor {
 	
 	/* --- List-Actions --- */
 	
-	@SuppressWarnings("resource")
 	private int getAction(int min, int max) {
 		boolean no_mistakes = false;
 		int input_int = -1;
 		do {
-			try {
-				Scanner scanner = new Scanner(System.in);
-				input_int = scanner.nextInt();
-				if(input_int >= min && input_int <= max) {
-					no_mistakes = true;
-				}else {
-					System.out.println("Please enter input with: ");
-					System.out.println("Min: " + min);
-					System.out.println("Max: " + max);
+			try{
+				if(scanner.hasNext()) {
+					input_int = scanner.nextInt();
+					if(input_int >= min && input_int <= max) {
+						no_mistakes = true;
+					}else {
+						System.out.println("Please enter input with: ");
+						System.out.println("Min: " + min);
+						System.out.println("Max: " + max);
+					}
 				}
 			}catch(Exception e) {
-				System.out.println("Error: Pleas enter a Number!");
+				System.err.println("Error: Pleas enter a Number! " + e);
+				scanner = new Scanner(System.in);
 			}
 		}while(!no_mistakes);
 		return input_int;
@@ -162,7 +176,6 @@ public class ErisDataEditor {
 		System.out.println("\n --- Add new Channel : ----");
 		System.out.println(" _> 0 : Exit");
 		System.out.println(" _> 1 : Add new Channel");
-		System.out.println(" _> 2 : List all Channels");
 	}
 	
 	private void listEditActions() {
@@ -179,11 +192,12 @@ public class ErisDataEditor {
 		System.out.println(" _> 2 : List all Channels");
 	}
 	
-	/* --- Public-Main && Close --- */
+	/* --- Public-Main & Close --- */
 	
 	private void close() {
 		contentManager.saveContent();
 		logger.printLog();
+		scanner.close();
 	}
 	
 	public static void main(String[] args) {
