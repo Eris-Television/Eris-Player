@@ -39,6 +39,14 @@ public class Channel implements Serializable{
 		videoList.add(video);
 	}
 	
+	public void editVideo(int videoIndex, Video video) {
+		videoList.set(videoIndex, video);
+	}
+	
+	public void removeVideo(int videoIndex) {
+		videoList.remove(videoIndex);
+	}
+	
 	public ArrayList<Video> getVideoList() {
 		return videoList;
 	}

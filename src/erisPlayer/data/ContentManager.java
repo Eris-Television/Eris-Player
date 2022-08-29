@@ -62,6 +62,26 @@ public class ContentManager {
 		channelList.add(channel);
 	}
 	
+	public void editChannel(int chnnelIndex, Channel channel) {
+		channelList.set(chnnelIndex, channel);
+	}
+	
+	public void removeChannel(int chnnelIndex) {
+		channelList.remove(chnnelIndex);
+	}
+	
+	public void addVideo(int channelIndex, Video video) {
+		channelList.get(channelIndex).addVideo(video);
+	}
+	
+	public void editVideo(int channelIndex, int videoIndex, Video video) {
+		channelList.get(channelIndex).editVideo(videoIndex, video);
+	}
+	
+	public void removeVideo(int channelIndex, int videoIndex) {
+		channelList.get(channelIndex).removeVideo(videoIndex);
+	}
+	
 	/* --- list-Outputs --- */
 	
 	public void listChanels() {
