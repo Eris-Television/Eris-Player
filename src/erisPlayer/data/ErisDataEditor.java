@@ -58,6 +58,8 @@ public class ErisDataEditor {
 		}
 	}
 	
+	/* --- Sub-Menu --- */
+	
 	private void addAction() { 
 		while(true){
 			listAddActions();
@@ -79,7 +81,7 @@ public class ErisDataEditor {
 	private void editAction() {
 		while(true){
 			listEditActions();
-			switch (getAction(0, 2)) {
+			switch (getAction(0, 3)) {
 			case 0: 
 				return;
 			case 1: 
@@ -87,6 +89,9 @@ public class ErisDataEditor {
 				break;
 			case 2: 
 				contentManager.listChanels();
+				break;
+			case 3:
+				editVideos();
 				break;
 			default:
 				break;
@@ -118,36 +123,62 @@ public class ErisDataEditor {
 		String channelName, channelID, channelTag;
 		
 		System.out.println("Enter Channel-Name : ");
-		channelName = scanner.next();
+		channelName = getNext();
 		System.out.println("Enter Channel-ID : ");
-		channelID = scanner.next();
+		channelID = getNext();
 		System.out.println("Enter Channel-Tag : ");
-		channelTag = scanner.next();
+		channelTag = getNext();
 		
 		Channel newChannel = new Channel(channelName, channelID, channelTag);
 		contentManager.addChannel(newChannel);
+		logger.print("Created Channel : " + channelName);
 	}
 	
 	private void editChannel() {
+		int lastChannelIndex = contentManager.getChannelList().size() -1;
+		System.out.println("Enter Channel for edit (0 ... " + lastChannelIndex +") :");
+		int selectedChannel = getAction(0, lastChannelIndex);
+
 		
+		String channelName, channelID, channelTag;
+		
+		System.out.println("Enter Channel-Name : ");
+		channelName = getNext();
+		System.out.println("Enter Channel-ID : ");
+		channelID = getNext();
+		System.out.println("Enter Channel-Tag : ");
+		channelTag = getNext();
+		
+		Channel newChannel = new Channel(channelName, channelID, channelTag);
+		contentManager.addChannel(newChannel);
+		
+		logger.print("Deleted Channel : " + selectedChannel);
+	}
+	
+	private void editVideos() {
+		System.out.println("Comeing sone!");
 	}
 	
 	private void removeChannel() {
-		
+		int lastChannelIndex = contentManager.getChannelList().size() -1;
+		System.out.println("Enter Channel for deletion (0 ... " + lastChannelIndex +") :");
+		int deleteChannel = getAction(0, lastChannelIndex);
+		contentManager.getChannelList().remove(deleteChannel);
+		logger.print("Deleted Channel : " + deleteChannel);
 	}
 	
 	
 	/* --- List-Actions --- */
 	
 	private int getAction(int min, int max) {
-		boolean no_mistakes = false;
-		int input_int = -1;
+		boolean validInput = false;
+		int input = -1;
 		do {
 			try{
 				if(scanner.hasNext()) {
-					input_int = scanner.nextInt();
-					if(input_int >= min && input_int <= max) {
-						no_mistakes = true;
+					input = scanner.nextInt();
+					if(min <= input && input <= max) {
+						validInput = true;
 					}else {
 						System.out.println("Please enter input with: ");
 						System.out.println("Min: " + min);
@@ -158,8 +189,13 @@ public class ErisDataEditor {
 				System.err.println("Error: Pleas enter a Number! " + e);
 				scanner = new Scanner(System.in);
 			}
-		}while(!no_mistakes);
-		return input_int;
+		}while(!validInput);
+		return input;
+	}
+	
+	private String getNext() {
+		scanner = new Scanner(System.in);
+		return scanner.nextLine();
 	}
 	
 	private void listMainActions() {
@@ -183,6 +219,7 @@ public class ErisDataEditor {
 		System.out.println(" _> 0 : Exit");
 		System.out.println(" _> 1 : Edit existing Channel");
 		System.out.println(" _> 2 : List all Channels");
+		System.out.println(" _> 3 : Edit Videos");
 	}
 	
 	private void listRemoveActions() {
