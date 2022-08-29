@@ -150,7 +150,7 @@ public class ErisDataEditor {
 		channelTag = getNext();
 		
 		Channel newChannel = new Channel(channelName, channelID, channelTag);
-		contentManager.addChannel(newChannel);
+		contentManager.editChannel(lastChannelIndex, newChannel);
 		
 		logger.print("Deleted Channel : " + selectedChannel);
 	}
@@ -163,7 +163,7 @@ public class ErisDataEditor {
 		int lastChannelIndex = contentManager.getChannelList().size() -1;
 		System.out.println("Enter Channel for deletion (0 ... " + lastChannelIndex +") :");
 		int deleteChannel = getAction(0, lastChannelIndex);
-		contentManager.getChannelList().remove(deleteChannel);
+		contentManager.removeChannel(lastChannelIndex);
 		logger.print("Deleted Channel : " + deleteChannel);
 	}
 	
