@@ -1,36 +1,34 @@
 package erisPlayer.data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Video {
-	
-	private final String name;
-	private final Date uploadDate;
-	private final String format;
-	private final TimeCategory timeCategory;
-	
-	public Video(String name, Date uploadDate, String format, TimeCategory timeCategory) {
-		this.name = name;
-		this.uploadDate = uploadDate;
-		this.format = format;
-		this.timeCategory = timeCategory;
-	}
 
-	public String getName() {
-		return name;
-	}
+    private final String name;
+    private final LocalDateTime uploadDate;
+    private final String format;
+    private final TimeCategory timeCategory;
 
-	public Date getUploadDate() {
-		return uploadDate;
-	}
+    public Video(String name, LocalDateTime uploadDate, String format, TimeCategory timeCategory) {
+        this.name = name;
+        this.uploadDate = uploadDate;
+        this.format = format;
+        this.timeCategory = timeCategory;
+    }
 
-	public String getFormat() {
-		return format;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public TimeCategory getTimeCategory() {
-		return timeCategory;
-	}
-	
-	
+    public LocalDateTime getUploadDate() {
+        return uploadDate;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public TimeCategory getTimeCategory() {
+        return timeCategory;
+    }
 }
