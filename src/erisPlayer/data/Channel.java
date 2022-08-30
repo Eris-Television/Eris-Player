@@ -46,9 +46,9 @@ public class Channel implements Serializable {
         videoList.add(video);
     }
     
-    public void addUnpublishedVideo(Video video) {
-    	addVideo(video);
-    	unpublishedVideos.add(video);
+    public void addUnpublishedVideos(ArrayList<Video> unpublishedVideos) {
+    	videoList.addAll(unpublishedVideos);
+    	unpublishedVideos.addAll(unpublishedVideos);
     }
 
     public void editVideo(int videoIndex, Video video) {
