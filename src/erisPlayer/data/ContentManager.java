@@ -26,6 +26,8 @@ public class ContentManager {
 		
 		loadContent();
 		listContent();
+		
+		logger.print("ContentManager started ...");
 	}
 	
 	/* --- Load & Save --- */

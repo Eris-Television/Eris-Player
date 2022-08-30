@@ -3,6 +3,8 @@ package erisPlayer;
 import java.io.File;
 import java.io.IOException;
 
+import erisPlayer.data.ContentManager;
+
 public class ErisPlayer {
 	
 	private boolean isDebug = false;
@@ -10,6 +12,9 @@ public class ErisPlayer {
 	private String localDir;
 	
 	private ErisLogger logger;
+	private ContentManager contentManager;
+	private ErisScheduler scheduler;
+	private ErisSocketServer socketServer;
 	
 	public ErisPlayer() {
 		this.localDir = getPath();
@@ -26,10 +31,14 @@ public class ErisPlayer {
 	private void main() {
 		init();
 		
-		
+		openContentManager();
+		openScheduler();
+		startSocketServer();
 		
 		close();
 	}
+	
+	 /* --- initialize --- */
 	
 	private void init() {
 		
@@ -37,9 +46,20 @@ public class ErisPlayer {
 		openWebsite();
 	}
 	
-	private void close() {
-		logger.printLog();
+	private void openContentManager() {
+		this.contentManager = new ContentManager(localDir + "resources/", logger);
+		contentManager.updateChannels();
 	}
+	
+	private void openScheduler() {
+		this.scheduler = new ErisScheduler(localDir);
+	}
+	
+	private void startSocketServer() {
+		this.socketServer = new ErisSocketServer(logger);
+		socketServer.start();
+	}
+	
 	
 	private void openWebsite() {
 		try {
@@ -50,6 +70,14 @@ public class ErisPlayer {
 		}
 	}
 	
+	/* --- close --- */
+	
+	private void close() {
+		socketServer.close();
+		logger.printLog();
+	}
+	
+	/* --- Public Start-Method --- */
 	
 	public static void main(String[] args) {
 		ErisPlayer run = new ErisPlayer();
