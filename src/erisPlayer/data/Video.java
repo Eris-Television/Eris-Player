@@ -1,15 +1,15 @@
 package erisPlayer.data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Video {
 
     private final String name;
-    private final LocalDateTime uploadDate;
+    private final LocalDate uploadDate;
     private final String format;
     private final TimeCategory timeCategory;
 
-    public Video(String name, LocalDateTime uploadDate, String format, TimeCategory timeCategory) {
+    public Video(String name, LocalDate uploadDate, String format, TimeCategory timeCategory) {
         this.name = name;
         this.uploadDate = uploadDate;
         this.format = format;
@@ -20,7 +20,7 @@ public class Video {
         return name;
     }
 
-    public LocalDateTime getUploadDate() {
+    public LocalDate getUploadDate() {
         return uploadDate;
     }
 
@@ -30,5 +30,10 @@ public class Video {
 
     public TimeCategory getTimeCategory() {
         return timeCategory;
+    }
+    
+    @Override
+    public String toString() {
+    	return "["+ uploadDate +"]_"+ name +"_"+ format +"_"+ timeCategory.toString();
     }
 }

@@ -1,6 +1,7 @@
 package erisPlayer.data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
@@ -44,13 +45,9 @@ public class Channel implements Serializable {
 
     public void addVideo(Video video) {
         videoList.add(video);
+        unpublishedVideos.add(video);
     }
     
-    public void addUnpublishedVideos(ArrayList<Video> unpublishedVideos) {
-    	videoList.addAll(unpublishedVideos);
-    	unpublishedVideos.addAll(unpublishedVideos);
-    }
-
     public void editVideo(int videoIndex, Video video) {
         videoList.set(videoIndex, video);
     }
@@ -95,8 +92,8 @@ public class Channel implements Serializable {
         LocalDateTime now = LocalDateTime.now();
 
         for (Video current : videoList) {
-            LocalDateTime upload = current.getUploadDate();
-            Period period = Period.between(upload.toLocalDate(), now.toLocalDate());
+            LocalDate upload = current.getUploadDate();
+            Period period = Period.between(upload, now.toLocalDate());
             if (period.getDays() <= 7 && period.getMonths() == 0 && period.getYears() == 0) {
                 returnList.add(current);
             }
