@@ -1,11 +1,14 @@
 package erisPlayer.data;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URI;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import erisPlayer.ErisLogger;
@@ -15,6 +18,7 @@ public class ContentManager {
 	private String resourceDir;
 	
 	private ErisLogger logger;
+	private DownloadManager downloadManager;
 	
 	private ArrayList<Channel> channelList;
 	public ArrayList<Channel> getChannelList() { return channelList; }
@@ -23,6 +27,7 @@ public class ContentManager {
 	public ContentManager(String resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
+		this.downloadManager = new DownloadManager(resourceDir, logger);
 		
 		loadContent();
 		listContent();
@@ -87,6 +92,12 @@ public class ContentManager {
 
     /* --- Methods --- */
 
+    public Video getLastUnpublishedVideo(Channel channel) {
+        return channel.getLastUnpublishedVideo();
+    }
+    
+    /* --- Update Channels --- */
+
     public void updateChannels() {
         for (Channel channel : channelList) {
             updateChannel(channel);
@@ -95,15 +106,41 @@ public class ContentManager {
     }
 
     public void updateChannel(Channel channel) {
-    	channel.addUnpublishedVideos(getNewDownload(channel));
+    	downloadManager.downloadNewVideos(channel);
+    	processVideos(channel);
     }
-
-    private ArrayList<Video> getNewDownload(Channel channel) {
-        return new ArrayList<>();
+    
+    public void processVideos(Channel channel) {
+		try {
+	    	for(File file : new File(new URI(resourceDir + "Downloads/").getPath()).listFiles()) {
+	    		String channelTag = file.getName().split("_")[0];
+	    		String dateString = file.getName().split("_")[1];
+	    		String videoTitle = file.getName().split("_")[3].split(".")[0];
+	    		
+	    		if(channel.getTag().equals(channelTag)) {
+	    			channel.addVideo(new Video(videoTitle, getDate(dateString), getFormat(channel, videoTitle), getTimeCategory(file)));
+	    		}
+	    		
+	    		System.out.println(file);
+	    		System.out.println(file.getName());
+		    	System.out.println(file.getAbsolutePath());
+	    	}
+		} catch (Exception e) {
+			logger.printError("Can't process Videos", e);
+		}
     }
-
-    public Video getLastUnpublishedVideo(Channel channel) {
-        return channel.getLastUnpublishedVideo();
+    
+    private LocalDate getDate(String dateString) {
+    	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("uuuuMMdd");
+    	return LocalDate.parse(dateString, dateTimeFormatter);
+    }
+    
+    private String getFormat(Channel channel, String videoTitle) {
+    	return "default";
+    }
+    
+    private TimeCategory getTimeCategory(File file) {
+    	return null;
     }
 
     /* --- list-Outputs --- */
@@ -137,5 +174,11 @@ public class ContentManager {
                         + "], timeCategory: " + currentVideo.getTimeCategory());
             }
         }
+    }
+    
+    public boolean debugDownlaods() {
+    	downloadManager.debug(channelList.get(1));
+    	processVideos(new Channel("Debug", "DEBUG", "HRZ"));
+    	return true;
     }
 }

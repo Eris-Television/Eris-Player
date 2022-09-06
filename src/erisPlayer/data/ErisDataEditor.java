@@ -32,6 +32,8 @@ public class ErisDataEditor {
 	
 	
 	private void main() {
+		if(contentManager.debugDownlaods()) return;
+		
 		while(true) {
 			listMainActions();
 			switch(getAction(0, 5)) {
@@ -53,7 +55,7 @@ public class ErisDataEditor {
 				contentManager.listContent();
 				break;
 			default:
-				break;
+				return;
 			}
 		}
 	}
@@ -73,7 +75,7 @@ public class ErisDataEditor {
 				contentManager.listChanels();
 				break;
 			default:
-				break;
+				return;
 			}
 		}
 	}
@@ -91,10 +93,36 @@ public class ErisDataEditor {
 				contentManager.listChanels();
 				break;
 			case 3:
-				editVideos();
+				videoAction();
 				break;
 			default:
+				return;
+			}
+		}
+	}
+	
+	private void videoAction() {
+		logger.printSubline("Select Channel : ");
+		int channelID = getAction(0, contentManager.getChannelList().size() -1);
+		while(true){
+			listVideoActions();
+			switch (getAction(0, 3)) {
+			case 0: 
+				return;
+			case 1: 
+				editVideo(channelID);
 				break;
+			case 2: 
+				contentManager.listVideos(channelID);
+				break;
+			case 3:
+				refreshVideo(channelID);
+				break;
+			case 4:
+				removeVideo(channelID);
+				break;
+			default:
+				return;
 			}
 		}
 	}
@@ -155,8 +183,19 @@ public class ErisDataEditor {
 		logger.print("Deleted Channel : " + selectedChannel);
 	}
 	
-	private void editVideos() {
+	private void editVideo(int channelID) {
 		System.out.println("Comeing sone!");
+	}
+	
+	private void refreshVideo(int channelID) {
+		contentManager.updateChannel(contentManager.getChannelList().get(channelID));
+		contentManager.saveContent();
+	}
+	
+	private void removeVideo(int channelID) {
+		System.out.println("Select Video:");
+		int videoID = getAction(0, contentManager.getChannelList().get(channelID).getVideoList().size() -1);
+		contentManager.removeVideo(channelID, videoID);
 	}
 	
 	private void removeChannel() {
@@ -220,6 +259,15 @@ public class ErisDataEditor {
 		System.out.println(" _> 1 : Edit existing Channel");
 		System.out.println(" _> 2 : List all Channels");
 		System.out.println(" _> 3 : Edit Videos");
+	}
+	
+	private void listVideoActions() {
+		System.out.println("\n ---- Edit Videos : ----");
+		System.out.println(" _> 0 : Exit");
+		System.out.println(" _> 1 : Edit existing Video");
+		System.out.println(" _> 2 : List all Videos");
+		System.out.println(" _> 3 : refresh Videos");
+		System.out.println(" _> 4 : Remove Video");
 	}
 	
 	private void listRemoveActions() {
