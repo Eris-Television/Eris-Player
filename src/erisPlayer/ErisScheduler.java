@@ -1,17 +1,77 @@
 package erisPlayer;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.util.Scanner;
+
+import erisPlayer.data.ContentManager;
+
 public class ErisScheduler {
 	
-	private String localDir;
-	private String videoDir;
+	private String resourceDir;
 	
-	public ErisScheduler(String localDir) {
-		this.localDir = localDir;
-		this.videoDir = localDir +"videos/";
+	private ErisLogger logger;
+	private ContentManager contentManager;
+	
+	private String[][] schedule;
+	
+	private LocalDateTime now;
+	
+	public ErisScheduler(String resourceDir, ErisLogger logger) {
+		this.resourceDir = resourceDir;
+		this.logger = logger;
+		this.contentManager = new ContentManager(resourceDir, logger);
+		loadSchedule();
+		
+		now = LocalDateTime.now();
+	}
+	
+	private void loadSchedule() {
+		schedule = new String[7][48];
+		logger.print("Scheduler: Loading Schedule ...");
+		
+		File scheduleFile;
+		try {
+			scheduleFile = new File(new URI(resourceDir + "Schedule.csv").getPath());
+		} catch (URISyntaxException e1) {
+			// TODO
+			return;
+		}
+		System.out.println(scheduleFile.getAbsolutePath());
+		
+		try(Scanner scanner = new Scanner(scheduleFile)) {
+			for(int i = 0; i < 48; i++) {
+				String input = scanner.nextLine();
+				for(int j = 0; j < 7; j++) {
+					String entry = input.split(";")[j];
+					if(entry.isBlank()) {
+						schedule[i][j] = "default";
+					}else {
+						schedule[i][j] = entry;
+					}
+				}
+			}
+		}catch(Exception e) {
+			// TODO
+		}
+		
+		
 	}
 	
 	public String getNextVideoPath() {
-		return videoDir+"Not implemented yet!";
+		contentManager.loadContent();
+		
+		int day = now.getDayOfWeek().getValue() -1;
+		int hour= (now.getHour() *2) + (now.getMinute() /30);
+		
+		String scheduleEntry = schedule[day][hour];
+		if(scheduleEntry.equals("default")) {
+			return ""; // TODO: GET random Video
+		}else {
+			return resourceDir+"Not implemented yet!";
+		}
 	}
 	
 }

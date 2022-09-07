@@ -52,7 +52,7 @@ public class ErisPlayer {
 	}
 	
 	private void openScheduler() {
-		this.scheduler = new ErisScheduler(localDir);
+		this.scheduler = new ErisScheduler(localDir, logger);
 	}
 	
 	private void startSocketServer() {
