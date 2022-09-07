@@ -42,7 +42,7 @@ public class DownloadManager {
 		
 	}
 	
-	public String getDate(Channel channel) {
+	private String getDate(Channel channel) {
 		try {
 			return channel.getLastUpload().getUploadDate().toString();
 		}catch (IndexOutOfBoundsException e) {
