@@ -101,4 +101,21 @@ public class Channel implements Serializable {
 
         return returnList;
     }
+    
+    /* --- For Tests --- */
+    @Override
+    public boolean equals(Object obj) {
+    	if(!obj.getClass().isInstance(this)) { return false; }
+    	Channel c = (Channel) obj;
+    	if(c.name.equals(this.name) &&
+    			c.chanalID.equals(this.chanalID) &&
+    			c.tag.equals(this.tag) /* &&
+    			TODO ADD ,equals
+    			c.videoList.equals(this.videoList) &&
+    			c.unpublishedVideos.equals(this.unpublishedVideos)*/) { 
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
 }
