@@ -1,9 +1,11 @@
-package erisPlayer.data;
+package erisPlayer.data.editor;
 
 import java.io.File;
 import java.util.Scanner;
 
 import erisPlayer.ErisLogger;
+import erisPlayer.data.Channel;
+import erisPlayer.data.ContentManager;
 
 public class ErisDataEditor {
 	
@@ -35,7 +37,7 @@ public class ErisDataEditor {
 		if(contentManager.debugDownlaods()) return;
 		
 		while(true) {
-			listMainActions();
+			EDEprinter.listMainActions();
 			switch(getAction(0, 5)) {
 			case 0:
 				return;
@@ -64,7 +66,7 @@ public class ErisDataEditor {
 	
 	private void addAction() { 
 		while(true){
-			listAddActions();
+			EDEprinter.listAddActions();
 			switch (getAction(0, 1)) {
 			case 0: 
 				return;
@@ -82,7 +84,7 @@ public class ErisDataEditor {
 	
 	private void editAction() {
 		while(true){
-			listEditActions();
+			EDEprinter.listEditActions();
 			switch (getAction(0, 3)) {
 			case 0: 
 				return;
@@ -105,7 +107,7 @@ public class ErisDataEditor {
 		logger.printSubline("Select Channel : ");
 		int channelID = getAction(0, contentManager.getChannelList().size() -1);
 		while(true){
-			listVideoActions();
+			EDEprinter.listVideoActions();
 			switch (getAction(0, 3)) {
 			case 0: 
 				return;
@@ -129,7 +131,7 @@ public class ErisDataEditor {
 	
 	private void removeAction() { 
 		while(true){
-			listRemoveActions();
+			EDEprinter.listRemoveActions();
 			switch (getAction(0, 2)) {
 			case 0: 
 				return;
@@ -180,7 +182,7 @@ public class ErisDataEditor {
 		Channel newChannel = new Channel(channelName, channelID, channelTag);
 		contentManager.editChannel(lastChannelIndex, newChannel);
 		
-		logger.print("Deleted Channel : " + selectedChannel);
+		logger.print("Edit Channel : " + selectedChannel);
 	}
 	
 	private void editVideo(int channelID) {
@@ -237,45 +239,7 @@ public class ErisDataEditor {
 		return scanner.nextLine();
 	}
 	
-	private void listMainActions() {
-		System.out.println("\n ---- Eris-Data-Editor : ----");
-		System.out.println(" _> 0 : Exit");
-		System.out.println(" _> 1 : Add new Channel");
-		System.out.println(" _> 2 : Edit existing Channel");
-		System.out.println(" _> 3 : Remove existing Channel");
-		System.out.println(" _> 4 : List all Channels");
-		System.out.println(" _> 5 : List all Content");
-	}
 	
-	private void listAddActions() {
-		System.out.println("\n --- Add new Channel : ----");
-		System.out.println(" _> 0 : Exit");
-		System.out.println(" _> 1 : Add new Channel");
-	}
-	
-	private void listEditActions() {
-		System.out.println("\n ---- Edit Channel : ----");
-		System.out.println(" _> 0 : Exit");
-		System.out.println(" _> 1 : Edit existing Channel");
-		System.out.println(" _> 2 : List all Channels");
-		System.out.println(" _> 3 : Edit Videos");
-	}
-	
-	private void listVideoActions() {
-		System.out.println("\n ---- Edit Videos : ----");
-		System.out.println(" _> 0 : Exit");
-		System.out.println(" _> 1 : Edit existing Video");
-		System.out.println(" _> 2 : List all Videos");
-		System.out.println(" _> 3 : refresh Videos");
-		System.out.println(" _> 4 : Remove Video");
-	}
-	
-	private void listRemoveActions() {
-		System.out.println("\n ---- Remove Channel : ----");
-		System.out.println(" _> 0 : Exit");
-		System.out.println(" _> 1 : Enter Channel-Number for deletion");
-		System.out.println(" _> 2 : List all Channels");
-	}
 	
 	/* --- Public-Main & Close --- */
 	
