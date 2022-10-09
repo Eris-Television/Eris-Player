@@ -6,41 +6,37 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ErisLogger {
+public class ErisLogger extends ErisDateTimer{
 	
 	private String path;
 	private ArrayList<String> log;
 	public ArrayList<String> getLog() { return log; }
 	
-	private DateTimeFormatter formatter;
-	private LocalDateTime now;
+	
 	
 	public ErisLogger(String path) {
+		super();
+		
 		this.path = path;
 		this.log = new ArrayList<>();
-		
-		formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH-mm-ss");
-		now = LocalDateTime.now();
 	}
 	
 	public void print(String message) {
-		message = getDateTime() + message;
+		message = getDateTimeInBrackets() + message;
 		System.out.println(message);
 		log.add(message);
 	}
 	
 	public void printSubline(String message) {
-		message = getDateTime() +" _> "+ message;
+		message = getDateTimeInBrackets() +" _> "+ message;
 		System.out.println(message);
 		log.add(message);
 	}
 	
 	public void printError(String error, Exception e) {
-		error = getDateTime() + "ERROR " + error + " : " + e.getMessage();
+		error = getDateTimeInBrackets() + "ERROR " + error + " : " + e.getMessage();
 		System.err.println(error);
 		log.add(error);
 	}
@@ -50,9 +46,9 @@ public class ErisLogger {
 			String filePath = Paths.get(new URI(path)).toString();
 			File file;
 			if(System.getProperty("os.name").startsWith("Windows")) {
-				file = new File(filePath +"\\"+ getDateTime() + "ErisPlayer.log");
+				file = new File(filePath +"\\"+ getDateTimeInBrackets() + "ErisPlayer.log");
 			}else {
-				file = new File(filePath +"/"+ getDateTime() + "ErisPlayer.log");
+				file = new File(filePath +"/"+ getDateTimeInBrackets() + "ErisPlayer.log");
 			}
 			file.createNewFile();
 			print("Printing Log-File");
@@ -62,11 +58,5 @@ public class ErisLogger {
 		}
 	}
 	
-	
-	// --- Internal ---
-	
-	private String getDateTime() {
-		return "[" + formatter.format(now) + "] ";
-	}
 	
 }
