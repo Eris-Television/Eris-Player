@@ -20,9 +20,6 @@ public class ContentManager extends ChannelMethodes{
 	private ErisLogger logger;
 	private DownloadManager downloadManager;
 	
-	
-	public void setChannelList(ArrayList<Channel> channelList) { this.channelList = channelList; }
-
 	public ContentManager(String resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;

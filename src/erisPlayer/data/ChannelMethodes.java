@@ -37,6 +37,8 @@ public class ChannelMethodes {
     
     public ArrayList<Channel> getChannelList() { return channelList; }
     
+    public void setChannelList(ArrayList<Channel> channelList) { this.channelList = channelList; }
+    
     public Video getLastUnpublishedVideo(Channel channel) {
         return channel.getLastUnpublishedVideo();
     }
