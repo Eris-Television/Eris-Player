@@ -8,11 +8,44 @@
     <script src="script.js"></script>
 </head>
 
-<body onload="onLoad()">
+
+<body onload="openFullscreen()">
     <video autoplay muted loop id="videoPlayer">
         <source src="noSignal.mp4" type="video/mp4">
     </video>
     <button id="view-fullscreen">Fullscreen</button>
 </body>
+
+<script>
+    
+
+    function openFullscreen() {
+        
+        var docElm = document.documentElement;
+        docElm.requestFullscreen();
+        
+
+    }
+
+    var viewFullScreen = document.getElementById("view-fullscreen");
+    if (viewFullScreen) {
+        viewFullScreen.addEventListener("click", function() {
+        var docElm = document.documentElement;
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+            alert("1");
+        } else if (docElm.msRequestFullscreen) {
+            docElm.msRequestFullscreen();
+            alert("2");
+        } else if (docElm.mozRequestFullScreen) {
+            docElm.mozRequestFullScreen();
+            alert("3");
+        } else if (docElm.webkitRequestFullScreen) {
+            docElm.webkitRequestFullScreen();
+            alert("4");
+        }
+    })
+    }
+</script>
 
 </html>
