@@ -57,6 +57,7 @@ class ContentManagerTest {
 	
 	// TODO Add Channel videoLists
 	// TODO Test Download
+	// TODO Implementing use of TestLogger
 	
 	@After
 	@Test
