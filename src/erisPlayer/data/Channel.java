@@ -10,6 +10,7 @@ public class Channel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String name;
+    /** YouTube-Channel-ID */
     private final String chanalID;
     private final String tag;
 
