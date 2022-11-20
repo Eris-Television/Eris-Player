@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import erisPlayer.ErisLogger;
@@ -19,35 +18,61 @@ class DownloadManagerTest {
 	private DownloadMangerSpy downlaodManager;
 	private Channel testChannel;
 	
+	private final String channelName = "Eris Debug";
+	private final String channelID = "UCYGFAov8c5mIyKnoGu-JWng";
+	private final String channelTag = "ERD";
+
+	private final String defaultDate = "20150830";
+	private final String testDate = "20200723";
+	private final String downloadPath = "$PATH/"; // TODO
+	
+	private final String ytdlStart = "youtube-dl --ignore-errors -f bestvideo+bestaudio --merge-output-format mp4 --dateafter ";
+	private final String output = " --output " + downloadPath + channelTag + "_%(upload_date)s_%(title)s.%(ext)s ";
+	private final String ytdlEnd = output + "https://www.youtube.com/channel/" + channelID;
+	
+	
 	/* --- Constructor: --- */
 	
 	public DownloadManagerTest() {
-		directory = "todo";
+		directory = "todo"; // TODO
 		this.logger = new TestLogger(null);
 		this.downlaodManager = new DownloadMangerSpy(directory, logger);
 	}
 	
 	@Test
 	void testCommandLine() {
-		testChannel = new Channel("Eris Debug", "UCYGFAov8c5mIyKnoGu-JWng", "ERD");
+		testChannel = new Channel(channelName, channelID, channelTag);
+		
+		/* --- Test with empty Channel --- */
 		
 		String date = downlaodManager.getDate(testChannel);
-		assertEquals(date, "20150830");
-		System.out.println(date);
+		assertEquals(defaultDate, date);
 		
-		String cmd = downlaodManager.getDate(testChannel);
-		System.out.println(cmd);
 		
-		Video testVideo = new Video("Test", LocalDate.of(2020, 07, 23), "testFormat", TimeCategory.MEDIUM);
+		String assertCMD = ytdlStart + defaultDate + ytdlEnd;
+		String cmd = downlaodManager.getCommandLine(testChannel);
+		assertEquals(assertCMD, cmd);
+		
+		/* --- Test with Video --- */
+		
+		Video testVideo = new Video("Test", toLocalDate(testDate), "testFormat", TimeCategory.MEDIUM);
 		testChannel.addVideo(testVideo);
 		
 		date = downlaodManager.getDate(testChannel);
-		System.out.println(date);
+		assertEquals(testDate, date);
 		
-		cmd = downlaodManager.getDate(testChannel);
-		System.out.println(cmd);
+		assertCMD = ytdlStart + testDate + ytdlEnd;
+		cmd = downlaodManager.getCommandLine(testChannel);
+		assertEquals(assertCMD, cmd);
 		
+	}
+	
+	private LocalDate toLocalDate(String date) {
+		int year = Integer.valueOf(date.substring(0, 4));
+		int month = Integer.valueOf(date.substring(4, 6));
+		int day = Integer.valueOf(date.substring(6, 8));
 		
+		return LocalDate.of(year, month, day);
 	}
 	
 	
@@ -64,17 +89,18 @@ class DownloadManagerTest {
 	
 	@Test
 	void downLoadVideos() {
-		testChannel = new Channel("Eris Debug", "UCYGFAov8c5mIyKnoGu-JWng", "ERD");
+		testChannel = new Channel(channelName, channelID, channelTag);
 		
-		downlaodManager.downloadNewVideos(testChannel);
 		fail("Not yet implemented");
+		downlaodManager.downloadNewVideos(testChannel);
 	}
 	
 	
 	@Test
 	void updateVideos() {
-		testChannel = new Channel("Eris Debug", "UCYGFAov8c5mIyKnoGu-JWng", "ERD");
-		downlaodManager.downloadNewVideos(testChannel);
+		testChannel = new Channel(channelName, channelID, channelTag);
+		
 		fail("Not yet implemented");
+		downlaodManager.downloadNewVideos(testChannel);
 	}
 }

@@ -17,15 +17,12 @@ public class Channel implements Serializable {
     private ArrayList<Video> videoList;
     private ArrayList<Video> unpublishedVideos;
 
-    public Channel(String name, String chanalID, String tag, ArrayList<Video> videoList) {
-        this.name = name;
+    public Channel(String name, String chanalID, String tag) {
+    	this.name = name;
         this.chanalID = chanalID;
         this.tag = tag;
-        this.videoList = videoList;
-    }
-
-    public Channel(String name, String chanalID, String tag) {
-        this(name, chanalID, tag, new ArrayList<>());
+        this.videoList = new ArrayList<>();
+        this.unpublishedVideos = new ArrayList<>();
     }
     
     /* --- Getter && Setter --- */

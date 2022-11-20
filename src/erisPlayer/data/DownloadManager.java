@@ -1,9 +1,6 @@
 package erisPlayer.data;
 
 import java.io.IOException;
-
-// import org.mp4parser.IsoFile;
-
 import erisPlayer.ErisLogger;
 
 public class DownloadManager {
@@ -11,6 +8,17 @@ public class DownloadManager {
 	private String directory;
 	
 	private ErisLogger logger;
+	
+	/* --- Static YouTube-DL parameters --- */
+	private final String ignoreErrors = "--ignore-errors ";
+	private final String format = "-f bestvideo+bestaudio --merge-output-format mp4 ";
+	
+	private final String staticParameters = ignoreErrors + format;
+	
+	private final String youtubeURL = "https://www.youtube.com/channel/";
+	
+	
+	/* --- Constructor --- */
 	
 	public DownloadManager(String resourceDir, ErisLogger logger) {
 		this.directory = resourceDir +"Downloads/";
@@ -32,21 +40,15 @@ public class DownloadManager {
 		logger.printSubline("Donwloaded new Video from : [" + channel.getTag() +"] : "+ channel.getName());
 	}
 	
-	@SuppressWarnings("unused") // TODO
 	protected String getCommandLine(Channel channel) {
-		
-		String command = "youtube-dl ";
-		
-		String ignoreErrors = "--ignore-errors";
-		
-		String format = "-f bestvideo+bestaudio --merge-output-format mp4";
-		
 		String downloadAfter = "--dateafter " + getDate(channel);
+		String output = " --output " +"$PATH/"+ channel.getTag() + "_%(upload_date)s_%(title)s.%(ext)s ";
 		
-		String output = "--output " +"$PATH/"+ channel.getTag() + "_%(upload_date)s_%(title)s.%(ext)s";
+		String commandLine = "youtube-dl " + staticParameters 
+							+ downloadAfter + output 
+							+ youtubeURL + channel.getChanalID();
 		
-		String videoUrl = "https://www.youtube.com/channel/" + channel.getChanalID();
-		return null;
+		return commandLine;
 	}
 	
 	protected String getDate(Channel channel) {
