@@ -8,7 +8,7 @@ public class TestLogger extends ErisLogger{
 	public TestLogger(String path) {
 		super(path);
 	}
-	
+
 	@Override
 	public void print(String message) {
 		message = getDateTimeInBrackets() + message;

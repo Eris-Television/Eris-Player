@@ -4,13 +4,14 @@
 var videoPlayer 
 var videoSource
 
-// const webSocket = new WebSocket("127.0.01")
+var webSocket
 
 function onLoad() {
     videoPlayer = document.getElementById("videoPlayer")
     videoSource = document.getElementById("videoSource")
     //openFullscreen();
 
+    webSocket = new WebSocket("127.0.01:2332")
 }
 
 function playNextVideo() {

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import erisPlayer.tests.TestLogger;
+
 public class ErisSocketServer {
 	
 	private AtomicBoolean close;
@@ -61,6 +63,11 @@ public class ErisSocketServer {
 				logger.printError("While Thread.sleep", e);
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		ErisSocketServer run = new ErisSocketServer(new TestLogger(""));
+		run.start();
 	}
 	
 }
