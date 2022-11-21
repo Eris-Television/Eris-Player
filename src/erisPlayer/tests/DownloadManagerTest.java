@@ -2,6 +2,7 @@ package erisPlayer.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -91,6 +92,12 @@ class DownloadManagerTest {
 	void downLoadVideos() {
 		testChannel = new Channel(channelName, channelID, channelTag);
 		
+		System.getProperty("os.name");
+		System.out.println(getPath());
+		
+		File testFile = new File(getPath());
+		System.out.println(testFile.toPath().toString());
+		
 		fail("Not yet implemented");
 		downlaodManager.downloadNewVideos(testChannel);
 	}
@@ -102,5 +109,12 @@ class DownloadManagerTest {
 		
 		fail("Not yet implemented");
 		downlaodManager.downloadNewVideos(testChannel);
+	}
+	
+	
+	private String getPath() {
+		try {
+			return new File(".").getCanonicalFile().toURI().toString();
+		} catch (Exception e) { return null; }
 	}
 }

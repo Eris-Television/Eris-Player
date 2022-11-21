@@ -66,7 +66,7 @@ public class ErisSocketServer {
 	}
 	
 	public static void main(String[] args) {
-		ErisSocketServer run = new ErisSocketServer(new TestLogger(""));
+		ErisSocketServer run = new ErisSocketServer(new TestLogger(null));
 		run.start();
 	}
 	

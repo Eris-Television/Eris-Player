@@ -9,23 +9,14 @@ public class ErisPlayer {
 	
 	private boolean isDebug = false;
 	
-	private String localDir;
-	
 	private ErisLogger logger;
 	private ContentManager contentManager;
 	private ErisScheduler scheduler;
 	private ErisSocketServer socketServer;
 	
 	public ErisPlayer() {
-		this.localDir = getPath();
-		this.logger = new ErisLogger(localDir + "log/");
+		this.logger = new ErisLogger(PathHandler.logDir());
 		this.logger.print("Opening ErisPlayer");
-	}
-	
-	private String getPath() {
-		try {
-			return new File(".").getCanonicalFile().toURI().toString();
-		} catch (IOException e) { return null; }
 	}
 	
 	private void main() {
@@ -47,12 +38,12 @@ public class ErisPlayer {
 	}
 	
 	private void openContentManager() {
-		this.contentManager = new ContentManager(localDir + "resources/", logger);
+		this.contentManager = new ContentManager(PathHandler.resourceDir().toString(), logger);
 		contentManager.updateChannels();
 	}
 	
 	private void openScheduler() {
-		this.scheduler = new ErisScheduler(localDir, logger);
+		this.scheduler = new ErisScheduler(PathHandler.localDir().toString(), logger);
 	}
 	
 	private void startSocketServer() {
@@ -63,7 +54,7 @@ public class ErisPlayer {
 	
 	private void openWebsite() {
 		try {
-			String comandLine = "cmd /c start firefox --private-window --kiosk=\"" + localDir + "html/index.html/" + "\"";
+			String comandLine = "cmd /c start firefox --private-window --kiosk=\"" + PathHandler.localDir().toString() + "html/index.html/" + "\"";
 			Runtime.getRuntime().exec(comandLine).waitFor();
 		}catch (Exception e) {
 			logger.printError("while opening Browser", e);

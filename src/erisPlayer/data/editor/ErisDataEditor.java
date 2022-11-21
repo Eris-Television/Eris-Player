@@ -1,15 +1,13 @@
 package erisPlayer.data.editor;
 
-import java.io.File;
 import java.util.Scanner;
 
 import erisPlayer.ErisLogger;
+import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
 import erisPlayer.data.ContentManager;
 
 public class ErisDataEditor {
-	
-	private String resourceDir;
 	
 	private ErisLogger logger;
 	private ContentManager contentManager;
@@ -17,21 +15,11 @@ public class ErisDataEditor {
 	private Scanner scanner;
 	
 	public ErisDataEditor() {
-		this.resourceDir = getPath() + "resources/";
-		
-		this.logger = new ErisLogger(resourceDir + "EditorLogs/");
-		this.contentManager = new ContentManager(resourceDir, logger);
+		this.logger = new ErisLogger(PathHandler.editorLogDir());
+		this.contentManager = new ContentManager(PathHandler.resourceDir().toString(), logger);
 		
 		this.scanner = new Scanner(System.in);
 	}
-	
-	private String getPath() {
-		try {
-			return new File(".").getCanonicalFile().toURI().toString();
-		} catch (Exception e) { return null; }
-	}
-	
-	
 	
 	private void main() {
 		if(contentManager.debugDownlaods()) return;

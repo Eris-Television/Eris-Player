@@ -1,11 +1,13 @@
 package erisPlayer.tests;
 
+import java.net.URI;
+
 import erisPlayer.ErisLogger;
 
 public class TestLogger extends ErisLogger{
 	
 	/* DO NOT USE - Just for extending ErisLogger */
-	public TestLogger(String path) {
+	public TestLogger(URI path) {
 		super(path);
 	}
 

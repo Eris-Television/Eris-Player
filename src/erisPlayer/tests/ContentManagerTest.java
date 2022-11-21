@@ -25,7 +25,7 @@ class ContentManagerTest {
 		localDir = getPath() + "tests/";
 		testChannel = new Channel("Test", "TID", "TID");
 		
-		this.logger = new ErisLogger(localDir);
+		this.logger = new ErisLogger(null);
 		this.cm = new ContentManager(localDir, logger);
 	}
 	
