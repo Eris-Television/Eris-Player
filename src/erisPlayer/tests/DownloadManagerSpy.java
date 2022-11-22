@@ -6,9 +6,9 @@ import erisPlayer.ErisLogger;
 import erisPlayer.data.Channel;
 import erisPlayer.data.DownloadManager;
 
-public class DownloadMangerSpy extends DownloadManager{
+public class DownloadManagerSpy extends DownloadManager{
 
-	public DownloadMangerSpy(URI downloadDir, ErisLogger logger) {
+	public DownloadManagerSpy(URI downloadDir, ErisLogger logger) {
 		super(downloadDir, logger);
 	}
 	

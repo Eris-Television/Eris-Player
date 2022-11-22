@@ -62,6 +62,16 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
+	public static void emptyDownloadDir() {
+		File downloadDir = new File(PathHandler.testDownloadDir());
+		
+		if(downloadDir.listFiles() != null) {
+			for(File file : downloadDir.listFiles()) {
+				file.delete();
+			}
+		}
+	}
+	
 	/* -- generalMethodes ---*/
 	
 	public static String uriToString(URI path) {
