@@ -7,13 +7,13 @@ public class Video {
     private final String name;
     private final LocalDate uploadDate;
     private final String format;
-    private final TimeCategory timeCategory;
+    private final int playTime;
 
-    public Video(String name, LocalDate uploadDate, String format, TimeCategory timeCategory) {
+    public Video(String name, LocalDate uploadDate, String format, int playTime) {
         this.name = name;
         this.uploadDate = uploadDate;
         this.format = format;
-        this.timeCategory = timeCategory;
+        this.playTime = playTime;
     }
 
     public String getName() {
@@ -28,12 +28,12 @@ public class Video {
         return format;
     }
 
-    public TimeCategory getTimeCategory() {
-        return timeCategory;
+    public int getPlayTime() {
+        return playTime;
     }
     
     @Override
     public String toString() {
-    	return "["+ uploadDate +"]_"+ name +"_"+ format +"_"+ timeCategory.toString();
+    	return "["+ uploadDate +"]_"+ name +"_"+ format;
     }
 }

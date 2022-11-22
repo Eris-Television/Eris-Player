@@ -75,7 +75,7 @@ public class Channel implements Serializable {
         return videoList;
     }
 
-    public ArrayList<Video> getTimeVideoList(TimeCategory category) {
+    /*public ArrayList<Video> getTimeVideoList(TimeCategory category) {
         ArrayList<Video> returnList = new ArrayList<>();
         for (Video current : videoList) {
             if (current.getTimeCategory().equals(category)) {
@@ -83,7 +83,7 @@ public class Channel implements Serializable {
             }
         }
         return videoList;
-    }
+    }*/
 
     public ArrayList<Video> getLastWeekUploads() {
         ArrayList<Video> returnList = new ArrayList<>();

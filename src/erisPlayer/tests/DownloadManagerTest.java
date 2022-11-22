@@ -1,18 +1,16 @@
 package erisPlayer.tests;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import erisPlayer.ErisLogger;
 import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
-import erisPlayer.data.TimeCategory;
 import erisPlayer.data.Video;
 
 class DownloadManagerTest {
@@ -30,7 +28,7 @@ class DownloadManagerTest {
 	private final String downloadDir = PathHandler.uriToString(PathHandler.testDownloadDir());
 	
 	private final String ytdlStart = "youtube-dl --ignore-errors -f bestvideo+bestaudio --merge-output-format mp4 --dateafter ";
-	private final String output = " --output \"" + downloadDir + channelTag + "_%(upload_date)s_%(title)s.%(ext)s\" ";
+	private final String output = " --output \"" + downloadDir + channelTag + "_%(upload_date)s_%(duration)s_%(title)s.%(ext)s\" ";
 	private final String ytdlEnd = output + "https://www.youtube.com/channel/" + channelID;
 	
 	
@@ -40,6 +38,8 @@ class DownloadManagerTest {
 		this.logger = new TestLogger(null);
 		this.downlaodManager = new DownloadMangerSpy(PathHandler.testDownloadDir(), logger);
 	}
+	
+	/* --- CommandLine-Test --- */
 	
 	@Test
 	void testCommandLine() {
@@ -57,7 +57,7 @@ class DownloadManagerTest {
 		
 		/* --- Test with Video --- */
 		
-		Video testVideo = new Video("Test", toLocalDate(testDate), "testFormat", TimeCategory.MEDIUM);
+		Video testVideo = new Video("Test", toLocalDate(testDate), "testFormat", -1);
 		testChannel.addVideo(testVideo);
 		
 		date = downlaodManager.getDate(testChannel);
@@ -77,6 +77,7 @@ class DownloadManagerTest {
 		return LocalDate.of(year, month, day);
 	}
 	
+	/* --- Download-Tests --- */
 	
 	/*
 	 * TODO: Implement:
@@ -88,7 +89,7 @@ class DownloadManagerTest {
 	
 	
 	@Test
-	void downLoadVideos() throws IOException, InterruptedException {
+	void downloadVideos() throws IOException, InterruptedException {
 		testChannel = new Channel(channelName, channelID, channelTag);
 		
 		emptyDownloadDir();

@@ -82,7 +82,7 @@ public class ContentManager extends ChannelMethodes{
 	    		String videoTitle = file.getName().split("_")[3].split(".")[0]; // TODO handle Video time
 	    		
 	    		if(channel.getTag().equals(channelTag)) {
-	    			channel.addVideo(new Video(videoTitle, getDate(dateString), getFormat(channel, videoTitle), getTimeCategory(file)));
+	    			channel.addVideo(new Video(videoTitle, getDate(dateString), getFormat(channel, videoTitle), -1));
 	    		}
 	    		
 	    		System.out.println(file);
@@ -103,10 +103,6 @@ public class ContentManager extends ChannelMethodes{
     	return "default";
     }
     
-    private TimeCategory getTimeCategory(File file) {
-    	return null;
-    }
-
     /* --- list-Outputs --- */
 
     public void listChanels() {
@@ -123,7 +119,7 @@ public class ContentManager extends ChannelMethodes{
         logger.print("Channel porvides " + channelList.size() + " Videos:");
         for (Video current : channelList.get(channelNumber).getVideoList()) {
             logger.printSubline("Video : " + current.getName() + " [" + current.getUploadDate()
-                    + "], timeCategory: " + current.getTimeCategory());
+                    + "], timeCategory: " + current.getPlayTime());
         }
     }
 
@@ -134,8 +130,7 @@ public class ContentManager extends ChannelMethodes{
             logger.printSubline("Channel : " + currentChannel.getName() + " (ID:" + currentChannel.getChanalID()
                     + ") with " + currentChannel.getVideoList().size() + " Videos.");
             for (Video currentVideo : currentChannel.getVideoList()) {
-                logger.printSubline("Video : " + currentVideo.getName() + " [" + currentVideo.getUploadDate()
-                        + "], timeCategory: " + currentVideo.getTimeCategory());
+                logger.printSubline("Video : " + currentVideo.getName() + " [" + currentVideo.getUploadDate() + "]");
             }
         }
     }

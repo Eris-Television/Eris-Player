@@ -70,7 +70,7 @@ public class DownloadManager {
 	
 	protected String getCommandLine(Channel channel) {
 		String downloadAfter = "--dateafter " + getDate(channel);
-		String output = " --output \"" +directory+ channel.getTag() + "_%(upload_date)s_%(title)s.%(ext)s\" ";
+		String output = " --output \"" +directory+ channel.getTag() + "_%(upload_date)s_%(duration)s_%(title)s.%(ext)s\" ";
 		
 		String commandLine = "youtube-dl " + staticParameters 
 							+ downloadAfter + output 
