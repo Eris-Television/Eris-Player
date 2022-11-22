@@ -17,14 +17,14 @@ public class PathHandler {
 	
 	public static URI logDir() {
 		try {
-			return new File(localDir() + "log/").getCanonicalFile().toURI();
+			return new File(localDir() + "log/").toURI();
 		} catch (Exception e) { return null; }
 	}
 	
 	
 	public static URI editorLogDir() {
 		try {
-			return new File(localDir() + "EditorLogs/").getCanonicalFile().toURI();
+			return new File(localDir() + "EditorLogs/").toURI();
 		} catch (Exception e) { return null; }
 	}
 	
@@ -32,7 +32,7 @@ public class PathHandler {
 	
 	public static URI resourceDir() {
 		try {
-			return new File(localDir() + "resources/").getCanonicalFile().toURI();
+			return new File(localDir() + "resources/").toURI();
 		} catch (Exception e) { return null; }
 	}
 	
@@ -40,20 +40,19 @@ public class PathHandler {
 	
 	public static URI testDir() {
 		try {
-			return new File(localDir() + "").getCanonicalFile().toURI();
+			return new File(localDir() + "").toURI();
 		} catch (Exception e) { return null; }
 	}
 	
 	/* -- generalMethodes ---*/
 	
 	public static String uriToString(URI path) {
-		return null; // TODO 
-	}
-	
-	
-	public static void main(String[] args) {
-		System.out.println(localDir() + "resources/");
-		System.out.println(localDir().toString() + "resources/");
+		String osName = System.getProperty("os.name").toLowerCase();
+		if(osName.startsWith("windows")) {
+			return path.getPath().replace('/', '\\').substring(1) + "\\";
+		}else {
+			return path.getPath() + "/";
+		}
 	}
 	
 }
