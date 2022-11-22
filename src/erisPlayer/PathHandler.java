@@ -52,7 +52,6 @@ public class PathHandler {
 	
 	public static URI testResourceDir() {
 		try {
-			System.out.println(testDir());
 			return testDir().resolve("resources/");
 		} catch (Exception e) { return null; }
 	}
@@ -68,7 +67,7 @@ public class PathHandler {
 	public static String uriToString(URI path) {
 		String osName = System.getProperty("os.name").toLowerCase();
 		if(osName.startsWith("windows")) {
-			return path.getPath().replace('/', '\\').substring(1) + "\\";
+			return path.getPath().replace('/', '\\').substring(1);
 		}else {
 			return path.getPath() + "/";
 		}

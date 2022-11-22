@@ -1,8 +1,10 @@
 package erisPlayer.tests;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,6 @@ import erisPlayer.data.Video;
 
 class DownloadManagerTest {
 	
-	private final String directory;
 	private ErisLogger logger;
 	private DownloadMangerSpy downlaodManager;
 	private Channel testChannel;
@@ -26,17 +27,16 @@ class DownloadManagerTest {
 
 	private final String defaultDate = "20150830";
 	private final String testDate = "20200723";
-	private final String downloadPath = "$PATH/"; // TODO
+	private final String downloadDir = PathHandler.uriToString(PathHandler.testDownloadDir());
 	
 	private final String ytdlStart = "youtube-dl --ignore-errors -f bestvideo+bestaudio --merge-output-format mp4 --dateafter ";
-	private final String output = " --output " + downloadPath + channelTag + "_%(upload_date)s_%(title)s.%(ext)s ";
+	private final String output = " --output \"" + downloadDir + channelTag + "_%(upload_date)s_%(title)s.%(ext)s\" ";
 	private final String ytdlEnd = output + "https://www.youtube.com/channel/" + channelID;
 	
 	
 	/* --- Constructor: --- */
 	
 	public DownloadManagerTest() {
-		directory = "todo"; // TODO
 		this.logger = new TestLogger(null);
 		this.downlaodManager = new DownloadMangerSpy(PathHandler.testDownloadDir(), logger);
 	}
@@ -48,12 +48,12 @@ class DownloadManagerTest {
 		/* --- Test with empty Channel --- */
 		
 		String date = downlaodManager.getDate(testChannel);
-		assertEquals(defaultDate, date);
+		assertEquals(defaultDate, date, "Incorrect date for empty channel");
 		
 		
 		String assertCMD = ytdlStart + defaultDate + ytdlEnd;
 		String cmd = downlaodManager.getCommandLine(testChannel);
-		assertEquals(assertCMD, cmd);
+		assertEquals(assertCMD, cmd, "Incorrect commandLine for empty channel");
 		
 		/* --- Test with Video --- */
 		
@@ -61,11 +61,11 @@ class DownloadManagerTest {
 		testChannel.addVideo(testVideo);
 		
 		date = downlaodManager.getDate(testChannel);
-		assertEquals(testDate, date);
+		assertEquals(testDate, date, "Incorrect date for channel with video");
 		
 		assertCMD = ytdlStart + testDate + ytdlEnd;
 		cmd = downlaodManager.getCommandLine(testChannel);
-		assertEquals(assertCMD, cmd);
+		assertEquals(assertCMD, cmd, "Incorrect commandLine for channel with video");
 		
 	}
 	
@@ -88,13 +88,15 @@ class DownloadManagerTest {
 	
 	
 	@Test
-	void downLoadVideos() {
+	void downLoadVideos() throws IOException, InterruptedException {
 		testChannel = new Channel(channelName, channelID, channelTag);
 		
+		emptyDownloadDir();
 		
-		
-		fail("Not yet implemented");
 		downlaodManager.downloadNewVideos(testChannel);
+		
+		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
+		assertEquals(downloads.length, 3, "Incorrect amount of Files in testDownloadDir");
 	}
 	
 	
@@ -102,8 +104,20 @@ class DownloadManagerTest {
 	void updateVideos() {
 		testChannel = new Channel(channelName, channelID, channelTag);
 		
+		emptyDownloadDir();
+		
 		fail("Not yet implemented");
 		downlaodManager.downloadNewVideos(testChannel);
+	}
+	
+	private void emptyDownloadDir() {
+		File downloadDir = new File(PathHandler.testDownloadDir());
+		
+		if(downloadDir.listFiles() != null) {
+			for(File file : downloadDir.listFiles()) {
+				file.delete();
+			}
+		}
 	}
 	
 }
