@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import org.junit.After;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import erisPlayer.ErisLogger;
 import erisPlayer.PathHandler;
@@ -77,17 +77,6 @@ class DownloadManagerTest {
 		return LocalDate.of(year, month, day);
 	}
 	
-	/* --- Download-Tests --- */
-	
-	/*
-	 * TODO: Implement:
-	 * 
-	 * 1. Test Download all Videos (No Videos already downloaded)
-	 * 2. Add video and download all Videos (download new videos / update Videos)
-	 * 
-	 */
-	
-	
 	@Test
 	void downloadVideos() throws IOException, InterruptedException {
 		testChannel = new Channel(channelName, channelID, channelTag);
@@ -98,20 +87,28 @@ class DownloadManagerTest {
 		
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(downloads.length, 3, "Incorrect amount of Files in testDownloadDir");
+		assertEquals("ERD_20221009_13_TV DX - No Singnal #01.mp4", 	downloads[0].getName(), "Incorrect Video No. 1");
+		assertEquals("ERD_20221011_10_Count Down 10 sec #01.mp4", 	downloads[1].getName(), "Incorrect Video No. 2");
+		assertEquals("ERD_20221121_5_Eris Intro.mp4", 				downloads[2].getName(), "Incorrect Video No. 3");
+		
 	}
-	
 	
 	@Test
 	void updateVideos() {
 		testChannel = new Channel(channelName, channelID, channelTag);
-		
+		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), "testFormat", 10));
 		emptyDownloadDir();
 		
-		fail("Not yet implemented");
 		downlaodManager.downloadNewVideos(testChannel);
+		
+		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
+		assertEquals(downloads.length, 2, "Incorrect amount of Files in testDownloadDir");
+		assertEquals("ERD_20221011_10_Count Down 10 sec #01.mp4", 	downloads[0].getName(), "Incorrect Video No. 2");
+		assertEquals("ERD_20221121_5_Eris Intro.mp4", 				downloads[1].getName(), "Incorrect Video No. 3");
 	}
 	
-	private void emptyDownloadDir() {
+	@After
+	void emptyDownloadDir() {
 		File downloadDir = new File(PathHandler.testDownloadDir());
 		
 		if(downloadDir.listFiles() != null) {
