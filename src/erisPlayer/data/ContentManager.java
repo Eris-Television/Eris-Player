@@ -15,12 +15,12 @@ import erisPlayer.ErisLogger;
 
 public class ContentManager extends ChannelMethodes{
 	
-	private String resourceDir;
+	private URI resourceDir;
 	
 	private ErisLogger logger;
 	private DownloadManager downloadManager;
 	
-	public ContentManager(String resourceDir, ErisLogger logger) {
+	public ContentManager(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
 		this.downloadManager = new DownloadManager(null, logger); // TODO downloadDir in URI

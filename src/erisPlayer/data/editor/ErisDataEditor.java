@@ -16,7 +16,7 @@ public class ErisDataEditor {
 	
 	public ErisDataEditor() {
 		this.logger = new ErisLogger(PathHandler.editorLogDir());
-		this.contentManager = new ContentManager(PathHandler.resourceDir().toString(), logger);
+		this.contentManager = new ContentManager(PathHandler.resourceDir(), logger);
 		
 		this.scanner = new Scanner(System.in);
 	}

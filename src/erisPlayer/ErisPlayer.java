@@ -1,8 +1,5 @@
 package erisPlayer;
 
-import java.io.File;
-import java.io.IOException;
-
 import erisPlayer.data.ContentManager;
 
 public class ErisPlayer {
@@ -38,16 +35,17 @@ public class ErisPlayer {
 	}
 	
 	private void openContentManager() {
-		this.contentManager = new ContentManager(PathHandler.resourceDir().toString(), logger);
+		this.contentManager = new ContentManager(PathHandler.resourceDir(), logger);
 		contentManager.updateChannels();
 	}
 	
 	private void openScheduler() {
-		this.scheduler = new ErisScheduler(PathHandler.localDir().toString(), logger);
+		scheduler = new ErisScheduler(PathHandler.localDir(), logger);
+		scheduler.toString(); // TODO
 	}
 	
 	private void startSocketServer() {
-		this.socketServer = new ErisSocketServer(logger);
+		socketServer = new ErisSocketServer(logger);
 		socketServer.start();
 	}
 	

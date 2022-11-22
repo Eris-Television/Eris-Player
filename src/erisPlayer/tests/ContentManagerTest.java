@@ -10,29 +10,22 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import erisPlayer.ErisLogger;
+import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
 import erisPlayer.data.ContentManager;
 
 class ContentManagerTest {
 	
-	private String localDir;
 	private Channel testChannel;
 	
 	private ErisLogger logger;
 	private ContentManager cm;
 	
 	public ContentManagerTest() {
-		localDir = getPath() + "tests/";
-		testChannel = new Channel("Test", "TID", "TID");
+		testChannel = new Channel(TestData.channelName, TestData.channelID, TestData.channelTag);
 		
-		this.logger = new ErisLogger(null);
-		this.cm = new ContentManager(localDir, logger);
-	}
-	
-	private String getPath() {
-		try {
-			return new File(".").getCanonicalFile().toURI().toString();
-		} catch (Exception e) { return null; }
+		this.logger = new TestLogger(null);
+		this.cm = new ContentManager(PathHandler.testDownloadDir(), logger);
 	}
 	
 	/* --- Test --- */

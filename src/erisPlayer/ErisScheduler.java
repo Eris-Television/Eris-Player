@@ -10,16 +10,14 @@ import erisPlayer.data.ContentManager;
 
 public class ErisScheduler {
 	
-	private String resourceDir;
+	private LocalDateTime now;
+	private URI resourceDir;
+	private String[][] schedule;
 	
 	private ErisLogger logger;
 	private ContentManager contentManager;
 	
-	private String[][] schedule;
-	
-	private LocalDateTime now;
-	
-	public ErisScheduler(String resourceDir, ErisLogger logger) {
+	public ErisScheduler(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
 		this.contentManager = new ContentManager(resourceDir, logger);
