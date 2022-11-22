@@ -17,14 +17,14 @@ public class PathHandler {
 	
 	public static URI logDir() {
 		try {
-			return new File(localDir() + "log/").toURI();
+			return localDir().resolve("log/");
 		} catch (Exception e) { return null; }
 	}
 	
 	
 	public static URI editorLogDir() {
 		try {
-			return new File(localDir() + "EditorLogs/").toURI();
+			return localDir().resolve("EditorLogs/");
 		} catch (Exception e) { return null; }
 	}
 	
@@ -32,13 +32,13 @@ public class PathHandler {
 	
 	public static URI resourceDir() {
 		try {
-			return new File(localDir() + "resources/").toURI();
+			return localDir().resolve("resources/");
 		} catch (Exception e) { return null; }
 	}
 	
 	public static URI downloadDir() {
 		try {
-			return new File(resourceDir() + "Download/").toURI();
+			return resourceDir().resolve("Download/");
 		} catch (Exception e) { return null; }
 	}
 	
@@ -46,19 +46,20 @@ public class PathHandler {
 	
 	public static URI testDir() {
 		try {
-			return new File(localDir() + "tests/").toURI();
+			return localDir().resolve("tests/");
 		} catch (Exception e) { return null; }
 	}
 	
 	public static URI testResourceDir() {
 		try {
-			return new File(testDir() + "resources/").toURI();
+			System.out.println(testDir());
+			return testDir().resolve("resources/");
 		} catch (Exception e) { return null; }
 	}
 	
 	public static URI testDownloadDir() {
 		try {
-			return new File(testResourceDir() + "Download/").toURI();
+			return testResourceDir().resolve("Download/");
 		} catch (Exception e) { return null; }
 	}
 	
