@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import erisPlayer.ErisLogger;
+import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
 import erisPlayer.data.TimeCategory;
 import erisPlayer.data.Video;
@@ -37,7 +38,7 @@ class DownloadManagerTest {
 	public DownloadManagerTest() {
 		directory = "todo"; // TODO
 		this.logger = new TestLogger(null);
-		this.downlaodManager = new DownloadMangerSpy(directory, logger);
+		this.downlaodManager = new DownloadMangerSpy(PathHandler.testDownloadDir(), logger);
 	}
 	
 	@Test
@@ -80,8 +81,6 @@ class DownloadManagerTest {
 	/*
 	 * TODO: Implement:
 	 * 
-	 * 0. Implement CommandLine-Test
-	 * 
 	 * 1. Test Download all Videos (No Videos already downloaded)
 	 * 2. Add video and download all Videos (download new videos / update Videos)
 	 * 
@@ -92,11 +91,7 @@ class DownloadManagerTest {
 	void downLoadVideos() {
 		testChannel = new Channel(channelName, channelID, channelTag);
 		
-		System.getProperty("os.name");
-		System.out.println(getPath());
 		
-		File testFile = new File(getPath());
-		System.out.println(testFile.toPath().toString());
 		
 		fail("Not yet implemented");
 		downlaodManager.downloadNewVideos(testChannel);
@@ -111,10 +106,4 @@ class DownloadManagerTest {
 		downlaodManager.downloadNewVideos(testChannel);
 	}
 	
-	
-	private String getPath() {
-		try {
-			return new File(".").getCanonicalFile().toURI().toString();
-		} catch (Exception e) { return null; }
-	}
 }

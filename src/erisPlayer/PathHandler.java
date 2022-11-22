@@ -36,11 +36,29 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
+	public static URI downloadDir() {
+		try {
+			return new File(resourceDir() + "Download/").toURI();
+		} catch (Exception e) { return null; }
+	}
+	
 	/* --- testlDir --- */
 	
 	public static URI testDir() {
 		try {
-			return new File(localDir() + "").toURI();
+			return new File(localDir() + "tests/").toURI();
+		} catch (Exception e) { return null; }
+	}
+	
+	public static URI testResourceDir() {
+		try {
+			return new File(testDir() + "resources/").toURI();
+		} catch (Exception e) { return null; }
+	}
+	
+	public static URI testDownloadDir() {
+		try {
+			return new File(testResourceDir() + "Download/").toURI();
 		} catch (Exception e) { return null; }
 	}
 	

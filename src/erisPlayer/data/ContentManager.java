@@ -23,7 +23,7 @@ public class ContentManager extends ChannelMethodes{
 	public ContentManager(String resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
-		this.downloadManager = new DownloadManager(resourceDir, logger);
+		this.downloadManager = new DownloadManager(null, logger); // TODO downloadDir in URI
 		
 		loadContent();
 		listContent();
@@ -79,7 +79,7 @@ public class ContentManager extends ChannelMethodes{
 	    	for(File file : new File(new URI(resourceDir + "Downloads/").getPath()).listFiles()) {
 	    		String channelTag = file.getName().split("_")[0];
 	    		String dateString = file.getName().split("_")[1];
-	    		String videoTitle = file.getName().split("_")[3].split(".")[0];
+	    		String videoTitle = file.getName().split("_")[3].split(".")[0]; // TODO handle Video time
 	    		
 	    		if(channel.getTag().equals(channelTag)) {
 	    			channel.addVideo(new Video(videoTitle, getDate(dateString), getFormat(channel, videoTitle), getTimeCategory(file)));

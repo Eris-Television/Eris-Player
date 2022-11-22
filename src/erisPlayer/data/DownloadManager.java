@@ -1,7 +1,10 @@
 package erisPlayer.data;
 
 import java.io.IOException;
+import java.net.URI;
+
 import erisPlayer.ErisLogger;
+import erisPlayer.PathHandler;
 
 public class DownloadManager {
 	
@@ -20,11 +23,12 @@ public class DownloadManager {
 	
 	/* --- Constructor --- */
 	
-	public DownloadManager(String resourceDir, ErisLogger logger) {
-		this.directory = resourceDir +"Downloads/";
-		// TODO: downloadDir : to Windows / linux path
+	public DownloadManager(URI downloadDir, ErisLogger logger) {
+		this.directory = PathHandler.uriToString(downloadDir);
 		this.logger = logger;
 	}
+	
+	/* --- Download functions --- */
 	
 	public void downloadNewVideos(Channel channel) {
 		String comandLine = "cmd /c " + getCommandLine(channel);
