@@ -1,15 +1,9 @@
 package erisPlayer.data;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.URI;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 import erisPlayer.ErisLogger;
 
@@ -18,12 +12,14 @@ public class ContentManager extends ChannelMethodes{
 	private URI resourceDir;
 	
 	private ErisLogger logger;
+	private ContentParser contentParser;
 	private DownloadManager downloadManager;
 	
 	public ContentManager(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
-		this.downloadManager = new DownloadManager(null, logger); // TODO downloadDir in URI
+		this.contentParser = new ContentParser(resourceDir);
+		this.downloadManager = new DownloadManager(resourceDir.resolve("Downloads"), logger); // TODO downloadDir in URI
 		
 		loadContent();
 		listContent();
@@ -33,31 +29,18 @@ public class ContentManager extends ChannelMethodes{
 	
 	/* --- Load & Save --- */
 	
-	@SuppressWarnings("unchecked")
 	public void loadContent() {
-		String path = resourceDir + "channels.eris";
 		logger.print("ContentManager is loading Content ...");
 		
-		try(FileInputStream fis = new FileInputStream(Paths.get(new URI(path)).toFile());
-				ObjectInputStream ois = new ObjectInputStream(fis)) {
-			channelList = (ArrayList<Channel>) ois.readObject();
-		} catch (Exception e) {
-			logger.printError("Can't read Channels from File!", e);
-			channelList = new ArrayList<>();
-		}
+		channelList = contentParser.readContent();
+		
 	}
 	
     public void saveContent() {
-        String path = resourceDir + "channels.eris";
         logger.print("ContentManager is saveing Content ...");
-
-        try (FileOutputStream fos = new FileOutputStream(Paths.get(new URI(path)).toFile());
-                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(channelList);
-        }
-        catch (Exception e) {
-            logger.printError("Can't write Channels to File!", e);
-        }
+        
+        contentParser.writeContent(channelList);
+        
     }
 
     /* --- Update Channels --- */

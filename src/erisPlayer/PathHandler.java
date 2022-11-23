@@ -38,7 +38,7 @@ public class PathHandler {
 	
 	public static URI downloadDir() {
 		try {
-			return resourceDir().resolve("Download/");
+			return resourceDir().resolve("Downloads/");
 		} catch (Exception e) { return null; }
 	}
 	
@@ -58,7 +58,7 @@ public class PathHandler {
 	
 	public static URI testDownloadDir() {
 		try {
-			return testResourceDir().resolve("Download/");
+			return testResourceDir().resolve("Downloads/");
 		} catch (Exception e) { return null; }
 	}
 	
