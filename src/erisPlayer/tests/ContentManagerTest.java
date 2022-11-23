@@ -2,11 +2,9 @@ package erisPlayer.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 import erisPlayer.ErisLogger;
@@ -25,38 +23,37 @@ class ContentManagerTest {
 		testChannel = new Channel(TestData.channelName, TestData.channelID, TestData.channelTag);
 		
 		this.logger = new TestLogger(null);
-		this.cm = new ContentManager(PathHandler.testDownloadDir(), logger);
+		//this.cm = new ContentManager(PathHandler.testDownloadDir(), logger);
 	}
 	
 	/* --- Test --- */
 	
-	@Before
 	@Test
 	void testLoadContent() {
-		cm.loadContent();
-		ArrayList<Channel> cmChannels = cm.getChannelList();
+		PathHandler.removeTestContentData();
 		
-		assertTrue(cmChannels.size() == 1);
-		assertTrue(testChannel.equals(cmChannels.get(0)));
+		fail();
+	}
+	
+	@Test
+	void testSaveContent() throws IOException {
+		PathHandler.addTestContentData();
+		// TODO
+		fail();
 	}
 	
 	@Test
 	void testRemoveAdd() {
-		cm.removeChannel(0);
-		assertTrue(cm.getChannelList().isEmpty());
-		cm.addChannel(testChannel);
-		assertTrue(cm.getChannelList().size() == 1);
+		// TODO
+		fail();
 	}
 	
 	// TODO Add Channel videoLists
 	// TODO Test Download
 	// TODO Implementing use of TestLogger
 	
-	@After
-	@Test
-	void testSave() {
-		cm.saveContent();
-		assertTrue(true);
-	}
-
+	
+	
+	
+	
 }

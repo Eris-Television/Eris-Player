@@ -1,7 +1,13 @@
 package erisPlayer;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class PathHandler {
 	
@@ -62,7 +68,7 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
-	public static void emptyDownloadDir() {
+	public static void emptyTestDownloadDir() {
 		File downloadDir = new File(PathHandler.testDownloadDir());
 		
 		if(downloadDir.listFiles() != null) {
@@ -70,6 +76,26 @@ public class PathHandler {
 				file.delete();
 			}
 		}
+	}
+	
+	public static URI testContentData() {
+		try {
+			return testResourceDir().resolve("channels.xml");
+		} catch (Exception e) { return null; }
+	}
+	
+	public static void removeTestContentData() {
+		File testContentData = new File(PathHandler.testContentData());
+		if(testContentData.exists()) {
+			testContentData.delete();
+		}
+	}
+	
+	public static void addTestContentData() throws IOException {
+		removeTestContentData();
+		Path source = new File(testDir().resolve("testData/channels.xml")).toPath();
+		Path target = new File(testDir().resolve("resources/channels.xml")).toPath();
+		Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
 	}
 	
 	/* -- generalMethodes ---*/

@@ -67,7 +67,7 @@ class DownloadManagerTest {
 	void downloadVideos() throws IOException, InterruptedException {
 		testChannel = new Channel(TestData.channelName, TestData.channelID, TestData.channelTag);
 		
-		PathHandler.emptyDownloadDir();
+		PathHandler.emptyTestDownloadDir();
 		
 		downlaodManager.downloadNewVideos(testChannel);
 		
@@ -83,7 +83,7 @@ class DownloadManagerTest {
 	void updateVideos() {
 		testChannel = new Channel(TestData.channelName, TestData.channelID, TestData.channelTag);
 		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), "testFormat", 10));
-		PathHandler.emptyDownloadDir();
+		PathHandler.emptyTestDownloadDir();
 		
 		downlaodManager.downloadNewVideos(testChannel);
 		
