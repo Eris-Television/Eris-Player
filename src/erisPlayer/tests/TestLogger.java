@@ -13,7 +13,7 @@ public class TestLogger extends ErisLogger{
 
 	@Override
 	public void print(String message) {
-		message = getDateTimeInBrackets() + message;
+		message = getDateTimeInBrackets() +" "+ message;
 		System.out.println(message);
 	}
 	
@@ -25,7 +25,7 @@ public class TestLogger extends ErisLogger{
 	
 	@Override
 	public void printError(String error, Exception e) {
-		error = getDateTimeInBrackets() + "ERROR " + error + " : " + e.getMessage();
+		error = getDateTimeInBrackets() + " ERROR " + error + " : " + e.getMessage();
 		System.err.println(error);
 	}
 	

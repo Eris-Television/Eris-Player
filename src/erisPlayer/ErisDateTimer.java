@@ -18,7 +18,7 @@ public class ErisDateTimer {
 	}
 
 	protected String getDateTimeInBrackets() {
-		return "[" + getDateTimeInBrackets() + "]";
+		return "[" + getDateTime() + "]";
 	}
 	
 	

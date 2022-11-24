@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class ErisLogger extends ErisDateTimer{
@@ -21,7 +20,7 @@ public class ErisLogger extends ErisDateTimer{
 	}
 	
 	public void print(String message) {
-		message = getDateTimeInBrackets() + message;
+		message = getDateTimeInBrackets() +" "+ message;
 		System.out.println(message);
 		log.add(message);
 	}
@@ -33,20 +32,14 @@ public class ErisLogger extends ErisDateTimer{
 	}
 	
 	public void printError(String error, Exception e) {
-		error = getDateTimeInBrackets() + "ERROR " + error + " : " + e.getMessage();
+		error = getDateTimeInBrackets() + " ERROR " + error + " : " + e.getMessage();
 		System.err.println(error);
 		log.add(error);
 	}
 	
 	public void printLog() {
 		try {
-			String filePath = Paths.get(path).toString();
-			File file;
-			if(System.getProperty("os.name").startsWith("Windows")) {
-				file = new File(filePath +"\\"+ getDateTimeInBrackets() + "ErisPlayer.log");
-			}else {
-				file = new File(filePath +"/"+ getDateTimeInBrackets() + "ErisPlayer.log");
-			} // TODO change to default System.seperator
+			File file = new File(path.resolve(getDateTimeInBrackets() + "_ErisPlayer.log"));
 			file.createNewFile();
 			print("Printing Log-File");
 			Files.write(file.toPath(), log);
