@@ -23,21 +23,25 @@ class ContentManagerTest {
 		testChannel = new Channel(TestData.channelName, TestData.channelID, TestData.channelTag);
 		
 		this.logger = new TestLogger(null);
-		//this.cm = new ContentManager(PathHandler.testDownloadDir(), logger);
 	}
 	
 	/* --- Test --- */
 	
 	@Test
-	void testLoadContent() {
-		PathHandler.removeTestContentData();
+	void testLoadContent() throws IOException {
+		PathHandler.addTestContentData();
+		
+		cm = new ContentManager(PathHandler.testResourceDir(), logger);
+		cm.loadContent();
+		ArrayList<Channel> testContent = cm.getChannelList();
 		
 		fail();
 	}
 	
+	/*
 	@Test
-	void testSaveContent() throws IOException {
-		PathHandler.addTestContentData();
+	void testSaveContent() {
+		PathHandler.removeTestContentData();
 		// TODO
 		fail();
 	}
@@ -54,6 +58,6 @@ class ContentManagerTest {
 	
 	
 	
-	
+	*/
 	
 }

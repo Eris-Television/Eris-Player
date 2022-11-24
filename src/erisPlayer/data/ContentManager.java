@@ -18,8 +18,8 @@ public class ContentManager extends ChannelMethodes{
 	public ContentManager(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
-		this.contentParser = new ContentParser(resourceDir);
-		this.downloadManager = new DownloadManager(resourceDir.resolve("Downloads"), logger); // TODO downloadDir in URI
+		this.contentParser = new ContentParser(resourceDir.resolve("channels.xml"), logger);
+		this.downloadManager = new DownloadManager(resourceDir.resolve("Downloads/"), logger);
 		
 		loadContent();
 		listContent();
@@ -33,14 +33,12 @@ public class ContentManager extends ChannelMethodes{
 		logger.print("ContentManager is loading Content ...");
 		
 		channelList = contentParser.readContent();
-		
 	}
 	
     public void saveContent() {
         logger.print("ContentManager is saveing Content ...");
         
         contentParser.writeContent(channelList);
-        
     }
 
     /* --- Update Channels --- */
