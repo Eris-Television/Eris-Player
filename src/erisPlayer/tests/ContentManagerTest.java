@@ -20,7 +20,7 @@ class ContentManagerTest {
 	private ContentManager cm;
 	
 	public ContentManagerTest() {
-		testChannel = new Channel(TestData.channelName, TestData.channelID, TestData.channelTag);
+		testChannel = TestData.testChannel;
 		
 		this.logger = new TestLogger(null);
 	}
@@ -32,8 +32,9 @@ class ContentManagerTest {
 		PathHandler.addTestContentData();
 		
 		cm = new ContentManager(PathHandler.testResourceDir(), logger);
-		cm.loadContent();
 		ArrayList<Channel> testContent = cm.getChannelList();
+		
+		// TODO check errors!
 		
 		fail();
 	}
@@ -56,7 +57,7 @@ class ContentManagerTest {
 	// TODO Test Download
 	// TODO Implementing use of TestLogger
 	
-	
+	// TODO Make TestClass for testing Data Classes
 	
 	*/
 	

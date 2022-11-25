@@ -11,7 +11,7 @@ public class Channel implements Serializable {
 
     private final String name;
     /** YouTube-Channel-ID */
-    private final String chanalID;
+    private final String chanalID; // TODO: refactor channelID
     private final String tag;
 
     private ArrayList<Video> videoList;
@@ -23,6 +23,11 @@ public class Channel implements Serializable {
         this.tag = tag;
         this.videoList = new ArrayList<>();
         this.unpublishedVideos = new ArrayList<>();
+    }
+    
+    public Channel(String name, String chanalID, String tag, ArrayList<Video> videos) {
+    	this(name, chanalID, tag);
+        this.videoList = videos;
     }
     
     /* --- Getter && Setter --- */

@@ -12,7 +12,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -42,8 +41,9 @@ public class ContentParser {
 		}
 	}
 	
+	/* --- read Content --- */
+	
 	public ArrayList<Channel> readContent() {
-		
 		try {
 			Document document = documentBuilder.parse(new File(path));
 			Element root = document.getDocumentElement();
@@ -54,9 +54,8 @@ public class ContentParser {
 			System.out.println("Root Element :" + root.getNodeName());
 	        System.out.println("------");
 			
-	        NodeList contentList = root.getChildNodes();
-	        
-	       
+	        NodeList contentList = root.getElementsByTagName("channel");
+	        return processChannels(contentList);
 			
 		} catch (SAXException | IOException e) {
 			logger.printError("While reading ChannelData.", e);
@@ -64,10 +63,7 @@ public class ContentParser {
 			logger.printError("Can't read XML-file or does not match the standert.", e);
 		}
 		
-		
-		
-		
-		return null;
+		return new ArrayList<>();
 	}
 	
 	private void checkRootElement(Element root) throws ContentParserException {
@@ -75,6 +71,58 @@ public class ContentParser {
 			throw new ContentParserException("Root-Element does not match the standert");
 		}
 	}
+	
+	private ArrayList<Channel> processChannels(NodeList contentList) {
+		ArrayList<Channel> channelList = new ArrayList<>();
+        for(int i = 0; i < contentList.getLength(); i++) {
+        	Element channelNode = (Element) contentList.item(i);
+        	
+        	String channelName = channelNode.getAttribute("name");
+        	String channelID = channelNode.getAttribute("id").toUpperCase();
+        	String channelTag = channelNode.getAttribute("tag");
+        	
+        	System.out.println(i +" : "+ channelNode.getNodeName());
+        	
+        	Channel channel = new Channel(channelName, channelID, channelTag);
+        	try {
+				checkChannel(channel);
+			} catch (ContentParserException e) {
+				String errorLocation = "While loading " +channelName +"["+ channelTag +" : "+ channelID +"]";
+				logger.printError(errorLocation, e);
+				continue;
+			}
+        	
+        	ArrayList<Video> videos = processVideos();
+        	channel = new Channel(channelName, channelID, channelTag, videos);
+        	channelList.add(channel);
+        	
+        	String logMessage = "Channel : ["+ channel.getTag() 
+        						+"] \""+ channel.getName() 
+        						+"\" (ID : "+ channel.getChanalID() 
+        						+") loaded with "+ channel.getVideoList().size() +" videos.";
+        	logger.printSubline(logMessage);
+        }
+        
+        return channelList;
+	}
+	
+	private void checkChannel(Channel channel) throws ContentParserException {
+		 boolean isInvalid = channel.getName().isBlank() 
+				 			|| channel.getChanalID().isBlank() 
+				 			|| channel.getTag().isBlank();
+		if(isInvalid) {
+			throw new ContentParserException("Channel does not match the standert format.");
+		}
+	}
+	
+	private ArrayList<Video> processVideos() {
+		ArrayList<Video> videos = new ArrayList<>();
+		
+		return videos;
+	}
+	
+	
+	/* --- write Content --- */
 	
 	public void writeContent(ArrayList<Channel> data) {
 		

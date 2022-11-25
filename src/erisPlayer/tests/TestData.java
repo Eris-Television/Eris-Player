@@ -1,12 +1,15 @@
 package erisPlayer.tests;
 
 import erisPlayer.PathHandler;
+import erisPlayer.data.Channel;
 
 public class TestData {
 	
-	public static final String channelName = "Eris Debug";
-	public static final String channelID = "UCYGFAov8c5mIyKnoGu-JWng";
-	public static final String channelTag = "ERD";
+	private static final String channelName = "Eris Debug";
+	private static final String channelID = "UCYGFAov8c5mIyKnoGu-JWng";
+	private static final String channelTag = "ERD";
+	
+	public static final Channel testChannel = new Channel(channelName, channelID, channelTag);
 
 	public static final String defaultDate = "20150830";
 	

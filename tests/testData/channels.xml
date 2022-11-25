@@ -1,9 +1,28 @@
 <?xml version="1.0"?>
 <eris>
-    <channel>
-        <name>ErisDebug</name>
-        <channelID>UCYGFAov8c5mIyKnoGu-JWng</channelID>
-        <tag>ERD</tag>
+    <channel name="Eris-Debug" id="UCYGFAov8c5mIyKnoGu-JWng" tag="ERD">
+        <videoList>
+            <video name="">
+                <name>1</name>
+                <uploadDate></uploadDate>
+                <format></format>
+                <playTime></playTime>
+            </video>
+            <video>
+                <name>2</name>
+                <uploadDate></uploadDate>
+                <format></format>
+                <playTime></playTime>
+            </video>
+            <video>
+                <name>3</name>
+                <uploadDate></uploadDate>
+                <format></format>
+                <playTime></playTime>
+            </video>
+        </videoList>
+    </channel>
+    <channel name="Eris-Television" id="UCJ4rRW11hiG4O8UavtusGuA" tag="ERT">
         <videoList>
             <video>
                 <name>1</name>
@@ -25,29 +44,9 @@
             </video>
         </videoList>
     </channel>
-    <channel>
-        <name>ErisDebug</name>
-        <channelID>UCYGFAov8c5mIyKnoGu-JWng</channelID>
-        <tag>ERD</tag>
-        <videoList>
-            <video>
-                <name>1</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-            <video>
-                <name>2</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-            <video>
-                <name>3</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-        </videoList>
-    </channel>
+    <!-- For Error detaction testing -->
+    <channel />
+    <channel id="No Name" tag="NoN"/>
+    <channel name="No ID" tag="NID"/>
+    <channel name="No" id="Tag" />
 </eris>
