@@ -65,7 +65,7 @@ public class DownloadManager {
 		}
 		
 		// TODO fix Logger and Timer --> makes Test red
-		//logger.printSubline("Donwloaded new Video from : [" + channel.getTag() +"] : "+ channel.getName());
+		logger.printSubline("Donwloaded new Video from : [" + channel.getTag() +"] : "+ channel.getName());
 	}
 	
 	protected String getCommandLine(Channel channel) {

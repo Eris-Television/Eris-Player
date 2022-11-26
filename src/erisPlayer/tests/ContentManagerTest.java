@@ -20,7 +20,7 @@ class ContentManagerTest {
 	/* --- Test --- */
 	
 	@Test
-	void testLoadContent() throws IOException {
+	void loadContentTests() throws IOException {
 		PathHandler.addTestContentData();
 		
 		logger = new TestLogger(null);
@@ -32,15 +32,15 @@ class ContentManagerTest {
 		assertEquals(2, testContent.size(), "Unexpected number of channels.");
 		
 		Channel checkChannel = testContent.get(0);
-		Channel testChannel = TestData.CHANNEL_ERD;
-		testChannel.addVideo(TestData.VIDEO_ERD_1);
-		testChannel.addVideo(TestData.VIDEO_ERD_2);
+		Channel testChannel = TestData.createChannelERD();
+		testChannel.addVideo(TestData.createVideoERD1());
+		testChannel.addVideo(TestData.createVideoERD2());
 		testChannel.addVideo(TestData.VIDEO_ERD_3);
 		
 		assertEquals(testChannel, checkChannel, "Wrong channel, expect : " + checkChannel.getName());
 		
 		checkChannel = testContent.get(1);
-		testChannel = TestData.CHANNEL_ERT;
+		testChannel = TestData.createChannelERT();
 		
 		assertEquals(testChannel, checkChannel, "Wrong channel, expect : " + checkChannel.getName());
 	}
@@ -76,7 +76,7 @@ class ContentManagerTest {
 	
 	/*
 	@Test
-	void testSaveContent() {
+	void saveContentTests() {
 		PathHandler.removeTestContentData();
 		// TODO
 		fail();
@@ -90,7 +90,6 @@ class ContentManagerTest {
 	
 	// TODO Add Channel videoLists
 	// TODO Test Download
-	// TODO Implementing use of TestLogger
 	
 	// TODO Make TestClass for testing Data Classes
 	

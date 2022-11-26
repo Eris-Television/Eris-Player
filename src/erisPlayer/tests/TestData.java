@@ -14,19 +14,19 @@ public class TestData {
 	static final String CHANNEL_ERD_ID 	 = "UCYGFAov8c5mIyKnoGu-JWng";
 	static final String CHANNEL_ERD_TAG  = "ERD";
 	
-	public static final Channel CHANNEL_ERD = new Channel(CHANNEL_ERD_NAME, CHANNEL_ERD_ID, CHANNEL_ERD_TAG);
+	public static Channel createChannelERD() { return new Channel(CHANNEL_ERD_NAME, CHANNEL_ERD_ID, CHANNEL_ERD_TAG); }
 	
 	static final String VIDEO_ERD_1_NAME 			= "TV DX - No Singnal #01";
 	static final LocalDate VIDEO_ERD_1_UPLOADDATE 	= LocalDate.of(2022, 10, 9);
 	static final int VIDEO_ERD_1_PLAYTIME 			= 13;
 	
-	public static final Video VIDEO_ERD_1 = new Video(VIDEO_ERD_1_NAME, VIDEO_ERD_1_UPLOADDATE, VIDEO_ERD_1_PLAYTIME);
+	public static Video createVideoERD1() { return new Video(VIDEO_ERD_1_NAME, VIDEO_ERD_1_UPLOADDATE, VIDEO_ERD_1_PLAYTIME); }
 
 	private static final String VIDEO_ERD_2_NAME 			= "Count Down 10 sec #01";
 	private static final LocalDate VIDEO_ERD_2_UPLOADDATE 	= LocalDate.of(2022, 10, 11);
 	private static final int VIDEO_ERD_2_PLAYTIME 			= 10;
 	
-	public static final Video VIDEO_ERD_2 = new Video(VIDEO_ERD_2_NAME, VIDEO_ERD_2_UPLOADDATE, VIDEO_ERD_2_PLAYTIME);
+	public static Video createVideoERD2() { return new Video(VIDEO_ERD_2_NAME, VIDEO_ERD_2_UPLOADDATE, VIDEO_ERD_2_PLAYTIME); }
 	
 	private static final String VIDEO_ERD_3_NAME 			= "Eris Intro";
 	private static final LocalDate VIDEO_ERD_3_UPLOADDATE 	= LocalDate.of(2022, 11, 21);
@@ -38,7 +38,7 @@ public class TestData {
 	private static final String CHANNEL_ERT_ID 	 = "UCJ4rRW11hiG4O8UavtusGuA";
 	private static final String CHANNEL_ERT_TAG  = "ERT";
 	
-	public static final Channel CHANNEL_ERT = new Channel(CHANNEL_ERT_NAME, CHANNEL_ERT_ID, CHANNEL_ERT_TAG);
+	public static Channel createChannelERT() { return new Channel(CHANNEL_ERT_NAME, CHANNEL_ERT_ID, CHANNEL_ERT_TAG); }
 	
 	/* --- Download Test-Data --- */
 	

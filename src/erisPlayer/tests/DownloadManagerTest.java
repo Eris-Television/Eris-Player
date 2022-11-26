@@ -1,45 +1,34 @@
 package erisPlayer.tests;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import erisPlayer.ErisDateTimer;
-import erisPlayer.ErisLogger;
 import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
 import erisPlayer.data.Video;
 
 class DownloadManagerTest {
 	
-	private ErisLogger logger;
-	private DownloadManagerSpy downlaodManager;
-	private Channel testChannel;
-	
-	/* --- Constructor: --- */
-	
-	public DownloadManagerTest() {
-		this.logger = new TestLogger(null);
-		this.downlaodManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), logger);
-	}
-	
 	/* --- CommandLine-Test --- */
 	
 	@Test
-	void testCommandLine() {
-		testChannel = TestData.CHANNEL_ERD;
+	void commandLineTests() {
+		Channel testChannel = TestData.createChannelERD();
+		System.out.println(testChannel.hashCode());
+		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new TestLogger(null));
 		
 		/* --- Test with empty Channel --- */
 		
-		String date = downlaodManager.getDate(testChannel);
+		String date = downloadManager.getDate(testChannel);
 		assertEquals(TestData.defaultDate, date, "Incorrect date for empty channel");
 		
 		
 		String assertCMD = TestData.ytdlStart + TestData.defaultDate + TestData.ytdlEnd;
-		String cmd = downlaodManager.getCommandLine(testChannel);
+		String cmd = downloadManager.getCommandLine(testChannel);
 		assertEquals(assertCMD, cmd, "Incorrect commandLine for empty channel");
 		
 		/* --- Test with Video --- */
@@ -47,21 +36,22 @@ class DownloadManagerTest {
 		Video testVideo = new Video("Test", ErisDateTimer.toLocalDate(TestData.testDate), -1);
 		testChannel.addVideo(testVideo);
 		
-		date = downlaodManager.getDate(testChannel);
+		date = downloadManager.getDate(testChannel);
 		assertEquals(TestData.testDate, date, "Incorrect date for channel with video");
 		
 		assertCMD = TestData.ytdlStart + TestData.testDate + TestData.ytdlEnd;
-		cmd = downlaodManager.getCommandLine(testChannel);
+		cmd = downloadManager.getCommandLine(testChannel);
 		assertEquals(assertCMD, cmd, "Incorrect commandLine for channel with video");
-		
 	}
 	
 	@Test
-	void downloadVideos() throws IOException, InterruptedException {
-		testChannel = TestData.CHANNEL_ERD;
+	void downloadVideos() {
+		Channel testChannel = TestData.createChannelERD();
+		System.out.println(testChannel.hashCode());
+		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new TestLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		
-		downlaodManager.downloadNewVideos(testChannel);
+		downloadManager.downloadNewVideos(testChannel);
 		
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(downloads.length, 3, "Incorrect amount of Files in testDownloadDir");
@@ -73,11 +63,13 @@ class DownloadManagerTest {
 	
 	@Test
 	void updateVideos() {
-		testChannel = TestData.CHANNEL_ERD;
+		Channel testChannel = TestData.createChannelERD();
+		System.out.println(testChannel.hashCode());
 		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), 10));
+		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new TestLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		
-		downlaodManager.downloadNewVideos(testChannel);
+		downloadManager.downloadNewVideos(testChannel);
 		
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(downloads.length, 2, "Incorrect amount of Files in testDownloadDir");
