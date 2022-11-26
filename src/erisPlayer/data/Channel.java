@@ -80,16 +80,6 @@ public class Channel implements Serializable {
         return videoList;
     }
 
-    /*public ArrayList<Video> getTimeVideoList(TimeCategory category) {
-        ArrayList<Video> returnList = new ArrayList<>();
-        for (Video current : videoList) {
-            if (current.getTimeCategory().equals(category)) {
-                returnList.add(current);
-            }
-        }
-        return videoList;
-    }*/
-
     public ArrayList<Video> getLastWeekUploads() {
         ArrayList<Video> returnList = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
@@ -105,20 +95,29 @@ public class Channel implements Serializable {
         return returnList;
     }
     
-    /* --- For Tests --- */
     @Override
     public boolean equals(Object obj) {
     	if(!obj.getClass().isInstance(this)) { return false; }
-    	Channel c = (Channel) obj;
-    	if(c.name.equals(this.name) &&
-    			c.chanalID.equals(this.chanalID) &&
-    			c.tag.equals(this.tag) /* &&
-    			TODO ADD ,equals
-    			c.videoList.equals(this.videoList) &&
-    			c.unpublishedVideos.equals(this.unpublishedVideos)*/) { 
+    	
+    	Channel check = (Channel) obj;
+    	if(check.name.equals(this.name)
+    			&& check.chanalID.equals(this.chanalID)
+    			&& check.tag.equals(this.tag)
+    			&& checkVideos(check.getVideoList())) { 
     		return true;
     	}else {
     		return false;
     	}
+    }
+    
+    private boolean checkVideos(ArrayList<Video> checkList) {
+    	if(videoList.size() != checkList.size()) { return false; }
+    	boolean check = true;
+    	
+    	for(int i = 0; i < videoList.size(); i++) {
+    		check = check && videoList.get(i).equals(checkList.get(i));
+    	}
+    	
+    	return check;
     }
 }

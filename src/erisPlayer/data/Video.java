@@ -30,4 +30,18 @@ public class Video {
     public String toString() {
     	return "["+ uploadDate +"]_"+ name;
     }
+    
+    @Override
+    public boolean equals(Object object) {
+    	if(object.getClass() != Video.class) { return false; }
+    	
+    	Video check = (Video) object;
+    	if(check.getName().equals(name)
+    			&& check.getUploadDate().isEqual(uploadDate)
+    			&& check.getPlayTime() == playTime) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    }
 }

@@ -20,7 +20,7 @@ class ContentManagerTest {
 	private ContentManager cm;
 	
 	public ContentManagerTest() {
-		testChannel = TestData.CHANNEL_1;
+		testChannel = TestData.CHANNEL_ERD;
 		
 		this.logger = new TestLogger(null);
 	}
