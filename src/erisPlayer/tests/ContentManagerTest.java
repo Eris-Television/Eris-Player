@@ -74,25 +74,53 @@ class ContentManagerTest {
 		assertEquals(4, errors, "Incorrect number of ERRORs.");
 	}
 	
-	/*
 	@Test
 	void saveContentTests() {
-		PathHandler.removeTestContentData();
+		initializeTestContent();
+		
+		contentManager.saveContent();
+		
 		// TODO
 		fail();
 	}
+	
 	
 	@Test
-	void testRemoveAdd() {
+	void removeAddTests() {
+		initializeTestContent();
+		
+		Channel channelERD = TestData.createChannelERD();
+		channelERD.addVideo(TestData.createVideoERD1());
+		channelERD.addVideo(TestData.createVideoERD2());
+		channelERD.addVideo(TestData.createVideoERD3());
+		
+		assertEquals(channelERD, contentManager.getChannelList().get(0));
+		
+		Channel channelERT = TestData.createChannelERT();
+		
+		assertEquals(channelERT, contentManager.getChannelList().get(1));
+		
+		
 		// TODO
-		fail();
 	}
 	
-	// TODO Add Channel videoLists
 	// TODO Test Download
 	
 	// TODO Make TestClass for testing Data Classes
 	
-	*/
+	
+	private void initializeTestContent() {
+		PathHandler.removeTestContentData();
+		
+		logger = new ErisLogger(null);
+		contentManager = new ContentManager(PathHandler.resourceDir(), logger);
+		
+		contentManager.addChannel(TestData.createChannelERD());
+		contentManager.addVideo(0, TestData.createVideoERD1());
+		contentManager.addVideo(0, TestData.createVideoERD2());
+		contentManager.addVideo(0, TestData.createVideoERD3());
+		
+		contentManager.addChannel(TestData.createChannelERT());
+	}
 	
 }

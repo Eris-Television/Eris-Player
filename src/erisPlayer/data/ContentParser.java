@@ -1,7 +1,10 @@
 package erisPlayer.data;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -9,6 +12,12 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -19,27 +28,31 @@ import erisPlayer.ErisDateTimer;
 import erisPlayer.ErisLogger;
 
 public class ContentParser {
-	
-	private final String rootName = "eris";
-	
-	private URI path;
+
+	private File contentXML;
 	private ErisLogger logger;
 	
+	private final String rootName = "eris";
+	private Document document;
+	private Element root;
+	
 	public ContentParser(URI resourceDir, ErisLogger logger) {
-		this.path = resourceDir;
+		this.contentXML = new File(resourceDir);
 		this.logger = logger;
 	}
 	
 	/* --- read Content --- */
 	
 	public ArrayList<Channel> readContent() {
+		if(!contentXML.exists()) { return new ArrayList<>(); }
+		
 		try {
 			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 			documentBuilderFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			
-			Document document = documentBuilder.parse(new File(path));
-			Element root = document.getDocumentElement();
+			document = documentBuilder.parse(contentXML);
+			root = document.getDocumentElement();
 			root.normalize();
 			
 			checkRootElement(root);
@@ -141,10 +154,65 @@ public class ContentParser {
 	}
 	
 	
-	/* --- write Content --- */
+/* --- write Content --- */
+	
+	private final String channelTag = "channel";
+	private final String videoTag = "video";
 	
 	public void writeContent(ArrayList<Channel> channelList) {
+		try {
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+		    document = docBuilder.newDocument();
+		    root = document.createElement(rootName);
+		    document.appendChild(root);
+		    
+		    printChannels(channelList);
+		    
+		    writeXml(System.out);
+		    
+		    if(contentXML.exists()) { contentXML.delete(); }
+		    contentXML.createNewFile();
+		    
+		    writeXml(new FileOutputStream(contentXML));
+		} catch (ParserConfigurationException e) {
+			logger.printError("Can't initialize DocumentBuilder.", e);
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void printChannels(ArrayList<Channel> channelList) {
+		for(Channel channel : channelList) {
+			Element channelElement = document.createElement(channelTag);
+			root.appendChild(channelElement);
+			
+			channelElement.setAttribute("name", channel.getName());
+			channelElement.setAttribute("id", channel.getChanalID());
+			channelElement.setAttribute("tag", channel.getTag());
+			
+		}
+	}
+	
+	private void writeXml(OutputStream output) throws TransformerException {
 		
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		
+		// pretty print
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+		DOMSource source = new DOMSource(document);
+		StreamResult result = new StreamResult(output);
+		
+		transformer.transform(source, result);
+
 	}
 	
 }
