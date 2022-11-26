@@ -14,31 +14,35 @@ import erisPlayer.data.ContentManager;
 
 class ContentManagerTest {
 	
-	private Channel testChannel;
-	
 	private ErisLogger logger;
 	private ContentManager contentManager;
-	
-	public ContentManagerTest() {
-		testChannel = TestData.CHANNEL_ERD;
-	}
 	
 	/* --- Test --- */
 	
 	@Test
 	void testLoadContent() throws IOException {
-		logger = new TestLogger(null);
 		PathHandler.addTestContentData();
 		
+		logger = new TestLogger(null);
 		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
-		ArrayList<Channel> testContent = contentManager.getChannelList();
 		
 		checkLogForErrorDetaction();
 		
+		ArrayList<Channel> testContent = contentManager.getChannelList();
+		assertEquals(2, testContent.size(), "Unexpected number of channels.");
 		
+		Channel checkChannel = testContent.get(0);
+		Channel testChannel = TestData.CHANNEL_ERD;
+		testChannel.addVideo(TestData.VIDEO_ERD_1);
+		testChannel.addVideo(TestData.VIDEO_ERD_2);
+		testChannel.addVideo(TestData.VIDEO_ERD_3);
 		
-		// TODO
-		assertTrue(testChannel.equals(testContent.get(0)));
+		assertEquals(testChannel, checkChannel, "Wrong channel, expect : " + checkChannel.getName());
+		
+		checkChannel = testContent.get(1);
+		testChannel = TestData.CHANNEL_ERT;
+		
+		assertEquals(testChannel, checkChannel, "Wrong channel, expect : " + checkChannel.getName());
 	}
 	
 	private void checkLogForErrorDetaction() {
@@ -54,13 +58,13 @@ class ContentManagerTest {
 						assertEquals("ERROR While loading [ : ] : Channel does not match the standert format.", errorMessage);
 						break;
 					}case 1: {
-						assertEquals("ERROR While loading [NoN : NO NAME] : Channel does not match the standert format.", errorMessage);
+						assertEquals("ERROR While loading [NON : No Name] : Channel does not match the standert format.", errorMessage);
 						break;
 					}case 2: {
 						assertEquals("ERROR While loading No ID[NID : ] : Channel does not match the standert format.", errorMessage);
 						break;
 					}case 3: {
-						assertEquals("ERROR While loading No[ : TAG] : Channel does not match the standert format.", errorMessage);
+						assertEquals("ERROR While loading No[ : Tag] : Channel does not match the standert format.", errorMessage);
 						break;
 					}
 				}

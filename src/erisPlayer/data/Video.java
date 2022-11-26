@@ -28,7 +28,7 @@ public class Video {
     
     @Override
     public String toString() {
-    	return "["+ uploadDate +"]_"+ name;
+    	return "["+ uploadDate +"] "+ name;
     }
     
     @Override

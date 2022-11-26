@@ -35,10 +35,10 @@ public class TestData {
 	public static final Video VIDEO_ERD_3 = new Video(VIDEO_ERD_3_NAME, VIDEO_ERD_3_UPLOADDATE, VIDEO_ERD_3_PLAYTIME);
 	
 	private static final String CHANNEL_ERT_NAME = "Eris-Television";
-	private static final String CHANNEL_ERT_ID 	 = "UCYGFAov8c5mIyKnoGu-JWng";
-	private static final String CHANNEL_ERT_TAG  = "ERR";
+	private static final String CHANNEL_ERT_ID 	 = "UCJ4rRW11hiG4O8UavtusGuA";
+	private static final String CHANNEL_ERT_TAG  = "ERT";
 	
-	public static final Channel Channel_ERT = new Channel(CHANNEL_ERT_NAME, CHANNEL_ERT_ID, CHANNEL_ERT_TAG);
+	public static final Channel CHANNEL_ERT = new Channel(CHANNEL_ERT_NAME, CHANNEL_ERT_ID, CHANNEL_ERT_TAG);
 	
 	/* --- Download Test-Data --- */
 	

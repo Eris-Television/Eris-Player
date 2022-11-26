@@ -22,8 +22,6 @@ public class ContentManager extends ChannelMethodes{
 		this.downloadManager = new DownloadManager(resourceDir.resolve("Downloads/"), logger);
 		
 		loadContent();
-		listContent();
-		
 		logger.print("ContentManager started ...");
 	}
 	
@@ -31,13 +29,11 @@ public class ContentManager extends ChannelMethodes{
 	
 	public void loadContent() {
 		logger.print("ContentManager is loading Content ...");
-		
 		channelList = contentParser.readContent();
 	}
 	
     public void saveContent() {
         logger.print("ContentManager is saveing Content ...");
-        
         contentParser.writeContent(channelList);
     }
 

@@ -27,7 +27,7 @@ class DataStructureTest {
 	void testChannelEquals() {
 		Channel testChannel_1 = TestData.CHANNEL_ERD;
 		Channel testChannel_2 = new Channel(TestData.CHANNEL_ERD_NAME, TestData.CHANNEL_ERD_ID, TestData.CHANNEL_ERD_TAG);
-		Channel testChannel_false = TestData.Channel_ERT;
+		Channel testChannel_false = TestData.CHANNEL_ERT;
 		
 		assertTrue(testChannel_1.equals(testChannel_2), "Channels with equal data are not equal");
 		testChannel_2.addVideo(TestData.VIDEO_ERD_1);

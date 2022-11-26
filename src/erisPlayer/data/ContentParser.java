@@ -71,8 +71,8 @@ public class ContentParser {
         	Element channelNode = (Element) contentList.item(i);
         	
         	String channelName = channelNode.getAttribute("name");
-        	String channelID = channelNode.getAttribute("id").toUpperCase();
-        	String channelTag = channelNode.getAttribute("tag");
+        	String channelID = channelNode.getAttribute("id");
+        	String channelTag = channelNode.getAttribute("tag").toUpperCase();
         	
         	Channel channel = new Channel(channelName, channelID, channelTag);
         	try {
@@ -127,7 +127,6 @@ public class ContentParser {
 				continue;
 			}
 			
-			System.out.println("Video : " + videoName +" ["+ videoName +" : " + videoPlayTime +"]");
 			videos.add(video);
 		}
 		
@@ -145,7 +144,7 @@ public class ContentParser {
 	
 	/* --- write Content --- */
 	
-	public void writeContent(ArrayList<Channel> data) {
+	public void writeContent(ArrayList<Channel> channelList) {
 		
 	}
 	

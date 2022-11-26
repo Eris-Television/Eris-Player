@@ -98,16 +98,15 @@ public class Channel implements Serializable {
     @Override
     public boolean equals(Object obj) {
     	if(!obj.getClass().isInstance(this)) { return false; }
-    	
     	Channel check = (Channel) obj;
-    	if(check.name.equals(this.name)
+    	return equals(check);
+    }
+    
+    public boolean equals(Channel check) {
+    	return (check.name.equals(this.name)
     			&& check.chanalID.equals(this.chanalID)
     			&& check.tag.equals(this.tag)
-    			&& checkVideos(check.getVideoList())) { 
-    		return true;
-    	}else {
-    		return false;
-    	}
+    			&& checkVideos(check.getVideoList()));
     }
     
     private boolean checkVideos(ArrayList<Video> checkList) {
@@ -117,7 +116,12 @@ public class Channel implements Serializable {
     	for(int i = 0; i < videoList.size(); i++) {
     		check = check && videoList.get(i).equals(checkList.get(i));
     	}
-    	
     	return check;
+    }
+    
+    @Override
+    public String toString() {
+    	String string = "["+ tag +" : "+ chanalID +"] "+ name; 
+    	return string;
     }
 }
