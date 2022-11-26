@@ -1,48 +1,11 @@
 <?xml version="1.0"?>
 <eris>
     <channel name="Eris-Debug" id="UCYGFAov8c5mIyKnoGu-JWng" tag="ERD">
-        <videoList>
-            <video name="">
-                <name>1</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-            <video>
-                <name>2</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-            <video>
-                <name>3</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-        </videoList>
+        <video name="TV DX - No Singnal #01" uploadDate="20221009" playTime="13"/>
+        <video name="Count Down 10 sec #01" uploadDate="20221011" playTime="10"/>
+        <video name="Eris Intro" uploadDate="20221121" playTime="5"/>
     </channel>
     <channel name="Eris-Television" id="UCJ4rRW11hiG4O8UavtusGuA" tag="ERT">
-        <videoList>
-            <video>
-                <name>1</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-            <video>
-                <name>2</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-            <video>
-                <name>3</name>
-                <uploadDate></uploadDate>
-                <format></format>
-                <playTime></playTime>
-            </video>
-        </videoList>
     </channel>
     <!-- For Error detaction testing -->
     <channel />

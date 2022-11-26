@@ -17,7 +17,7 @@ public class TestData {
 	public static final Channel CHANNEL_ERD = new Channel(CHANNEL_ERD_NAME, CHANNEL_ERD_ID, CHANNEL_ERD_TAG);
 	
 	static final String VIDEO_ERD_1_NAME 			= "TV DX - No Singnal #01";
-	static final LocalDate VIDEO_ERD_1_UPLOADDATE 	= LocalDate.of(2022, 10, 10);
+	static final LocalDate VIDEO_ERD_1_UPLOADDATE 	= LocalDate.of(2022, 10, 9);
 	static final int VIDEO_ERD_1_PLAYTIME 			= 13;
 	
 	public static final Video VIDEO_ERD_1 = new Video(VIDEO_ERD_1_NAME, VIDEO_ERD_1_UPLOADDATE, VIDEO_ERD_1_PLAYTIME);
@@ -29,7 +29,7 @@ public class TestData {
 	public static final Video VIDEO_ERD_2 = new Video(VIDEO_ERD_2_NAME, VIDEO_ERD_2_UPLOADDATE, VIDEO_ERD_2_PLAYTIME);
 	
 	private static final String VIDEO_ERD_3_NAME 			= "Eris Intro";
-	private static final LocalDate VIDEO_ERD_3_UPLOADDATE 	= LocalDate.of(2022, 11, 22);
+	private static final LocalDate VIDEO_ERD_3_UPLOADDATE 	= LocalDate.of(2022, 11, 21);
 	private static final int VIDEO_ERD_3_PLAYTIME 			= 5;
 	
 	public static final Video VIDEO_ERD_3 = new Video(VIDEO_ERD_3_NAME, VIDEO_ERD_3_UPLOADDATE, VIDEO_ERD_3_PLAYTIME);

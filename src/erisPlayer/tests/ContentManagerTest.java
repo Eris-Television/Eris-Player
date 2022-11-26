@@ -37,7 +37,6 @@ class ContentManagerTest {
 		
 		assertTrue(testChannel.equals(testContent.get(0)));
 		// TODO check errors!
-		
 	}
 	
 	/*
