@@ -23,7 +23,7 @@ class ContentManagerTest {
 	void loadContentTests() throws IOException {
 		PathHandler.addTestContentData();
 		
-		logger = new TestLogger(null);
+		logger = new ErisLogger(null);
 		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
 		
 		checkLogForErrorDetaction();

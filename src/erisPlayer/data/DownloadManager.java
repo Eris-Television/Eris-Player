@@ -87,16 +87,4 @@ public class DownloadManager {
 		}
 	}
 
-	public void debug(Channel channel) { // TODO: Remove after not longer used for Debugging
-		System.out.println("DownloadMangaer : Debug ...");
-		
-		String videoUrl = "https://www.youtube.com/channel/" + channel.getChanalID();
-		String output = channel.getTag() + "_%(upload_date)s_%(title)s.%(ext)s";
-		
-		System.out.println(videoUrl);
-		System.out.println(output);
-		System.out.println(directory);
-		System.out.println(getDate(channel));
-	}
-	
 }

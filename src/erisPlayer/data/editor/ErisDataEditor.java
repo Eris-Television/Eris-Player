@@ -22,8 +22,6 @@ public class ErisDataEditor {
 	}
 	
 	private void main() {
-		if(contentManager.debugDownlaods()) return;
-		
 		while(true) {
 			EDEprinter.listMainActions();
 			switch(getAction(0, 5)) {

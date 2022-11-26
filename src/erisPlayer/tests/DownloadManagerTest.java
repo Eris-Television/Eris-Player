@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import erisPlayer.ErisDateTimer;
+import erisPlayer.ErisLogger;
 import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
 import erisPlayer.data.Video;
@@ -19,7 +20,7 @@ class DownloadManagerTest {
 	void commandLineTests() {
 		Channel testChannel = TestData.createChannelERD();
 		System.out.println(testChannel.hashCode());
-		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new TestLogger(null));
+		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
 		
 		/* --- Test with empty Channel --- */
 		
@@ -48,7 +49,7 @@ class DownloadManagerTest {
 	void downloadVideos() {
 		Channel testChannel = TestData.createChannelERD();
 		System.out.println(testChannel.hashCode());
-		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new TestLogger(null));
+		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		
 		downloadManager.downloadNewVideos(testChannel);
@@ -66,7 +67,7 @@ class DownloadManagerTest {
 		Channel testChannel = TestData.createChannelERD();
 		System.out.println(testChannel.hashCode());
 		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), 10));
-		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new TestLogger(null));
+		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		
 		downloadManager.downloadNewVideos(testChannel);

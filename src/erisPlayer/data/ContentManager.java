@@ -102,9 +102,4 @@ public class ContentManager extends ChannelMethodes{
         }
     }
     
-    public boolean debugDownlaods() {
-    	downloadManager.debug(channelList.get(1));
-    	processVideos(new Channel("Debug", "DEBUG", "HRZ"));
-    	return true;
-    }
 }
