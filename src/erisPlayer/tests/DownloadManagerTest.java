@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import erisPlayer.ErisDateTimer;
 import erisPlayer.ErisLogger;
 import erisPlayer.PathHandler;
 import erisPlayer.data.Channel;
@@ -43,7 +44,7 @@ class DownloadManagerTest {
 		
 		/* --- Test with Video --- */
 		
-		Video testVideo = new Video("Test", toLocalDate(TestData.testDate), -1);
+		Video testVideo = new Video("Test", ErisDateTimer.toLocalDate(TestData.testDate), -1);
 		testChannel.addVideo(testVideo);
 		
 		date = downlaodManager.getDate(testChannel);
@@ -53,14 +54,6 @@ class DownloadManagerTest {
 		cmd = downlaodManager.getCommandLine(testChannel);
 		assertEquals(assertCMD, cmd, "Incorrect commandLine for channel with video");
 		
-	}
-	
-	private LocalDate toLocalDate(String date) {
-		int year = Integer.valueOf(date.substring(0, 4));
-		int month = Integer.valueOf(date.substring(4, 6));
-		int day = Integer.valueOf(date.substring(6, 8));
-		
-		return LocalDate.of(year, month, day);
 	}
 	
 	@Test
