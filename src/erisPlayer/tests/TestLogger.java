@@ -15,18 +15,21 @@ public class TestLogger extends ErisLogger{
 	public void print(String message) {
 		message = getDateTimeInBrackets() +" "+ message;
 		System.out.println(message);
+		log.add(message);
 	}
 	
 	@Override
 	public void printSubline(String message) {
 		message = getDateTimeInBrackets() +" _> "+ message;
 		System.out.println(message);
+		log.add(message);
 	}
 	
 	@Override
 	public void printError(String error, Exception e) {
 		error = getDateTimeInBrackets() + " ERROR " + error + " : " + e.getMessage();
 		System.err.println(error);
+		log.add(error);
 	}
 	
 	@Override

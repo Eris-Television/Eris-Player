@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ErisLogger extends ErisDateTimer{
 	
 	private URI path;
-	private ArrayList<String> log;
+	protected ArrayList<String> log;
 	public ArrayList<String> getLog() { return log; }
 	
 	public ErisLogger(URI path) {
@@ -47,6 +47,5 @@ public class ErisLogger extends ErisDateTimer{
 			printError("Can't print Log", e);
 		}
 	}
-	
 	
 }
