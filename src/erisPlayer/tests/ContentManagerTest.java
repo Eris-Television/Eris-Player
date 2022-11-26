@@ -20,7 +20,7 @@ class ContentManagerTest {
 	private ContentManager cm;
 	
 	public ContentManagerTest() {
-		testChannel = TestData.testChannel;
+		testChannel = TestData.CHANNEL_1;
 		
 		this.logger = new TestLogger(null);
 	}
@@ -33,10 +33,11 @@ class ContentManagerTest {
 		
 		cm = new ContentManager(PathHandler.testResourceDir(), logger);
 		ArrayList<Channel> testContent = cm.getChannelList();
+		System.out.println(testContent.size());
 		
+		assertTrue(testChannel.equals(testContent.get(0)));
 		// TODO check errors!
 		
-		fail();
 	}
 	
 	/*

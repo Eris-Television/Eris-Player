@@ -63,7 +63,7 @@ public class ContentManager extends ChannelMethodes{
 	    		String videoTitle = file.getName().split("_")[3].split(".")[0]; // TODO handle Video time
 	    		
 	    		if(channel.getTag().equals(channelTag)) {
-	    			channel.addVideo(new Video(videoTitle, getDate(dateString), getFormat(channel, videoTitle), -1));
+	    			channel.addVideo(new Video(videoTitle, getDate(dateString), -1));
 	    		}
 	    		
 	    		System.out.println(file);
@@ -78,10 +78,6 @@ public class ContentManager extends ChannelMethodes{
     private LocalDate getDate(String dateString) {
     	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("uuuuMMdd");
     	return LocalDate.parse(dateString, dateTimeFormatter);
-    }
-    
-    private String getFormat(Channel channel, String videoTitle) {
-    	return "default";
     }
     
     /* --- list-Outputs --- */

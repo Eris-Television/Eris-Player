@@ -29,7 +29,7 @@ class DownloadManagerTest {
 	
 	@Test
 	void testCommandLine() {
-		testChannel = TestData.testChannel;
+		testChannel = TestData.CHANNEL_1;
 		
 		/* --- Test with empty Channel --- */
 		
@@ -43,7 +43,7 @@ class DownloadManagerTest {
 		
 		/* --- Test with Video --- */
 		
-		Video testVideo = new Video("Test", toLocalDate(TestData.testDate), "testFormat", -1);
+		Video testVideo = new Video("Test", toLocalDate(TestData.testDate), -1);
 		testChannel.addVideo(testVideo);
 		
 		date = downlaodManager.getDate(testChannel);
@@ -65,7 +65,7 @@ class DownloadManagerTest {
 	
 	@Test
 	void downloadVideos() throws IOException, InterruptedException {
-		testChannel = TestData.testChannel;
+		testChannel = TestData.CHANNEL_1;
 		PathHandler.emptyTestDownloadDir();
 		
 		downlaodManager.downloadNewVideos(testChannel);
@@ -80,8 +80,8 @@ class DownloadManagerTest {
 	
 	@Test
 	void updateVideos() {
-		testChannel = TestData.testChannel;
-		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), "testFormat", 10));
+		testChannel = TestData.CHANNEL_1;
+		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), 10));
 		PathHandler.emptyTestDownloadDir();
 		
 		downlaodManager.downloadNewVideos(testChannel);
