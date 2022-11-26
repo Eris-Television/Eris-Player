@@ -17,26 +17,57 @@ class ContentManagerTest {
 	private Channel testChannel;
 	
 	private ErisLogger logger;
-	private ContentManager cm;
+	private ContentManager contentManager;
 	
 	public ContentManagerTest() {
 		testChannel = TestData.CHANNEL_ERD;
-		
-		this.logger = new TestLogger(null);
 	}
 	
 	/* --- Test --- */
 	
 	@Test
 	void testLoadContent() throws IOException {
+		logger = new TestLogger(null);
 		PathHandler.addTestContentData();
 		
-		cm = new ContentManager(PathHandler.testResourceDir(), logger);
-		ArrayList<Channel> testContent = cm.getChannelList();
-		System.out.println(testContent.size());
+		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
+		ArrayList<Channel> testContent = contentManager.getChannelList();
 		
+		checkLogForErrorDetaction();
+		
+		
+		
+		// TODO
 		assertTrue(testChannel.equals(testContent.get(0)));
-		// TODO check errors!
+	}
+	
+	private void checkLogForErrorDetaction() {
+		ArrayList<String> log = logger.getLog();
+		
+		int errors = 0;
+		for(String message : log) {
+			if(message.contains("ERROR")) {
+				String errorMessage = message.substring(22);
+				
+				switch (errors) {
+					case 0: {
+						assertEquals("ERROR While loading [ : ] : Channel does not match the standert format.", errorMessage);
+						break;
+					}case 1: {
+						assertEquals("ERROR While loading [NoN : NO NAME] : Channel does not match the standert format.", errorMessage);
+						break;
+					}case 2: {
+						assertEquals("ERROR While loading No ID[NID : ] : Channel does not match the standert format.", errorMessage);
+						break;
+					}case 3: {
+						assertEquals("ERROR While loading No[ : TAG] : Channel does not match the standert format.", errorMessage);
+						break;
+					}
+				}
+				errors++;
+			}
+		}
+		assertEquals(4, errors, "Incorrect number of ERRORs.");
 	}
 	
 	/*

@@ -74,8 +74,6 @@ public class ContentParser {
         	String channelID = channelNode.getAttribute("id").toUpperCase();
         	String channelTag = channelNode.getAttribute("tag");
         	
-        	System.out.println(i +" : "+ channelNode.getNodeName());
-        	
         	Channel channel = new Channel(channelName, channelID, channelTag);
         	try {
 				checkChannel(channel);
