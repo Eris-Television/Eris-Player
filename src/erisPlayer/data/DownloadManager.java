@@ -17,11 +17,8 @@ public class DownloadManager {
 	/* --- Static YouTube-DL parameters --- */
 	private final String ignoreErrors = "--ignore-errors ";
 	private final String format = "-f bestvideo+bestaudio --merge-output-format mp4 ";
-	
 	private final String staticParameters = ignoreErrors + format;
-	
 	private final String youtubeURL = "https://www.youtube.com/channel/";
-	
 	
 	/* --- Constructor --- */
 	
@@ -43,19 +40,14 @@ public class DownloadManager {
 			BufferedReader stdError = new BufferedReader(new 
 				     InputStreamReader(process.getErrorStream()));
 			
-			// Read the output from the command
-			System.out.println("Here is the standard output of the command:\n");
 			String s = null;
 			while ((s = stdInput.readLine()) != null) {
-			    System.out.println(s);
+//			    System.out.println(s);
 			}
 
-			// Read any errors from the attempted command
-			System.out.println("Here is the standard error of the command (if any):\n");
 			while ((s = stdError.readLine()) != null) {
 			    System.out.println(s);
 			}
-			
 			
 			process.waitFor();
 		}catch (IOException | InterruptedException e) {
@@ -64,8 +56,7 @@ public class DownloadManager {
 			return;
 		}
 		
-		// TODO fix Logger and Timer --> makes Test red
-		logger.printSubline("Donwloaded new Video from : [" + channel.getTag() +"] : "+ channel.getName());
+		logger.printSubline("Updated Videos from : [" + channel.getTag() +"] : "+ channel.getName());
 	}
 	
 	protected String getCommandLine(Channel channel) {

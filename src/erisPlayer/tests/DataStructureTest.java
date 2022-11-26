@@ -18,6 +18,8 @@ class DataStructureTest {
 		Video testVideo_false = TestData.createVideoERD2();
 		
 		assertTrue(testVideo_1.equals(testVideo_2), "Videos with equal data are not equal");
+		assertEquals(testVideo_1, testVideo_2, "Videos with equal data are not equal");
+		
 		assertFalse(testVideo_1.equals(testVideo_false), "Videos with differnt data are equal");
 	}
 	
@@ -30,13 +32,12 @@ class DataStructureTest {
 		Channel testChannel_false = TestData.createChannelERT();
 		
 		assertTrue(testChannel_1.equals(testChannel_2), "Channels with equal data are not equal");
+		assertEquals(testChannel_1, testChannel_2, "Channels with equal data are not equal");
 		testChannel_2.addVideo(TestData.createVideoERD1());
+		
 		assertFalse(testChannel_1.equals(testChannel_2), "Channel with differnt data are equal");
 		assertFalse(testChannel_1.equals(testChannel_false), "Channel with differnt data are equal");
 	}
 	
-	
-	
-	
-	
+	// TODO Add & Remove ... (maybe)
 }
