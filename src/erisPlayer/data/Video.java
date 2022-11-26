@@ -2,6 +2,8 @@ package erisPlayer.data;
 
 import java.time.LocalDate;
 
+import erisPlayer.ErisDateTimer;
+
 public class Video {
 
     private final String name;
@@ -24,6 +26,10 @@ public class Video {
 
     public int getPlayTime() {
         return playTime;
+    }
+    
+    public String toFileName() {
+    	return "_"+ ErisDateTimer.toInt(uploadDate) +"_"+ playTime +"_"+ name+".mp4";
     }
     
     @Override

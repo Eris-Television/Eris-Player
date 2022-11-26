@@ -34,4 +34,9 @@ class DataStructureTest {
 		assertFalse(testChannel_1.equals(testChannel_2), "Channel with differnt data are equal");
 		assertFalse(testChannel_1.equals(testChannel_false), "Channel with differnt data are equal");
 	}
+	
+	
+	
+	
+	
 }

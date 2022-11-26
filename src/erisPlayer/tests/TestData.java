@@ -32,7 +32,7 @@ public class TestData {
 	private static final LocalDate VIDEO_ERD_3_UPLOADDATE 	= LocalDate.of(2022, 11, 21);
 	private static final int VIDEO_ERD_3_PLAYTIME 			= 5;
 	
-	public static final Video VIDEO_ERD_3 = new Video(VIDEO_ERD_3_NAME, VIDEO_ERD_3_UPLOADDATE, VIDEO_ERD_3_PLAYTIME);
+	public static Video createVideoERD3() { return new Video(VIDEO_ERD_3_NAME, VIDEO_ERD_3_UPLOADDATE, VIDEO_ERD_3_PLAYTIME); }
 	
 	private static final String CHANNEL_ERT_NAME = "Eris-Television";
 	private static final String CHANNEL_ERT_ID 	 = "UCJ4rRW11hiG4O8UavtusGuA";

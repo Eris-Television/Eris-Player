@@ -2,9 +2,8 @@ package erisPlayer.data;
 
 import java.io.File;
 import java.net.URI;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+import erisPlayer.ErisDateTimer;
 import erisPlayer.ErisLogger;
 
 public class ContentManager extends ChannelMethodes{
@@ -59,7 +58,7 @@ public class ContentManager extends ChannelMethodes{
 	    		String videoTitle = file.getName().split("_")[3].split(".")[0]; // TODO handle Video time
 	    		
 	    		if(channel.getTag().equals(channelTag)) {
-	    			channel.addVideo(new Video(videoTitle, getDate(dateString), -1));
+	    			channel.addVideo(new Video(videoTitle, ErisDateTimer.toLocalDate(dateString), -1));
 	    		}
 	    		
 	    		System.out.println(file);
@@ -69,11 +68,6 @@ public class ContentManager extends ChannelMethodes{
 		} catch (Exception e) {
 			logger.printError("Can't process Videos", e);
 		}
-    }
-    
-    private LocalDate getDate(String dateString) {
-    	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("uuuuMMdd");
-    	return LocalDate.parse(dateString, dateTimeFormatter);
     }
     
     /* --- list-Outputs --- */

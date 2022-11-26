@@ -17,7 +17,6 @@ import org.xml.sax.SAXException;
 
 import erisPlayer.ErisDateTimer;
 import erisPlayer.ErisLogger;
-import erisPlayer.data.editor.ContentParserException;
 
 public class ContentParser {
 	

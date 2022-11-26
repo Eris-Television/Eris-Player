@@ -35,7 +35,7 @@ class ContentManagerTest {
 		Channel testChannel = TestData.createChannelERD();
 		testChannel.addVideo(TestData.createVideoERD1());
 		testChannel.addVideo(TestData.createVideoERD2());
-		testChannel.addVideo(TestData.VIDEO_ERD_3);
+		testChannel.addVideo(TestData.createVideoERD3());
 		
 		assertEquals(testChannel, checkChannel, "Wrong channel, expect : " + checkChannel.getName());
 		

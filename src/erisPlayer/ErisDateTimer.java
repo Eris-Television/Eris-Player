@@ -30,6 +30,17 @@ public class ErisDateTimer {
 		return LocalDate.of(year, month, day);
 	}
 	
+	public static int toInt(LocalDate date) {
+		String stringDate = ""+ fillString(date.getYear()) + fillString(date.getMonthValue()) + fillString(date.getDayOfMonth());
+		return Integer.parseInt(stringDate);
+	}
 	
-	// TODO implement use in other Classes like ContentManger
+	private static String fillString(int integer) {
+		if(integer < 10) {
+			return "0"+integer;
+		}else {
+			return ""+integer;
+		}
+	}
+	
 }

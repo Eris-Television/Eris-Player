@@ -55,9 +55,9 @@ class DownloadManagerTest {
 		
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(downloads.length, 3, "Incorrect amount of Files in testDownloadDir");
-		assertEquals("ERD_20221009_13_TV DX - No Singnal #01.mp4", 	downloads[0].getName(), "Incorrect Video No. 1");
-		assertEquals("ERD_20221011_10_Count Down 10 sec #01.mp4", 	downloads[1].getName(), "Incorrect Video No. 2");
-		assertEquals("ERD_20221121_5_Eris Intro.mp4", 				downloads[2].getName(), "Incorrect Video No. 3");
+		assertEquals("ERD" + TestData.createVideoERD1().toFileName(), downloads[0].getName(), "Incorrect Video No. 1");
+		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[1].getName(), "Incorrect Video No. 2");
+		assertEquals("ERD" + TestData.createVideoERD3().toFileName(), downloads[2].getName(), "Incorrect Video No. 3");
 		
 	}
 	
@@ -73,8 +73,8 @@ class DownloadManagerTest {
 		
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(downloads.length, 2, "Incorrect amount of Files in testDownloadDir");
-		assertEquals("ERD_20221011_10_Count Down 10 sec #01.mp4", 	downloads[0].getName(), "Incorrect Video No. 2");
-		assertEquals("ERD_20221121_5_Eris Intro.mp4", 				downloads[1].getName(), "Incorrect Video No. 3");
+		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[0].getName(), "Incorrect Video No. 2");
+		assertEquals("ERD" + TestData.createVideoERD3().toFileName(), downloads[1].getName(), "Incorrect Video No. 3");
 	}
 	
 }
