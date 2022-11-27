@@ -10,7 +10,7 @@ import erisPlayer.PathHandler;
 
 public class DownloadManager {
 	
-	private String directory;
+	private String downlaodDir;
 	
 	private ErisLogger logger;
 	
@@ -23,7 +23,7 @@ public class DownloadManager {
 	/* --- Constructor --- */
 	
 	public DownloadManager(URI downloadDir, ErisLogger logger) {
-		this.directory = PathHandler.uriToString(downloadDir.resolve("Downloads/"));
+		this.downlaodDir = PathHandler.uriToString(downloadDir);
 		this.logger = logger;
 	}
 	
@@ -61,7 +61,7 @@ public class DownloadManager {
 	
 	protected String getCommandLine(Channel channel) {
 		String downloadAfter = "--dateafter " + getDate(channel);
-		String output = " --output \"" +directory+ channel.getTag() + "_%(upload_date)s_%(duration)s_%(title)s.%(ext)s\" ";
+		String output = " --output \"" +downlaodDir+ channel.getTag() + "_%(upload_date)s_%(duration)s_%(title)s.%(ext)s\" ";
 		
 		String commandLine = "youtube-dl " + staticParameters 
 							+ downloadAfter + output 

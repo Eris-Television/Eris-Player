@@ -123,10 +123,7 @@ class ContentManagerTest {
 	void removeAddTests() {
 		initializeTestContent();
 		
-		Channel channelERD = TestData.createChannelERD();
-		channelERD.addVideo(TestData.createVideoERD1());
-		channelERD.addVideo(TestData.createVideoERD2());
-		channelERD.addVideo(TestData.createVideoERD3());
+		Channel channelERD = createChannelERD();
 		
 		assertEquals(channelERD, contentManager.getChannelList().get(0));
 		
@@ -134,14 +131,11 @@ class ContentManagerTest {
 		
 		assertEquals(channelERT, contentManager.getChannelList().get(1));
 		
+		contentManager.removeVideo(0, 1);
+		channelERD.removeVideo(1);
 		
-		// TODO
+		assertEquals(channelERD, contentManager.getChannelList().get(0));
 	}
-	
-	// TODO Test Download
-	
-	// TODO Make TestClass for testing Data Classes
-	
 	
 	private void initializeTestContent() {
 		PathHandler.removeTestContentData();
@@ -155,6 +149,27 @@ class ContentManagerTest {
 		contentManager.addVideo(0, TestData.createVideoERD3());
 		
 		contentManager.addChannel(TestData.createChannelERT());
+	}
+	
+	@Test
+	void downloadManagerIntegrationTests() {
+		PathHandler.removeTestContentData();
+		
+		logger = new ErisLogger(null);
+		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
+		
+		// TODO
+		
+		
+	}
+	
+	private Channel createChannelERD() {
+		Channel channelERD = TestData.createChannelERD();
+		channelERD.addVideo(TestData.createVideoERD1());
+		channelERD.addVideo(TestData.createVideoERD2());
+		channelERD.addVideo(TestData.createVideoERD3());
+		
+		return channelERD;
 	}
 	
 }

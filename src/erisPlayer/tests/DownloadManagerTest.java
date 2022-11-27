@@ -53,7 +53,7 @@ class DownloadManagerTest {
 		downloadManager.downloadNewVideos(testChannel);
 		
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
-		assertEquals(downloads.length, 3, "Incorrect amount of Files in testDownloadDir");
+		assertEquals(3, downloads.length, "Incorrect amount of Files in testDownloadDir");
 		assertEquals("ERD" + TestData.createVideoERD1().toFileName(), downloads[0].getName(), "Incorrect Video No. 1");
 		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[1].getName(), "Incorrect Video No. 2");
 		assertEquals("ERD" + TestData.createVideoERD3().toFileName(), downloads[2].getName(), "Incorrect Video No. 3");

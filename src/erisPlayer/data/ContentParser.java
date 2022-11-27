@@ -1,7 +1,6 @@
 package erisPlayer.data;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -170,24 +169,18 @@ public class ContentParser {
 		    
 		    printChannels(channelList);
 		    
-		    writeXml(System.out);
-		    
 		    if(contentXML.exists()) { contentXML.delete(); }
 		    contentXML.createNewFile();
 		    
 		    FileOutputStream output = new FileOutputStream(contentXML);
 		    writeXml(output);
 		    output.close();
+		    
 		} catch (ParserConfigurationException e) {
 			logger.printError("Can't initialize DocumentBuilder.", e);
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (TransformerException | IOException e) {
+			logger.printError("Can't print content.", e);
 		}
-
 	}
 	
 	private void printChannels(ArrayList<Channel> channelList) {
@@ -200,7 +193,6 @@ public class ContentParser {
 			channelElement.setAttribute("tag", channel.getTag());
 			
 			printVideos(channel.getVideoList(), channelElement);
-			
 		}
 	}
 	
@@ -212,12 +204,10 @@ public class ContentParser {
 			videoElement.setAttribute("name", video.getName());
 			videoElement.setAttribute("uploadDate", ""+ErisDateTimer.toInt(video.getUploadDate()));
 			videoElement.setAttribute("playTime", "5"+video.getPlayTime());
-			
 		}
 	}
 	
 	private void writeXml(OutputStream output) throws TransformerException {
-		
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		
@@ -228,7 +218,6 @@ public class ContentParser {
 		StreamResult result = new StreamResult(output);
 		
 		transformer.transform(source, result);
-
 	}
 	
 }
