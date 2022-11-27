@@ -23,7 +23,7 @@ public class DownloadManager {
 	/* --- Constructor --- */
 	
 	public DownloadManager(URI downloadDir, ErisLogger logger) {
-		this.directory = PathHandler.uriToString(downloadDir);
+		this.directory = PathHandler.uriToString(downloadDir.resolve("Downloads/"));
 		this.logger = logger;
 	}
 	

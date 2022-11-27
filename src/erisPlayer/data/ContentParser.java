@@ -37,7 +37,7 @@ public class ContentParser {
 	private Element root;
 	
 	public ContentParser(URI resourceDir, ErisLogger logger) {
-		this.contentXML = new File(resourceDir);
+		this.contentXML = new File(resourceDir.resolve("content.xml"));
 		this.logger = logger;
 	}
 	
@@ -175,7 +175,9 @@ public class ContentParser {
 		    if(contentXML.exists()) { contentXML.delete(); }
 		    contentXML.createNewFile();
 		    
-		    writeXml(new FileOutputStream(contentXML));
+		    FileOutputStream output = new FileOutputStream(contentXML);
+		    writeXml(output);
+		    output.close();
 		} catch (ParserConfigurationException e) {
 			logger.printError("Can't initialize DocumentBuilder.", e);
 		} catch (TransformerException e) {
@@ -196,6 +198,20 @@ public class ContentParser {
 			channelElement.setAttribute("name", channel.getName());
 			channelElement.setAttribute("id", channel.getChanalID());
 			channelElement.setAttribute("tag", channel.getTag());
+			
+			printVideos(channel.getVideoList(), channelElement);
+			
+		}
+	}
+	
+	private void printVideos(ArrayList<Video> videoList, Element channelElement) {
+		for(Video video : videoList) {
+			Element videoElement = document.createElement(videoTag);
+			channelElement.appendChild(videoElement);
+			
+			videoElement.setAttribute("name", video.getName());
+			videoElement.setAttribute("uploadDate", ""+ErisDateTimer.toInt(video.getUploadDate()));
+			videoElement.setAttribute("playTime", "5"+video.getPlayTime());
 			
 		}
 	}

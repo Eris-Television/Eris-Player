@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 public class PathHandler {
@@ -78,7 +77,7 @@ public class PathHandler {
 	
 	public static URI testContentData() {
 		try {
-			return testResourceDir().resolve("channels.xml");
+			return testResourceDir().resolve("content.xml");
 		} catch (Exception e) { return null; }
 	}
 	
@@ -91,9 +90,10 @@ public class PathHandler {
 	
 	public static void addTestContentData() throws IOException {
 		removeTestContentData();
-		Path source = new File(testDir().resolve("testData/channels.xml")).toPath();
-		Path target = new File(testDir().resolve("resources/channels.xml")).toPath();
-		Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+		File source = new File(testDir().resolve("testData/loadContent.xml"));
+		File target = new File(testContentData());
+		target.setWritable(true);
+		Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
 	
 	/* -- generalMethodes ---*/

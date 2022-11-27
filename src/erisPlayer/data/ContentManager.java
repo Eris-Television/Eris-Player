@@ -17,8 +17,8 @@ public class ContentManager extends ChannelMethodes{
 	public ContentManager(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
-		this.contentParser = new ContentParser(resourceDir.resolve("channels.xml"), logger);
-		this.downloadManager = new DownloadManager(resourceDir.resolve("Downloads/"), logger);
+		this.contentParser = new ContentParser(resourceDir, logger);
+		this.downloadManager = new DownloadManager(resourceDir, logger);
 		
 		loadContent();
 		logger.print("ContentManager started ...");
