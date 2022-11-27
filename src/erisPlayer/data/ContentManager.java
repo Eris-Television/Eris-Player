@@ -46,24 +46,27 @@ public class ContentManager extends ChannelMethodes{
     }
 
     public void updateChannel(Channel channel) {
-    	downloadManager.downloadNewVideos(channel);
+    	downloadManager.downloadVideos(channel);
     	processVideos(channel);
     }
     
     public void processVideos(Channel channel) {
 		try {
-	    	for(File file : new File(new URI(resourceDir + "Downloads/").getPath()).listFiles()) {
-	    		String channelTag = file.getName().split("_")[0];
-	    		String dateString = file.getName().split("_")[1];
-	    		String videoTitle = file.getName().split("_")[3].split(".")[0]; // TODO handle Video time
+	    	for(File file : new File(resourceDir.resolve("Downloads/")).listFiles()) {
+	    		String fileName = file.getName();
+	    		System.out.println(fileName);
 	    		
-	    		if(channel.getTag().equals(channelTag)) {
-	    			channel.addVideo(new Video(videoTitle, ErisDateTimer.toLocalDate(dateString), -1));
-	    		}
+	    		String channelTag = fileName.split("_")[0];
+	    		String dateString = fileName.split("_")[1];
+	    		String playTime   = fileName.split("_")[2];
+	    		String videoTitle = fileName.split("_")[3];
+	    		videoTitle = videoTitle.substring(0, videoTitle.length() - (".mp4".length()));
+	    		System.out.println(videoTitle);
 	    		
-	    		System.out.println(file);
-	    		System.out.println(file.getName());
-		    	System.out.println(file.getAbsolutePath());
+	    		if(!channel.getTag().equals(channelTag)) { continue; }
+	    		
+	    		Video video = new Video(videoTitle, ErisDateTimer.toLocalDate(dateString), Integer.parseInt(playTime));
+	    		channel.addVideo(video);
 	    	}
 		} catch (Exception e) {
 			logger.printError("Can't process Videos", e);

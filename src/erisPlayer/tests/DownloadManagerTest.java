@@ -45,34 +45,38 @@ class DownloadManagerTest {
 	}
 	
 	@Test
-	void downloadVideos() {
+	void downloadVideoTests() {
 		Channel testChannel = TestData.createChannelERD();
 		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		
-		downloadManager.downloadNewVideos(testChannel);
-		
+		downloadManager.downloadVideos(testChannel);
+		checkDownloads();
+	}
+	
+	public static void checkDownloads() {
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(3, downloads.length, "Incorrect amount of Files in testDownloadDir");
 		assertEquals("ERD" + TestData.createVideoERD1().toFileName(), downloads[0].getName(), "Incorrect Video No. 1");
 		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[1].getName(), "Incorrect Video No. 2");
 		assertEquals("ERD" + TestData.createVideoERD3().toFileName(), downloads[2].getName(), "Incorrect Video No. 3");
-		
 	}
 	
 	@Test
-	void updateVideos() {
+	void updateVideoTests() {
 		Channel testChannel = TestData.createChannelERD();
 		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), 10));
 		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		
-		downloadManager.downloadNewVideos(testChannel);
-		
+		downloadManager.downloadVideos(testChannel);
+		checkUpdates();
+	}
+	
+	public static void checkUpdates() {
 		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
 		assertEquals(downloads.length, 2, "Incorrect amount of Files in testDownloadDir");
 		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[0].getName(), "Incorrect Video No. 2");
 		assertEquals("ERD" + TestData.createVideoERD3().toFileName(), downloads[1].getName(), "Incorrect Video No. 3");
 	}
-	
 }

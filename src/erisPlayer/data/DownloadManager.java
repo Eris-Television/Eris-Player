@@ -29,7 +29,7 @@ public class DownloadManager {
 	
 	/* --- Download functions --- */
 	
-	public void downloadNewVideos(Channel channel) {
+	public void downloadVideos(Channel channel) {
 		String comandLine = "cmd /c " + getCommandLine(channel);
 		
 		try {

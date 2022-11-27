@@ -87,7 +87,7 @@ class ContentManagerTest {
 		File expectedFile = new File(PathHandler.testDir().resolve("testData/saveContent.xml"));
 		File testFile = new File(PathHandler.testContentData());
 		
-		assertTrue(compareFiles( expectedFile, testFile), "Files are not identical.");
+		assertTrue(compareFiles(expectedFile, testFile), "Files are not identical.");
 	}
 	
 	private boolean compareFiles(File expectedFile, File testFile) throws FileNotFoundException {
@@ -157,9 +157,21 @@ class ContentManagerTest {
 		
 		logger = new ErisLogger(null);
 		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
+		contentManager.addChannel(TestData.createChannelERD());
 		
-		// TODO
+		/* --- Download IntegrationTest --- */
+		contentManager.updateChannels();
 		
+		assertEquals(1, contentManager.getChannelList().size(), "todo");
+		Channel expectedChannel = createChannelERD();
+		assertEquals(expectedChannel, contentManager.getChannelList().get(0));
+		DownloadManagerTest.checkDownloads();
+		contentManager.listContent();
+		
+		/* --- Update IntegrationTest --- */
+		
+		
+		DownloadManagerTest.checkUpdates();
 		
 	}
 	
