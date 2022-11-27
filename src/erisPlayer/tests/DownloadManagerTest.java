@@ -1,7 +1,6 @@
 package erisPlayer.tests;
 
 import java.io.File;
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +64,7 @@ class DownloadManagerTest {
 	@Test
 	void updateVideoTests() {
 		Channel testChannel = TestData.createChannelERD();
-		testChannel.addVideo(new Video("testVideo", LocalDate.of(2022, 10, 10), 10));
+		testChannel.addVideo(TestData.createVideoUpdate());
 		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
 		PathHandler.emptyTestDownloadDir();
 		

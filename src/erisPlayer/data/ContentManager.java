@@ -17,8 +17,8 @@ public class ContentManager extends ChannelMethodes{
 	public ContentManager(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
-		this.contentParser = new ContentParser(resourceDir, logger);
-		this.downloadManager = new DownloadManager(resourceDir, logger);
+		this.contentParser = new ContentParser(resourceDir.resolve("content.xml"), logger);
+		this.downloadManager = new DownloadManager(resourceDir.resolve("Downloads/"), logger);
 		
 		loadContent();
 		logger.print("ContentManager started ...");
@@ -54,14 +54,12 @@ public class ContentManager extends ChannelMethodes{
 		try {
 	    	for(File file : new File(resourceDir.resolve("Downloads/")).listFiles()) {
 	    		String fileName = file.getName();
-	    		System.out.println(fileName);
 	    		
 	    		String channelTag = fileName.split("_")[0];
 	    		String dateString = fileName.split("_")[1];
 	    		String playTime   = fileName.split("_")[2];
 	    		String videoTitle = fileName.split("_")[3];
 	    		videoTitle = videoTitle.substring(0, videoTitle.length() - (".mp4".length()));
-	    		System.out.println(videoTitle);
 	    		
 	    		if(!channel.getTag().equals(channelTag)) { continue; }
 	    		
@@ -75,22 +73,24 @@ public class ContentManager extends ChannelMethodes{
     
     /* --- list-Outputs --- */
 
-    public void listChanels() {
+    public String listChanels() {
         System.out.println();
         logger.print("Content porvides " + channelList.size() + " Channels:");
         for (Channel current : channelList) {
             logger.printSubline("Channel : " + channelList.indexOf(current) + " : " + current.getName()
                     + " (ID:" + current.getChanalID() + ") with " + current.getVideoList().size() + " Videos.");
         }
+        return "";
     }
 
-    public void listVideos(int channelNumber) {
+    public String listVideos(int channelNumber) {
         System.out.println();
         logger.print("Channel porvides " + channelList.size() + " Videos:");
         for (Video current : channelList.get(channelNumber).getVideoList()) {
             logger.printSubline("Video : " + current.getName() + " [" + current.getUploadDate()
                     + "], timeCategory: " + current.getPlayTime());
         }
+        return "";
     }
 
     public void listContent() {

@@ -35,8 +35,8 @@ public class ContentParser {
 	private Document document;
 	private Element root;
 	
-	public ContentParser(URI resourceDir, ErisLogger logger) {
-		this.contentXML = new File(resourceDir.resolve("content.xml"));
+	public ContentParser(URI contentXML, ErisLogger logger) {
+		this.contentXML = new File(contentXML);
 		this.logger = logger;
 	}
 	

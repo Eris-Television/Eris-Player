@@ -18,9 +18,11 @@ public class TestData {
 	
 	static final String VIDEO_ERD_1_NAME 			= "TV DX - No Singnal #01";
 	static final LocalDate VIDEO_ERD_1_UPLOADDATE 	= LocalDate.of(2022, 10, 9);
+	static final LocalDate VIDEO_UPDATE_DATE 	= LocalDate.of(2022, 10, 10);
 	static final int VIDEO_ERD_1_PLAYTIME 			= 13;
 	
 	public static Video createVideoERD1() { return new Video(VIDEO_ERD_1_NAME, VIDEO_ERD_1_UPLOADDATE, VIDEO_ERD_1_PLAYTIME); }
+	public static Video createVideoUpdate() { return new Video(VIDEO_ERD_1_NAME, VIDEO_UPDATE_DATE, VIDEO_ERD_1_PLAYTIME); }
 
 	private static final String VIDEO_ERD_2_NAME 			= "Count Down 10 sec #01";
 	private static final LocalDate VIDEO_ERD_2_UPLOADDATE 	= LocalDate.of(2022, 10, 11);

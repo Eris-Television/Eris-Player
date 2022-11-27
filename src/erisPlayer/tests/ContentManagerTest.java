@@ -154,25 +154,37 @@ class ContentManagerTest {
 	@Test
 	void downloadManagerIntegrationTests() {
 		PathHandler.removeTestContentData();
+		PathHandler.emptyTestDownloadDir();
 		
 		logger = new ErisLogger(null);
 		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
 		contentManager.addChannel(TestData.createChannelERD());
+		Channel expectedChannel = createChannelERD();
 		
 		/* --- Download IntegrationTest --- */
 		contentManager.updateChannels();
 		
-		assertEquals(1, contentManager.getChannelList().size(), "todo");
-		Channel expectedChannel = createChannelERD();
-		assertEquals(expectedChannel, contentManager.getChannelList().get(0));
+		assertEquals(1, contentManager.getChannelList().size(), "Unexpected number of channels:" + contentManager.listChanels());
+		assertEquals(expectedChannel, contentManager.getChannelList().get(0), "Unexpected channel content:" + contentManager.listVideos(0));
 		DownloadManagerTest.checkDownloads();
-		contentManager.listContent();
 		
 		/* --- Update IntegrationTest --- */
 		
+		contentManager.removeVideo(0, 2);
+		contentManager.removeVideo(0, 1);
+		contentManager.removeVideo(0, 0);
+		contentManager.addVideo(0, TestData.createVideoUpdate());
+		PathHandler.emptyTestDownloadDir();
 		
+		contentManager.updateChannels();
+		
+		expectedChannel = TestData.createChannelERD();
+		expectedChannel.addVideo(TestData.createVideoUpdate());
+		expectedChannel.addVideo(TestData.createVideoERD2());
+		expectedChannel.addVideo(TestData.createVideoERD3());
+		
+		assertEquals(expectedChannel, contentManager.getChannelList().get(0), "Unexpected channel content:" + contentManager.listVideos(0));
 		DownloadManagerTest.checkUpdates();
-		
 	}
 	
 	private Channel createChannelERD() {
