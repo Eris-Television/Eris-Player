@@ -7,7 +7,9 @@ import org.junit.platform.suite.api.Suite;
 @SelectClasses({
 	DataStructureTest.class,
 	DownloadManagerTest.class,
-	ContentManagerTest.class
+	ContentManagerTest.class,
+	SocketServerTests.class,
+	SchedulerTests.class
 })
 public class AllTests {
 }
