@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<eris>
-    <channel id="UCYGFAov8c5mIyKnoGu-JWng" name="Eris-Debug" tag="ERD">
-        <video name="TV DX - No Singnal #01" playTime="513" uploadDate="20221009"/>
-        <video name="Count Down 10 sec #01" playTime="510" uploadDate="20221011"/>
-        <video name="Eris Intro" playTime="55" uploadDate="20221121"/>
-    </channel>
-    <channel id="UCJ4rRW11hiG4O8UavtusGuA" name="Eris-Television" tag="ERT"/>
-</eris>
