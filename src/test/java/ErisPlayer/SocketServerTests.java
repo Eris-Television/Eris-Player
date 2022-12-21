@@ -17,7 +17,6 @@ class SocketServerTests {
 		
 		
 		// TODO
-		fail("Not yet implemented");
 	}
 
 }
