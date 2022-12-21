@@ -1,15 +1,19 @@
 package ErisPlayer;
 
+import javax.websocket.DeploymentException;
+
+import org.glassfish.tyrus.server.Server;
+
 import ErisPlayer.data.ContentManager;
 
 public class ErisPlayer {
 	
-	private boolean isDebug = false;
+	private static boolean close = false;
+	public static void closePlayer() { close = true; }
 	
 	private ErisLogger logger;
 	private ContentManager contentManager;
 	private ErisScheduler scheduler;
-	private ErisServer socketServer;
 	
 	public ErisPlayer() {
 		this.logger = new ErisLogger(PathHandler.logDir());
@@ -17,22 +21,18 @@ public class ErisPlayer {
 	}
 	
 	private void main() {
-		init();
 		
+		openWebsite();
 		openContentManager();
 		openScheduler();
 		startSocketServer();
 		
+		while(!close);
+
 		close();
 	}
 	
 	 /* --- initialize --- */
-	
-	private void init() {
-		
-		if(isDebug) return;
-		openWebsite();
-	}
 	
 	private void openContentManager() {
 		this.contentManager = new ContentManager(PathHandler.resourceDir(), logger);
@@ -45,14 +45,18 @@ public class ErisPlayer {
 	}
 	
 	private void startSocketServer() {
-		socketServer = new ErisServer(logger);
-		socketServer.start();
+		Server server = new Server("127.0.0.1", 8080, "/", ErisServer.class);
+		try {
+			server.start();
+		} catch (DeploymentException e) {
+			logger.printError("While starting server", e);
+		}
 	}
 	
 	
 	private void openWebsite() {
 		try {
-			String comandLine = "cmd /c start firefox --private-window --kiosk=\"" + PathHandler.localDir().toString() + "html/index.html/" + "\"";
+			String comandLine = "cmd /c start firefox --private-window \"" + PathHandler.localDir().toString() + "html/index.html" + "\"";
 			Runtime.getRuntime().exec(comandLine).waitFor();
 		}catch (Exception e) {
 			logger.printError("while opening Browser", e);
@@ -62,7 +66,6 @@ public class ErisPlayer {
 	/* --- close --- */
 	
 	private void close() {
-		socketServer.close();
 		logger.printLog();
 	}
 	

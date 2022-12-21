@@ -1,71 +1,82 @@
 package ErisPlayer;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+
+@ServerEndpoint(value = "/")
 public class ErisServer {
 	
-	private AtomicBoolean close;
-	
-	private ServerSocket serverSocket;
-	private ServerThread serverThread;
+	private final String WS = "[WebSocket]";
+	private Session session;
 	
 	private ErisLogger logger;
-	
-	public ErisServer(ErisLogger logger) {
-		this.logger = logger;
-		this.close = new AtomicBoolean(false);
+	private ErisScheduler scheduler;
+
+	@OnOpen
+	public void opOpen(Session session) {
+		this.session = session;
+		this.scheduler = ErisScheduler.get();
+		this.logger = scheduler.getLogger();
+
+		logger.print("Serve opend"); // TODO
 	}
-	
-	public boolean start() {
-		try {
-			serverSocket = new ServerSocket(2332);
-			logger.print("SocketServer started");
-			
-			serverSocket.accept();
-			logger.print("Client connected");
-			
-			serverThread = new ServerThread();
-			serverThread.setDaemon(true);
-			serverThread.start();
-			logger.print("ServerThread started");
-			
-			return true;
-		} catch (IOException e) {
-			logger.printError("Can't start Server", e);
-			return false;
-		}
-	}
-	
-	public boolean close() {
-		close.set(true);
-		return true;
-	}
-	
-	
-	private class ServerThread extends Thread {
-		@Override
-		public void run() {
-			while(!serverSocket.isClosed() && close.get()) {
-				// waiting for request ...
-				
-				snooze(10);
-			}
-		}
+
+	@OnClose
+	public void onClose() {
+		// TODO
 		
-		public void snooze(long milies) {
+		ErisPlayer.closePlayer();
+	}
+
+	@OnMessage
+	public void onMessage(String message) {
+
+		switch (message) {
+		case "CONNECT":
+			send("CONNECTED");
+			break;
+			
+		case "DISCONNECT":
+			send("DISCONNECTED");
+			break;
+			
+		case "ERROR":
+			logger.printError(WS, new Exception("While sending message to client"));
+		case "NEXT_VIDEO":
+			String nextVideo = scheduler.getNextVideoPath();
+			if(nextVideo == null || nextVideo.isBlank()) { nextVideo = "noSignal.mp4"; } 
+			
+			send("NEXT_VIDEO : "+nextVideo);
+			break;
+		default:
+			send("ERROR");
+			logger.printError(WS, new Exception("Unable to process message : " + message));
+			break;
+		}
+
+	}
+
+	private void send(String message) {
+		logger.print(WS +" : "+ message);
+		
+		if (session != null && session.isOpen()) {
 			try {
-				Thread.sleep(milies);
-			} catch (InterruptedException e) {
-				logger.printError("While Thread.sleep", e);
+				session.getBasicRemote().sendText(message);
+			} catch (IOException e) {
+				logger.printError(WS + " While sending Message", e);
 			}
 		}
 	}
-	
-	public static void main(String[] args) {
-		ErisServer run = new ErisServer(new ErisLogger(null));
-		run.start();
+
+	@OnError
+	public void onError(Throwable throwable) {
+		logger.printError(WS, new Exception(throwable));
 	}
-	
+
 }

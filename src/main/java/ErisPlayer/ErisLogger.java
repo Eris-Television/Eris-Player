@@ -39,7 +39,9 @@ public class ErisLogger extends ErisDateTimer{
 	
 	public void printLog() {
 		try {
-			File file = new File(path.resolve(getDateTimeInBrackets() + "_ErisPlayer.log"));
+			String filePath = path.toString() + getDateTimeInBrackets() + "_ErisPlayer.log";
+			System.out.println(filePath);
+			File file = new File(filePath);
 			file.createNewFile();
 			print("Printing Log-File");
 			Files.write(file.toPath(), log);

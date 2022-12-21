@@ -24,7 +24,20 @@ public class ErisScheduler {
 		loadSchedule();
 		
 		now = LocalDateTime.now();
+		
+		singleton = this;
 	}
+	
+	/* --- Singleton for ErisServer --- */
+	
+	private static ErisScheduler singleton;
+	
+	public static ErisScheduler get() { return singleton; }
+	
+	public ErisLogger getLogger() { return logger; }
+	
+	
+	/* --- Methods --- */
 	
 	private void loadSchedule() {
 		schedule = new String[7][48];
