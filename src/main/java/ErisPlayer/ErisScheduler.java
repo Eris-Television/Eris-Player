@@ -1,4 +1,4 @@
-package erisPlayer;
+package ErisPlayer;
 
 import java.io.File;
 import java.net.URI;
@@ -6,7 +6,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-import erisPlayer.data.ContentManager;
+import ErisPlayer.data.ContentManager;
 
 public class ErisScheduler {
 	

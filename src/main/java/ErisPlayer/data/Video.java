@@ -1,8 +1,8 @@
-package erisPlayer.data;
+package ErisPlayer.data;
 
 import java.time.LocalDate;
 
-import erisPlayer.ErisDateTimer;
+import ErisPlayer.ErisDateTimer;
 
 public class Video {
 

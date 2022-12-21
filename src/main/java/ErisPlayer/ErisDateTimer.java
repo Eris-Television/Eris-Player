@@ -1,4 +1,4 @@
-package erisPlayer;
+package ErisPlayer;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -1,15 +1,12 @@
-package erisPlayer.tests;
+package ErisPlayer;
 
 import java.io.File;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import erisPlayer.ErisDateTimer;
-import erisPlayer.ErisLogger;
-import erisPlayer.PathHandler;
-import erisPlayer.data.Channel;
-import erisPlayer.data.Video;
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.Video;
 
 class DownloadManagerTest {
 	

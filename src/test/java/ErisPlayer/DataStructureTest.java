@@ -1,11 +1,11 @@
-package erisPlayer.tests;
+package ErisPlayer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import erisPlayer.data.Channel;
-import erisPlayer.data.Video;
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.Video;
 
 class DataStructureTest {
 	

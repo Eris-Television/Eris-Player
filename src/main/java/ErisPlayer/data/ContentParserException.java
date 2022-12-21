@@ -1,4 +1,4 @@
-package erisPlayer.data;
+package ErisPlayer.data;
 
 public class ContentParserException extends Exception {
 

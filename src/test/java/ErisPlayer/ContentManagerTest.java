@@ -1,4 +1,4 @@
-package erisPlayer.tests;
+package ErisPlayer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,10 +10,8 @@ import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
-import erisPlayer.ErisLogger;
-import erisPlayer.PathHandler;
-import erisPlayer.data.Channel;
-import erisPlayer.data.ContentManager;
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.ContentManager;
 
 class ContentManagerTest {
 	

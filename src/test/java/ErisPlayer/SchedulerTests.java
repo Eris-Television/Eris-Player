@@ -1,4 +1,4 @@
-package erisPlayer.tests;
+package ErisPlayer;
 
 import org.junit.jupiter.api.Test;
 

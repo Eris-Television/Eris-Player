@@ -1,4 +1,4 @@
-package erisPlayer.data;
+package ErisPlayer.data;
 
 import java.util.ArrayList;
 

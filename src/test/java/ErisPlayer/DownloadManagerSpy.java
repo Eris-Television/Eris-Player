@@ -1,10 +1,9 @@
-package erisPlayer.tests;
+package ErisPlayer;
 
 import java.net.URI;
 
-import erisPlayer.ErisLogger;
-import erisPlayer.data.Channel;
-import erisPlayer.data.DownloadManager;
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.DownloadManager;
 
 public class DownloadManagerSpy extends DownloadManager{
 

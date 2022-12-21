@@ -1,4 +1,4 @@
-package erisPlayer.data;
+package ErisPlayer.data;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,8 +23,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import erisPlayer.ErisDateTimer;
-import erisPlayer.ErisLogger;
+import ErisPlayer.ErisDateTimer;
+import ErisPlayer.ErisLogger;
 
 public class ContentParser {
 

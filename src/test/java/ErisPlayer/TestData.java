@@ -1,10 +1,9 @@
-package erisPlayer.tests;
+package ErisPlayer;
 
 import java.time.LocalDate;
 
-import erisPlayer.PathHandler;
-import erisPlayer.data.Channel;
-import erisPlayer.data.Video;
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.Video;
 
 public class TestData {
 	

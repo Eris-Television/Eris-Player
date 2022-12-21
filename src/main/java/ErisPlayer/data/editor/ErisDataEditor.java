@@ -1,11 +1,11 @@
-package erisPlayer.data.editor;
+package ErisPlayer.data.editor;
 
 import java.util.Scanner;
 
-import erisPlayer.ErisLogger;
-import erisPlayer.PathHandler;
-import erisPlayer.data.Channel;
-import erisPlayer.data.ContentManager;
+import ErisPlayer.ErisLogger;
+import ErisPlayer.PathHandler;
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.ContentManager;
 
 public class ErisDataEditor {
 	

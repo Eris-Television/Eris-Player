@@ -1,12 +1,12 @@
-package erisPlayer.data;
+package ErisPlayer.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
 
-import erisPlayer.ErisLogger;
-import erisPlayer.PathHandler;
+import ErisPlayer.ErisLogger;
+import ErisPlayer.PathHandler;
 
 public class DownloadManager {
 	

@@ -1,4 +1,4 @@
-package erisPlayer.data.editor;
+package ErisPlayer.data.editor;
 
 class EDEprinter {
 	

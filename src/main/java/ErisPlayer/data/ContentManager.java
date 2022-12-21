@@ -1,10 +1,10 @@
-package erisPlayer.data;
+package ErisPlayer.data;
 
 import java.io.File;
 import java.net.URI;
 
-import erisPlayer.ErisDateTimer;
-import erisPlayer.ErisLogger;
+import ErisPlayer.ErisDateTimer;
+import ErisPlayer.ErisLogger;
 
 public class ContentManager extends ChannelMethodes{
 	

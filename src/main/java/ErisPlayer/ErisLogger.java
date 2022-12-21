@@ -1,4 +1,4 @@
-package erisPlayer;
+package ErisPlayer;
 
 import java.io.File;
 import java.io.IOException;
