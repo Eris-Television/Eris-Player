@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class ErisSocketServer {
+public class ErisServer {
 	
 	private AtomicBoolean close;
 	
@@ -13,7 +13,7 @@ public class ErisSocketServer {
 	
 	private ErisLogger logger;
 	
-	public ErisSocketServer(ErisLogger logger) {
+	public ErisServer(ErisLogger logger) {
 		this.logger = logger;
 		this.close = new AtomicBoolean(false);
 	}
@@ -64,7 +64,7 @@ public class ErisSocketServer {
 	}
 	
 	public static void main(String[] args) {
-		ErisSocketServer run = new ErisSocketServer(new ErisLogger(null));
+		ErisServer run = new ErisServer(new ErisLogger(null));
 		run.start();
 	}
 	

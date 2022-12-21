@@ -9,7 +9,7 @@ public class ErisPlayer {
 	private ErisLogger logger;
 	private ContentManager contentManager;
 	private ErisScheduler scheduler;
-	private ErisSocketServer socketServer;
+	private ErisServer socketServer;
 	
 	public ErisPlayer() {
 		this.logger = new ErisLogger(PathHandler.logDir());
@@ -45,7 +45,7 @@ public class ErisPlayer {
 	}
 	
 	private void startSocketServer() {
-		socketServer = new ErisSocketServer(logger);
+		socketServer = new ErisServer(logger);
 		socketServer.start();
 	}
 	

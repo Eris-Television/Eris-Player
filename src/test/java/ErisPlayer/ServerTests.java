@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class SocketServerTests {
+class ServerTests {
 	
 	private ErisLogger logger;
-	private ErisSocketServer server;
+	private ErisServer server;
 	
 	@Test
 	void serverTest() {
 		logger = new ErisLogger(null);
-		server = new ErisSocketServer(logger);
+		server = new ErisServer(logger);
 		server.close();
 		
 		

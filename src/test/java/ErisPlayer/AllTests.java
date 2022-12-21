@@ -8,7 +8,7 @@ import org.junit.platform.suite.api.Suite;
 	DataStructureTest.class,
 	DownloadManagerTest.class,
 	ContentManagerTest.class,
-	SocketServerTests.class,
+	ServerTests.class,
 	SchedulerTests.class
 })
 public class AllTests {
