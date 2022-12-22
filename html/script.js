@@ -1,7 +1,10 @@
-// --- GLOBAL-Vars : ---
+
+/* --- GLOBAL-VARs --- */
 
 var videoPlayer 
 var videoSource
+
+/* --- WebSocket --- */
 
 var webSocket = new WebSocket("ws://127.0.0.1:8080/");
 
@@ -31,7 +34,7 @@ webSocket.onmessage = (event) => {
             case "CONNECTED":
             case "DISCONNECTED":
             case "ERROR":
-                console.log("R _> " + message)
+                console.log(" R_> " + message)
                 break;
 
             default:
@@ -42,7 +45,7 @@ webSocket.onmessage = (event) => {
     }
 };
 
-
+/* --- Methods --- */
 
 function onLoad() {
     videoPlayer = document.getElementById("videoPlayer")

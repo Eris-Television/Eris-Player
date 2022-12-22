@@ -31,7 +31,7 @@ public class ErisServer {
 	public void onClose() {
 		// TODO
 		
-		ErisPlayer.closePlayer();
+		ErisPlayer.closePlayer(); // TODO
 	}
 
 	@OnMessage
@@ -44,6 +44,7 @@ public class ErisServer {
 			
 		case "DISCONNECT":
 			send("DISCONNECTED");
+			onClose();
 			break;
 			
 		case "ERROR":
