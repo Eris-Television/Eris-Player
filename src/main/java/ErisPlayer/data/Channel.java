@@ -74,7 +74,7 @@ public class Channel implements Serializable {
     	}
     }
     
-    /* --- VideoList-Methods */
+    /* --- VideoList-Methods --- */
 
     public ArrayList<Video> getVideoList() {
         return videoList;
@@ -94,6 +94,9 @@ public class Channel implements Serializable {
 
         return returnList;
     }
+    
+    
+    /* --- Override-Methods --- */
     
     @Override
     public boolean equals(Object obj) {

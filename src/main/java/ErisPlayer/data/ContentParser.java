@@ -153,7 +153,7 @@ public class ContentParser {
 	}
 	
 	
-/* --- write Content --- */
+	/* --- write Content --- */
 	
 	private final String channelTag = "channel";
 	private final String videoTag = "video";

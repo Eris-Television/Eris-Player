@@ -24,13 +24,11 @@ public class ErisServer {
 		this.scheduler = ErisScheduler.get();
 		this.logger = scheduler.getLogger();
 
-		logger.print("Serve opend"); // TODO
+		logger.print(WS + "opend");
 	}
 
 	@OnClose
-	public void onClose() {
-		// TODO
-		
+	public void onClose() {// TODO
 		ErisPlayer.closePlayer(); // TODO
 	}
 
