@@ -1,51 +1,56 @@
-
 // --- GLOBAL-Vars : ---
 
 var videoPlayer 
 var videoSource
 
-var webSocket
+var webSocket = new WebSocket("ws://127.0.0.1:8080/");
+
+webSocket.onopen = (event) => {
+    console.log("WS_> Open cnnection ...");
+    webSocket.send("CONNECT");
+};
+
+webSocket.onclose = function() {
+    console.log("WS_> Close connection ..."); 
+    webSocket.send("DISCONNECT");
+};
+
+webSocket.onmessage = (event) => {
+    let message = event.data;
+    
+    if(message.startsWith("NEXT_VIDEO")) {
+        let nextVideo = message.substring(13, message.length)
+        console.log("NV_> " + nextVideo)
+        
+        videoSource.src = nextVideo
+        videoPlayer.load()
+        videoPlayer.play()
+
+    }else {
+        switch(message) {
+            case "CONNECTED":
+            case "DISCONNECTED":
+            case "ERROR":
+                console.log("R _> " + message)
+                break;
+
+            default:
+                console.log("ER_> " + message)
+                webSocket.send("ERROR")
+                break;
+        }
+    }
+};
+
+
 
 function onLoad() {
     videoPlayer = document.getElementById("videoPlayer")
     videoSource = document.getElementById("videoSource")
-    //openFullscreen();
-
-    webSocket = new WebSocket("127.0.01:2332")
+    videoPlayer.play()
 }
 
 function playNextVideo() {
-    videoSource.src = getNextVideo()
-    videoPlayer.load()
-}
-
-function getNextVideo() {
-    return "t.mp4"
-}
-
-function openFullscreen() {
-
-    var isInFullScreen = (document.fullScreenElement && document.fullScreenElement !==     null) ||    //alternative standard method  
-    (document.mozFullScreen || document.webkitIsFullScreen);
-
-    var docElm = document.documentElement;
-    if (!isInFullScreen) {
-        
-        if (docElm.requestFullscreen) {
-            docElm.requestFullscreen();
-        }
-        else if (docElm.mozRequestFullScreen) {
-            docElm.mozRequestFullScreen();
-            alert("Mozilla entering fullscreen!");
-        }
-        else if (docElm.webkitRequestFullScreen) {
-            docElm.webkitRequestFullScreen();
-            alert("Webkit entering fullscreen!");
-        }
-
-    }
-
-    //var docElm = document.documentElement;
-    //docElm.requestFullscreen();
-    
+    videoPlayer.pause()
+    webSocket.send("NEXT_VIDEO")
 }

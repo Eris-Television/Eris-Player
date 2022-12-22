@@ -49,7 +49,7 @@ public class ErisServer {
 		case "ERROR":
 			logger.printError(WS, new Exception("While sending message to client"));
 		case "NEXT_VIDEO":
-			String nextVideo = scheduler.getNextVideoPath();
+			String nextVideo = ""; //scheduler.getNextVideoPath();
 			if(nextVideo == null || nextVideo.isBlank()) { nextVideo = "noSignal.mp4"; } 
 			
 			send("NEXT_VIDEO : "+nextVideo);
