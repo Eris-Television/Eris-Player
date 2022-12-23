@@ -45,6 +45,11 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
+	/* --- Files --- */
+	
+	public static final String CONTENT  = "content.xml"; 
+	public static final String SCHEDULE = "schedule.csv";
+	
 	/* --- testlDir --- */
 	
 	public static URI testDir() {
@@ -65,7 +70,9 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
-	public static void emptyTestDownloadDir() {
+	/* --- Test-Data-Methods --- */
+	
+	public static void emptyTestResources() {
 		File downloadDir = new File(PathHandler.testDownloadDir());
 		
 		if(downloadDir.listFiles() != null) {
@@ -75,9 +82,9 @@ public class PathHandler {
 		}
 	}
 	
-	public static URI testContentData() {
+	public static URI testContentData() { // TODO: Reactor / use CONTENT in all
 		try {
-			return testResourceDir().resolve("content.xml");
+			return testResourceDir().resolve(CONTENT);
 		} catch (Exception e) { return null; }
 	}
 	
