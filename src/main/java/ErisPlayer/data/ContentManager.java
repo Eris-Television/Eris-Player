@@ -2,9 +2,12 @@ package ErisPlayer.data;
 
 import java.io.File;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import ErisPlayer.ErisDateTimer;
 import ErisPlayer.ErisLogger;
+import ErisPlayer.PathHandler;
 
 public class ContentManager extends ChannelMethodes{
 	
@@ -65,8 +68,15 @@ public class ContentManager extends ChannelMethodes{
 	    		
 	    		Video video = new Video(videoTitle, ErisDateTimer.toLocalDate(dateString), Integer.parseInt(playTime));
 	    		channel.addVideo(video);
+	    		
+	    		File folder = new File(resourceDir.resolve(channelTag));
+	    		if(!folder.exists()) { folder.mkdir(); }
+	    		
+	    		File newPath = new File(PathHandler.getCopyPath(resourceDir, channel, video));
+	    		Files.move(file.toPath(), newPath.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	    	}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.printError("Can't process Videos", e);
 		}
     }

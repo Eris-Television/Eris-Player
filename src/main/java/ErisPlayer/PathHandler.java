@@ -156,8 +156,19 @@ public class PathHandler {
 		// TODO add more
 		videoPath = videoPath.replace(" ", "%20");
 		videoPath = videoPath.replace("#", "%23");
-		
+		System.out.println(resourceDir.toString() +videoPath);
 		return resourceDir.toString() +videoPath;
 	}
 	
+	
+	public static String getCopyPath(URI resourceDir, Channel channel, Video video) {
+		String videoPath = channel.getTag() 
+							+"/"+ channel.getTag() 
+							+"_"+ ErisDateTimer.toInt(video.getUploadDate()) 
+							+"_"+ video.getPlayTime()
+							+"_"+ video.getName()
+							+".mp4";
+		System.out.println(resourceDir.toString() +videoPath);
+		return resourceDir.getPath() +videoPath;
+	}
 }

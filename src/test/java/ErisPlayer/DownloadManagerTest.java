@@ -51,7 +51,9 @@ class DownloadManagerTest {
 	}
 	
 	public static void checkDownloads() {
-		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
+		// TODO FIX
+		
+		File[] downloads = new File(PathHandler.testResourceDir().resolve("ERD/")).listFiles(); // TODO Check Change was : .testDownloadDir()
 		assertEquals(3, downloads.length, "Incorrect amount of Files in testDownloadDir");
 		assertEquals("ERD" + TestData.createVideoERD1().toFileName(), downloads[0].getName(), "Incorrect Video No. 1");
 		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[1].getName(), "Incorrect Video No. 2");
@@ -70,7 +72,7 @@ class DownloadManagerTest {
 	}
 	
 	public static void checkUpdates() {
-		File[] downloads = new File(PathHandler.testDownloadDir()).listFiles();
+		File[] downloads = new File(PathHandler.testResourceDir().resolve("ERD/")).listFiles();
 		assertEquals(downloads.length, 2, "Incorrect amount of Files in testDownloadDir");
 		assertEquals("ERD" + TestData.createVideoERD2().toFileName(), downloads[0].getName(), "Incorrect Video No. 2");
 		assertEquals("ERD" + TestData.createVideoERD3().toFileName(), downloads[1].getName(), "Incorrect Video No. 3");
