@@ -111,5 +111,6 @@ public class TestData {
 			}
 	};
 	
+	public static final String VIDEO_PATH = PathHandler.testResourceDir() + "ERD/ERD_20221009_13_TV%20DX%20-%20No%20Singnal%20%2301.mp4";
 	
 }

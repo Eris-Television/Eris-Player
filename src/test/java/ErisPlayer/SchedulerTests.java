@@ -1,10 +1,14 @@
 package ErisPlayer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.Video;
 
 class SchedulerTests {
 	
@@ -45,17 +49,41 @@ class SchedulerTests {
 	}
 	
 	@Test
-	void getRandomVideoTest() {
-		// TODO
-	}
-	
-	@Test
 	void getScheduledVideoTest() {
 		// TODO
 	}
 	
 	@Test
+	void getRandomVideoTest() throws IOException {
+		PathHandler.addTestScheduleContent();
+		SchedulerSpy scheduler = new SchedulerSpy(PathHandler.testResourceDir(), new ErisLogger(null));
+		
+		Channel testChannel = TestData.createChannelERD();
+		Video testVideo_1 = TestData.createVideoERD1();
+		Video testVideo_2 = TestData.createVideoERD2();
+		
+		String assertPath_1 = scheduler.getPath(testChannel, testVideo_1);
+		String assertPath_2 = scheduler.getPath(testChannel, testVideo_2);
+		
+		for(int i = 0; i < 10; i++) {
+			String testPath = scheduler.getRandomVideo();
+			
+			if(testPath.equals(assertPath_1) || testPath.equals(assertPath_2)) {
+				fail("Incorrect Random-Video : "+ testPath);
+			}
+		}
+	}
+	
+	@Test
 	void getPathTest() {
-		// TODO
+		SchedulerSpy scheduler = new SchedulerSpy(PathHandler.testResourceDir(), new ErisLogger(null));
+		
+		Channel testChannel = TestData.createChannelERD();
+		Video testVideo = TestData.createVideoERD1();
+		
+		String testPath = scheduler.getPath(testChannel, testVideo);
+		String assertPath = TestData.VIDEO_PATH;
+		
+		assertEquals(assertPath, testPath, "Incorrect video path");
 	}
 }

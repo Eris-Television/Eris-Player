@@ -20,7 +20,7 @@ public class ErisScheduler {
 	public static final String DEFAULT_ENTRY = "default";
 
 	private ErisLogger logger;
-	private ContentManager contentManager;
+	private ContentManager contentManager; // TODO: 
 
 	public ErisScheduler(URI resourceDir, ErisLogger logger) {
 		this.resourceDir = resourceDir;
@@ -129,11 +129,16 @@ public class ErisScheduler {
 	
 	protected String getPath(Channel channel, Video video) {
 		String videoPath = channel.getTag() 
+							+"/"+ channel.getTag() 
 							+"_"+ ErisDateTimer.toInt(video.getUploadDate()) 
 							+"_"+ video.getPlayTime()
 							+"_"+ video.getName()
 							+".mp4";
-		URI globalPath = PathHandler.resourceDir().resolve(videoPath);
-		return globalPath.getPath();
+		System.out.println(videoPath);
+		videoPath = videoPath.replace(" ", "%20");
+		videoPath = videoPath.replace("#", "%23");
+		System.out.println(videoPath);
+		
+		return resourceDir.toString() +videoPath;
 	}
 }

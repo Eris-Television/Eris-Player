@@ -116,6 +116,14 @@ public class PathHandler {
 		Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
 	
+	public static void addTestScheduleContent() throws IOException {
+		emptyTestResources();
+		File source = new File(testDataDir().resolve("scheduleContent.xml"));
+		File target = new File(testContentData());
+		target.setWritable(true);
+		Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+	}
+	
 	/* -- generalMethodes ---*/
 	
 	public static String uriToString(URI path) {
