@@ -22,10 +22,10 @@ public class ErisScheduler {
 	private ErisLogger logger;
 	private ContentManager contentManager; // TODO: 
 
-	public ErisScheduler(URI resourceDir, ErisLogger logger) {
+	public ErisScheduler(URI resourceDir, ErisLogger logger, ContentManager contentManager) {
 		this.resourceDir = resourceDir;
 		this.logger = logger;
-		this.contentManager = new ContentManager(resourceDir, logger);
+		this.contentManager = contentManager;
 		loadSchedule();
 
 		now = LocalDateTime.now();

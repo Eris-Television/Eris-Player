@@ -40,7 +40,7 @@ public class ErisPlayer {
 	}
 	
 	private void openScheduler() {
-		scheduler = new ErisScheduler(PathHandler.localDir(), logger);
+		scheduler = new ErisScheduler(PathHandler.localDir(), logger, contentManager);
 		scheduler.toString(); // TODO
 	}
 	
