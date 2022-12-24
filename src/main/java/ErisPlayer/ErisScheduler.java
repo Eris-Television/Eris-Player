@@ -15,7 +15,7 @@ public class ErisScheduler {
 	private final String SD = "[Scheduler]";
 
 	private LocalDateTime now;
-	private URI resourceDir;
+	protected URI resourceDir;
 	protected String[][] schedule;
 	public static final String DEFAULT_ENTRY = "default";
 
@@ -116,7 +116,7 @@ public class ErisScheduler {
 		int randomVideoIndex = (int) (Math.random() * videoList.size());
 		Video video = videoList.get(randomVideoIndex);
 		
-		return getPath(channel, video);
+		return getPath(resourceDir, channel, video);
 	}
 	
 	protected String getScheduledVideo(String entry) {
@@ -127,18 +127,7 @@ public class ErisScheduler {
 	}
 	
 	
-	protected String getPath(Channel channel, Video video) {
-		String videoPath = channel.getTag() 
-							+"/"+ channel.getTag() 
-							+"_"+ ErisDateTimer.toInt(video.getUploadDate()) 
-							+"_"+ video.getPlayTime()
-							+"_"+ video.getName()
-							+".mp4";
-		System.out.println(videoPath);
-		videoPath = videoPath.replace(" ", "%20");
-		videoPath = videoPath.replace("#", "%23");
-		System.out.println(videoPath);
-		
-		return resourceDir.toString() +videoPath;
+	protected static String getPath(URI resourceDir, Channel channel, Video video) {
+		return PathHandler.getPath(resourceDir, channel, video);
 	}
 }

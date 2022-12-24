@@ -6,6 +6,9 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import ErisPlayer.data.Channel;
+import ErisPlayer.data.Video;
+
 public class PathHandler {
 	
 	/* --- localDir --- */
@@ -80,12 +83,8 @@ public class PathHandler {
 	
 	public static void emptyTestResources() {
 		File testResourceDir = new File(PathHandler.testResourceDir());
-		
-		if(testResourceDir.listFiles() != null) {
-			for(File file : testResourceDir.listFiles()) {
-				file.delete();
-			}
-		}
+		deleteFile(testResourceDir);
+		new File(testResourceDir()).mkdir();
 	}
 	
 	public static URI testContentData() { // TODO: Reactor / use CONTENT in all
@@ -126,6 +125,18 @@ public class PathHandler {
 	
 	/* -- generalMethodes ---*/
 	
+	private static boolean deleteFile(File file) {
+		File[] files = file.listFiles();
+		
+		if(files != null) { 
+			for(File currentFile : file.listFiles()) {
+				deleteFile(currentFile);
+			}
+		}
+
+		return file.delete();
+	}
+	
 	public static String uriToString(URI path) {
 		String osName = System.getProperty("os.name").toLowerCase();
 		if(osName.startsWith("windows")) {
@@ -133,6 +144,20 @@ public class PathHandler {
 		}else {
 			return path.getPath() + "/";
 		}
+	}
+	
+	public static String getPath(URI resourceDir, Channel channel, Video video) {
+		String videoPath = channel.getTag() 
+							+"/"+ channel.getTag() 
+							+"_"+ ErisDateTimer.toInt(video.getUploadDate()) 
+							+"_"+ video.getPlayTime()
+							+"_"+ video.getName()
+							+".mp4";
+		// TODO add more
+		videoPath = videoPath.replace(" ", "%20");
+		videoPath = videoPath.replace("#", "%23");
+		
+		return resourceDir.toString() +videoPath;
 	}
 	
 }

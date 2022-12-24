@@ -75,7 +75,7 @@ class SchedulerTests {
 	}
 	
 	@Test
-	void getPathTest() {
+	void getPathTest() { // TODO Move to PathHandler-Tests
 		SchedulerSpy scheduler = new SchedulerSpy(PathHandler.testResourceDir(), new ErisLogger(null));
 		
 		Channel testChannel = TestData.createChannelERD();

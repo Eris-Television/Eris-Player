@@ -24,7 +24,7 @@ public class SchedulerSpy extends ErisScheduler{
 	}
 	
 	public String getPath(Channel channel, Video video) {
-		return super.getPath(channel, video);
+		return super.getPath(resourceDir, channel, video);
 	}
 	
 }
