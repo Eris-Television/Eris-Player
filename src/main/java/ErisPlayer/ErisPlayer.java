@@ -22,10 +22,10 @@ public class ErisPlayer {
 	
 	private void main() {
 		
-		openWebsite();
 		openContentManager();
 		openScheduler();
 		startSocketServer();
+		openWebsite();
 		
 		while(!close);
 
@@ -40,7 +40,7 @@ public class ErisPlayer {
 	}
 	
 	private void openScheduler() {
-		scheduler = new ErisScheduler(PathHandler.localDir(), logger, contentManager);
+		scheduler = new ErisScheduler(PathHandler.resourceDir(), logger, contentManager);
 		scheduler.toString(); // TODO
 	}
 	

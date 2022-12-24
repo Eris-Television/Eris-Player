@@ -3,6 +3,8 @@ package ErisPlayer;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -154,10 +156,14 @@ public class PathHandler {
 							+"_"+ video.getName()
 							+".mp4";
 		// TODO add more
-		videoPath = videoPath.replace(" ", "%20");
-		videoPath = videoPath.replace("#", "%23");
-		System.out.println(resourceDir.toString() +videoPath);
-		return resourceDir.toString() +videoPath;
+		System.out.println(videoPath);
+		System.out.println(new File(videoPath).toURI().toString());
+		System.out.println(resourceDir.toString());
+		
+		String videoURI = new File(videoPath).toURI().toString();
+		int prefix = videoURI.indexOf(channel.getTag()+"/"+channel.getTag());
+		System.out.println(videoURI.substring(prefix, videoURI.length()));
+		return resourceDir.toString() + videoURI.substring(prefix, videoURI.length());
 	}
 	
 	

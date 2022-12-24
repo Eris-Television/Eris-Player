@@ -203,7 +203,7 @@ public class ContentParser {
 			
 			videoElement.setAttribute("name", video.getName());
 			videoElement.setAttribute("uploadDate", ""+ErisDateTimer.toInt(video.getUploadDate()));
-			videoElement.setAttribute("playTime", "5"+video.getPlayTime());
+			videoElement.setAttribute("playTime", ""+video.getPlayTime());
 		}
 	}
 	
