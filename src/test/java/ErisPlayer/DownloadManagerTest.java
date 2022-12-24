@@ -44,7 +44,7 @@ class DownloadManagerTest {
 	void downloadVideoTests() {
 		Channel testChannel = TestData.createChannelERD();
 		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
-		PathHandler.emptyTestDownloadDir();
+		PathHandler.emptyTestResources();
 		
 		downloadManager.downloadVideos(testChannel);
 		checkDownloads();
@@ -63,7 +63,7 @@ class DownloadManagerTest {
 		Channel testChannel = TestData.createChannelERD();
 		testChannel.addVideo(TestData.createVideoUpdate());
 		DownloadManagerSpy downloadManager = new DownloadManagerSpy(PathHandler.testDownloadDir(), new ErisLogger(null));
-		PathHandler.emptyTestDownloadDir();
+		PathHandler.emptyTestResources();
 		
 		downloadManager.downloadVideos(testChannel);
 		checkUpdates();

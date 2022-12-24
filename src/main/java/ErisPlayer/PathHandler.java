@@ -70,13 +70,19 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
+	public static URI testDataDir() {
+		try {
+			return testDir().resolve("testData/");
+		} catch (Exception e) { return null; }
+	}
+	
 	/* --- Test-Data-Methods --- */
 	
 	public static void emptyTestResources() {
-		File downloadDir = new File(PathHandler.testDownloadDir());
+		File testResourceDir = new File(PathHandler.testResourceDir());
 		
-		if(downloadDir.listFiles() != null) {
-			for(File file : downloadDir.listFiles()) {
+		if(testResourceDir.listFiles() != null) {
+			for(File file : testResourceDir.listFiles()) {
 				file.delete();
 			}
 		}
@@ -88,17 +94,24 @@ public class PathHandler {
 		} catch (Exception e) { return null; }
 	}
 	
-	public static void removeTestContentData() {
-		File testContentData = new File(PathHandler.testContentData());
-		if(testContentData.exists()) {
-			testContentData.delete();
-		}
+	public static void addTestContentData() throws IOException {
+		emptyTestResources();
+		File source = new File(testDataDir().resolve("loadContent.xml"));
+		File target = new File(testContentData());
+		target.setWritable(true);
+		Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}
 	
-	public static void addTestContentData() throws IOException {
-		removeTestContentData();
-		File source = new File(testDir().resolve("testData/loadContent.xml"));
-		File target = new File(testContentData());
+	public static URI testSchedule() {
+		try {
+			return testResourceDir().resolve(SCHEDULE);
+		} catch (Exception e) { return null; }
+	}
+	
+	public static void addTestSchedule() throws IOException {
+		emptyTestResources();
+		File source = new File(testDataDir().resolve(SCHEDULE));
+		File target = new File(testSchedule());
 		target.setWritable(true);
 		Files.copy(source.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
 	}

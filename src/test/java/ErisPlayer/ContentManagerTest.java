@@ -136,7 +136,7 @@ class ContentManagerTest {
 	}
 	
 	private void initializeTestContent() {
-		PathHandler.removeTestContentData();
+		PathHandler.emptyTestResources();
 		
 		logger = new ErisLogger(null);
 		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
@@ -151,8 +151,7 @@ class ContentManagerTest {
 	
 	@Test
 	void downloadManagerIntegrationTests() {
-		PathHandler.removeTestContentData();
-		PathHandler.emptyTestDownloadDir();
+		PathHandler.emptyTestResources();
 		
 		logger = new ErisLogger(null);
 		contentManager = new ContentManager(PathHandler.testResourceDir(), logger);
@@ -172,7 +171,7 @@ class ContentManagerTest {
 		contentManager.removeVideo(0, 1);
 		contentManager.removeVideo(0, 0);
 		contentManager.addVideo(0, TestData.createVideoUpdate());
-		PathHandler.emptyTestDownloadDir();
+		PathHandler.emptyTestResources();
 		
 		contentManager.updateChannels();
 		
