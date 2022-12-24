@@ -2,7 +2,6 @@ package ErisPlayer;
 
 import java.io.File;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +16,8 @@ public class ErisScheduler {
 
 	private LocalDateTime now;
 	private URI resourceDir;
-	private String[][] schedule;
+	protected String[][] schedule;
+	public static final String DEFAULT_ENTRY = "default";
 
 	private ErisLogger logger;
 	private ContentManager contentManager;
@@ -55,7 +55,7 @@ public class ErisScheduler {
 		schedule = new String[7][48];
 		logger.print(SD + " : Loading Schedule ...");
 
-		File scheduleFile = new File(resourceDir.resolve("schedule.csv"));
+		File scheduleFile = new File(resourceDir.resolve(PathHandler.SCHEDULE));
 		System.out.println(scheduleFile.getAbsolutePath());
 
 		if (scheduleFile.exists()) {
@@ -72,9 +72,9 @@ public class ErisScheduler {
 				for (int j = 0; j < 7; j++) {
 					String entry = input.split(";")[j];
 					if (entry.isBlank()) {
-						schedule[i][j] = "default";
+						schedule[j][i] = (DEFAULT_ENTRY);
 					} else {
-						schedule[i][j] = entry;
+						schedule[j][i] = (entry);
 					}
 				}
 			}
@@ -86,7 +86,7 @@ public class ErisScheduler {
 	private void createEmptySchedule() {
 		for (int i = 0; i < 48; i++) {
 			for (int j = 0; j < 7; j++) {
-				schedule[i][j] = "default";
+				schedule[j][i] = DEFAULT_ENTRY;
 			}
 		}
 	}
@@ -100,14 +100,14 @@ public class ErisScheduler {
 		int hour = (now.getHour() * 2) + (now.getMinute() / 30);
 
 		String scheduleEntry = schedule[day][hour];
-		if (scheduleEntry.equals("default")) {
+		if (scheduleEntry.equals(DEFAULT_ENTRY)) {
 			return getRandomVideo();
 		} else {
 			return getScheduledVideo(scheduleEntry);
 		}
 	}
 	
-	private String getRandomVideo() {
+	protected String getRandomVideo() {
 		ArrayList<Channel> channeList = contentManager.getChannelList();
 		int randomChannelIndex = (int) (Math.random() * channeList.size());
 		Channel channel = channeList.get(randomChannelIndex);
@@ -119,7 +119,7 @@ public class ErisScheduler {
 		return getPath(channel, video);
 	}
 	
-	public String getScheduledVideo(String entry) {
+	protected String getScheduledVideo(String entry) {
 //		String tag = entry.substring(0, 2);
 //		String format = entry.substring(5);
 		
@@ -127,7 +127,7 @@ public class ErisScheduler {
 	}
 	
 	
-	private String getPath(Channel channel, Video video) {
+	protected String getPath(Channel channel, Video video) {
 		String videoPath = channel.getTag() 
 							+"_"+ ErisDateTimer.toInt(video.getUploadDate()) 
 							+"_"+ video.getPlayTime()
